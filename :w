@@ -21,11 +21,11 @@ export function ScrollProvider({ children }: { children: ReactNode }) {
 
       if (!entry.isIntersecting) {
         setScroll(true)
-        nav?.classList.add("bg-[#0085FF]", "mt-5", "w-[calc(100%-80px)]", "rounded-sm");
+        nav?.classList.add("bg-[#0085FF]", "mt-5", "w-[calc(100% - 20px)]", "rounded-sm");
         nav?.classList.remove("bg-transparent", "w-screen");
       } else {
         setScroll(false)
-        nav?.classList.remove("bg-[#0085FF]", "mt-5", "w-[calc(100%-80px)]", "rounded-sm");
+        nav?.classList.remove("bg-[#0085FF]", "mt-5", "w-[calc(100% - 20px)]", "rounded-sm");
         nav?.classList.add("bg-transparent", "w-screen");
       }
 

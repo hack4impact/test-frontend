@@ -16,8 +16,8 @@ import { cva } from "class-variance-authority";
 import { useContext } from "react";
 import { useScroll } from "@/lib/context/ScrollContext";
 
-const navigationMenuLinkStyle = cva("text-lg hover:scale-105 hover:text-[#FFF] hover:bg-[#0085FF] focus:scale-105 focus:text-[#FFF] focus:bg-[#0085FF]")
-
+const navigationMenuLinkStyle = cva("text-xl hover:scale-105 hover:text-[#FFF] hover:bg-[#0085FF] focus:scale-105 focus:text-[#FFF] focus:bg-[#0085FF]")
+const altNavigationMenuLinkStyle = cva("text-xl hover:scale-105 hover:bg-[#FFF] hover:text-[#0085FF] focus:scale-105 focus:bg-[#FFF] focus:text-[#0085FF]")
 
 export default function Navbar() {
 
@@ -35,17 +35,17 @@ export default function Navbar() {
       <NavigationMenu viewport={false} className="w-4/10 h-full min-w-fit max-w-none flex-auto">
         <NavigationMenuList className="w-full h-full gap-10">
           <NavigationMenuItem className="flex-auto">
-            <NavigationMenuLink asChild className={navigationMenuLinkStyle() + (scroll ? " text-white" : " text-black")}>
+            <NavigationMenuLink asChild className={scroll ? altNavigationMenuLinkStyle() + " text-white" : navigationMenuLinkStyle() + " text-black"}>
               <Link href="/about" className="">About Us</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="flex-auto">
-            <NavigationMenuLink asChild className={navigationMenuLinkStyle() + (scroll ? " text-white" : " text-black")}>
+            <NavigationMenuLink asChild className={scroll ? altNavigationMenuLinkStyle() + " text-white" : navigationMenuLinkStyle() + " text-black"}>
               <Link href="/work">Our Work</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
-          <NavigationMenuItem className={"flex-auto" + (scroll ? " text-white" : " text-black")}>
-            <NavigationMenuTrigger className="text-lg">Apply</NavigationMenuTrigger>
+          <NavigationMenuItem className={"flex-auto"}>
+            <NavigationMenuTrigger className={("text-xl" + (scroll ? altNavigationMenuLinkStyle() + " text-white" : navigationMenuLinkStyle() + " text-black"))} >Apply</NavigationMenuTrigger>
             <NavigationMenuContent>
               <NavigationMenuLink asChild className="text-lg">
                 <Link href="/apply/chapters">Chapters</Link>
@@ -56,12 +56,12 @@ export default function Navbar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem className="flex-auto">
-            <NavigationMenuLink className={navigationMenuLinkStyle() + (scroll ? " text-white" : " text-black")}>
+            <NavigationMenuLink className={scroll ? altNavigationMenuLinkStyle() + " text-white" : navigationMenuLinkStyle() + " text-black"}>
               Donate
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="flex-auto">
-            <NavigationMenuLink className={navigationMenuLinkStyle() + (scroll ? " text-white" : " text-black")}>
+            <NavigationMenuLink className={scroll ? altNavigationMenuLinkStyle() + " text-white" : navigationMenuLinkStyle() + " text-black"}>
               Log In
             </NavigationMenuLink>
           </NavigationMenuItem>
