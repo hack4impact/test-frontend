@@ -18,6 +18,7 @@ import { useScroll } from "@/lib/context/ScrollContext";
 
 const navigationMenuLinkStyle = cva("text-xl hover:scale-105 hover:text-[#FFF] hover:bg-[#0085FF] focus:scale-105 focus:text-[#FFF] focus:bg-[#0085FF]")
 const altNavigationMenuLinkStyle = cva("text-xl hover:scale-105 hover:bg-[#FFF] hover:text-[#0085FF] focus:scale-105 focus:bg-[#FFF] focus:text-[#0085FF]")
+const altNavigationTriggerStyle = cva("data-[state=open]:hover:bg-[#FFF] data-[state=open]:text-[#0085FF] data-[state=open]:focus:bg-[#0085FF] data-[state=open]:bg-[#FFF]/50")
 
 export default function Navbar() {
 
@@ -25,13 +26,13 @@ export default function Navbar() {
 
   return (
     <header id="nav" className="duration-300 fixed h-20 w-screen flex flex-row px-10 transition-all">
-      <div className={"relative h-full flex-auto " + (!scroll ? "w-3/10" : "w-1/5")}>
+      <div className={`relative h-full flex-auto ${!scroll ? "w-3/10" : "w-1/10"}`}>
         <Link href="/" >
           <Image id="logo" fill alt="Hack for Impact Logo" src={!scroll ? "/logo.svg" : "/h4i.svg"} className="object-contain">
           </Image>
         </Link>
       </div>
-      <div className={(!scroll ? "w-3/10" : "w-2/5") + " h-full flex-auto"} />
+      <div className={(!scroll ? "w-3/10" : "w-5/10") + " h-full flex-auto"} />
       <NavigationMenu viewport={false} className="w-4/10 h-full min-w-fit max-w-none flex-auto">
         <NavigationMenuList className="w-full h-full gap-10">
           <NavigationMenuItem className="flex-auto">
@@ -45,7 +46,7 @@ export default function Navbar() {
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className={"flex-auto"}>
-            <NavigationMenuTrigger className={("text-xl" + (scroll ? altNavigationMenuLinkStyle() + " text-white" : navigationMenuLinkStyle() + " text-black"))} >Apply</NavigationMenuTrigger>
+            <NavigationMenuTrigger className={(scroll ? altNavigationMenuLinkStyle() + " text-xl text-white " + altNavigationTriggerStyle() : navigationMenuLinkStyle() + " text-xl text-black ")}>Apply</NavigationMenuTrigger>
             <NavigationMenuContent>
               <NavigationMenuLink asChild className="text-lg">
                 <Link href="/apply/chapters">Chapters</Link>

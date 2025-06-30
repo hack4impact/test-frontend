@@ -26,7 +26,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={inclusiveSans.variable}>
-      <body className="flex justify-center">
+      <body className="flex justify-center text-(--primary)">
         <ScrollProvider>
           <Navbar />
           {children}
