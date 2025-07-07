@@ -36,6 +36,7 @@ export default function Initiative({
       }}
       onMouseEnter={(event) => {
         boundingRef.current = event.currentTarget.getBoundingClientRect();
+        event.currentTarget.style.setProperty("--filter", `drop-shadow(${bg})`);
       }}
       onMouseMove={(event) => {
         if (!boundingRef.current) return;
@@ -59,8 +60,7 @@ export default function Initiative({
         // console.log(xRotation, yRotation)
       }}
       className={cn(
-        "perspective[100px] z-10 min-h-100 w-1/3 gap-0 rounded-md border-none shadow-none transition-transform ease-out hover:[transform:rotateX(var(--x-rotation))_rotateY(var(--y-rotation))_scale(1.05)] hover:drop-shadow-lg",
-        bg,
+        `${bg} perspective[100px] min-h-100 w-1/3 rounded-md border-none shadow-none transition-transform ease-out hover:[transform:rotateX(var(--x-rotation))_rotateY(var(--y-rotation))_scale(1.05)]`,
         color,
       )}
     >

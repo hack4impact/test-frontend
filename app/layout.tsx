@@ -3,12 +3,12 @@ import { localFont } from "next/font/local";
 import "./globals.css";
 
 import Navbar from "../components/common/Navbar";
-import { ScrollProvider } from "@/lib/context/ScrollContext";
 
 const inclusiveSans = localFont({
   src: [
     { path: "./fonts/inclusive-sans.ttf", weight: "400" },
-    { path: "./fonts/inclusive-sans-italic.ttf", style: "italic" }],
+    { path: "./fonts/inclusive-sans-italic.ttf", style: "italic" },
+  ],
   variable: "--font-inclusive-sans",
   subsets: ["latin"],
 });
@@ -23,14 +23,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en" className={inclusiveSans.variable}>
       <body className="flex justify-center text-(--primary)">
-        <ScrollProvider>
-          <Navbar />
-          {children}
-        </ScrollProvider>
+        <Navbar />
+        {children}
       </body>
     </html>
   );

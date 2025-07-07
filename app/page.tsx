@@ -31,21 +31,21 @@ export default function Home() {
             <h1 className="text-[48px] font-semibold">Our Initiatives</h1>
             <div className="my-10 flex w-full flex-row justify-between gap-5">
               <Initiative
-                bg="bg-[#0085FF]"
+                bg="bg-[#0085FF] hover:drop-shadow-[0px_4px_4px_#0085FF]"
                 color="text-[#FFF]"
                 title="Chapter Network"
                 content={chapterNetworkContent}
                 footer="Our Chapters"
               ></Initiative>
               <Initiative
-                bg="bg-[#10B875]"
+                bg="bg-[#10B875] hover:drop-shadow-[0px_4px_4px_#10B875]"
                 color="text-[#FFF]"
                 title="Nonprofit Projects"
                 content={nonprofitProjectsContent}
                 footer="Our Projects"
               ></Initiative>
               <Initiative
-                bg="bg-[#F2594B]"
+                bg="bg-[#F2594B] hover:drop-shadow-[0px_4px_4px_#F2594B]"
                 color="text-[#FFF]"
                 title="Chapter Resources"
                 content={chapterResourcesContent}
@@ -71,7 +71,7 @@ export default function Home() {
               <Button className="h-[50px] rounded-sm bg-[#0085FF] text-2xl font-medium text-[#FFF] hover:scale-105">
                 See all chapters
               </Button>
-              <Button className="h-[50px] rounded-sm bg-[#0085FF] text-2xl font-medium text-[#FFF] hover:scale-105">
+              <Button className="h-[50px] rounded-sm bg-[#10B875] text-2xl font-medium text-[#FFF] hover:scale-105">
                 Propose a nonprofit project
               </Button>
             </div>
