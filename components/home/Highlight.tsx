@@ -2,25 +2,49 @@
 
 import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
+import { animate, stagger } from "motion/react";
+import { splitText } from "@/lib/utils";
 
 export default function Highlight() {
   const textRef = useRef<Element | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!textRef.current) {
-      textRef.current = document.getElementById("text");
-    }
+    if (!textRef.current) return;
+  }, []);
 
-    return () => {
-      return;
-    };
+  useEffect(() => {
+    document.fonts.ready.then(() => {
+      if (!containerRef.current) return;
+
+      // Hide the container until the fonts are loaded
+      containerRef.current.style.visibility = "visible";
+
+      const { words } = splitText(
+        containerRef.current.querySelectorAll("#text")!,
+      );
+
+      // Animate the words in the h1
+      animate(
+        words,
+        { opacity: [0, 1], y: [10, 0] },
+        {
+          type: "spring",
+          duration: 2,
+          bounce: 0,
+          delay: stagger(0.1),
+        },
+      );
+    });
   }, []);
 
   return (
     <div className="flex h-svh w-full flex-row">
       <div className="flex h-full w-1/2 items-center pr-15 pb-15">
-        <div className="h-fit max-h-[500px] w-full">
-          <h1 className="text-[50px] leading-none">We are</h1>
+        <div ref={containerRef} className="h-fit max-h-[500px] w-full">
+          <h1 id="text" className="text-[50px] leading-none">
+            We are
+          </h1>
           <div>
             <h1
               id="text"
@@ -28,12 +52,11 @@ export default function Highlight() {
             >
               Designers
             </h1>
-            <div></div>
           </div>
-          <h1 className="mb-5 text-[60px] leading-none font-bold">
+          <h1 id="text" className="mb-5 text-[60px] leading-none font-bold">
             for social change
           </h1>
-          <h2 className="mb-10 text-[35px]/10">
+          <h2 id="text" className="mb-10 text-[35px]/10">
             Building powerful nonprofit software as a tool for social good
           </h2>
           <Button className="h-[50px] w-2/5 min-w-[250px] rounded-sm bg-[#0085FF] text-2xl font-medium text-[#FFF] hover:scale-105">
