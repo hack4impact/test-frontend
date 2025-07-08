@@ -3,6 +3,7 @@ import { localFont } from "next/font/local";
 import "./globals.css";
 
 import Navbar from "../components/common/Navbar";
+import ClickSpark from "@/lib/ClickSpark";
 
 const inclusiveSans = localFont({
   src: [
@@ -24,10 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inclusiveSans.variable}>
-      <body className="flex justify-center text-(--primary)">
+    <html lang="en" className={`${inclusiveSans.variable}`}>
+      <body className="ext-(--primary)">
         <Navbar />
-        {children}
+        <ClickSpark sparkColor="#10B875">{children}</ClickSpark>
       </body>
     </html>
   );

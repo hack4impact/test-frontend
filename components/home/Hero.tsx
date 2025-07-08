@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { animate, stagger } from "motion/react";
 import { splitText } from "@/lib/utils";
 
-export default function Highlight() {
+export default function Hero() {
   const textRef = useRef<Element | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -24,14 +24,13 @@ export default function Highlight() {
         containerRef.current.querySelectorAll("#text")!,
       );
 
-      // Animate the words in the h1
       animate(
         words,
         { opacity: [0, 1], y: [10, 0] },
         {
           type: "spring",
           duration: 2,
-          bounce: 0,
+          bounce: 0.5,
           delay: stagger(0.1),
         },
       );
@@ -42,7 +41,7 @@ export default function Highlight() {
     <div className="flex h-svh w-full flex-row">
       <div className="flex h-full w-1/2 items-center pr-15 pb-15">
         <div ref={containerRef} className="h-fit max-h-[500px] w-full">
-          <h1 id="text" className="text-[50px] leading-none">
+          <h1 id="text" className="text-[60px] leading-none font-bold">
             We are
           </h1>
           <div>

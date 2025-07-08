@@ -31,13 +31,14 @@ export default function Navbar() {
       animate={
         scroll == "compact"
           ? {
+              height: "60px",
               width: "80vw",
               marginTop: "2vh",
               borderRadius: "5px",
               backgroundColor: "#0085FF",
-              filter: "drop-shadow(0px 4px 4px #00000050)",
             }
           : {
+              height: "80px",
               width: "100vw",
               marginTop: "0vh",
               borderRadius: "0px",
@@ -50,18 +51,18 @@ export default function Navbar() {
         type: "spring",
         filter: { type: false },
       }}
-      className="fixed z-20 flex h-20 w-screen flex-row px-10 backdrop-blur-sm"
+      className="fixed top-0 left-1/2 z-20 flex w-screen -translate-x-1/2 transform flex-row px-10"
     >
-      <motion.div className="h-full flex-initial content-center">
+      <motion.div className="h-full flex-auto content-center">
         <motion.img
           alt="Hack for Impact Logo"
           src={scroll == "compact" ? "/h4i.svg" : "/logo.svg"}
-          className="min-h-10 flex-none"
+          className="h-10 min-h-5 flex-none"
         ></motion.img>
       </motion.div>
 
       <motion.div className="h-full w-1/6 flex-auto"></motion.div>
-      <motion.div className="flex h-full flex-initial">
+      <motion.div className="flex h-full flex-auto">
         <NavigationMenu
           viewport={false}
           className="flex h-full w-full max-w-none"

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Highlight from "../components/home/Highlight";
+import Hero from "../components/home/Hero";
 import Initiative from "@/components/home/Initiative";
 
 import { useEffect } from "react";
@@ -22,62 +22,62 @@ export default function Home() {
     "MapScout is an interactive resource map that allows people looking for behavioral/mental health and trauma-specific services to be able to see what is offered near them and more easily navigate a system that is often confusing and overwhelming. We currently partner with two nonprofit organizations, PACTS and EPIC.";
 
   return (
-    <>
-      <div id="page" className="absolute h-10 w-screen"></div>
-      <div className="min-h-screen w-screen px-10">
-        <main className="flex size-full flex-col pt-20">
-          <Highlight />
-          <div className="flex h-svh w-full flex-col">
-            <h1 className="text-[48px] font-semibold">Our Initiatives</h1>
-            <div className="my-10 flex w-full flex-row justify-between gap-5">
-              <Initiative
-                bg="bg-[#0085FF] hover:drop-shadow-[0px_4px_4px_#0085FF]"
-                color="text-[#FFF]"
-                title="Chapter Network"
-                content={chapterNetworkContent}
-                footer="Our Chapters"
-              ></Initiative>
-              <Initiative
-                bg="bg-[#10B875] hover:drop-shadow-[0px_4px_4px_#10B875]"
-                color="text-[#FFF]"
-                title="Nonprofit Projects"
-                content={nonprofitProjectsContent}
-                footer="Our Projects"
-              ></Initiative>
-              <Initiative
-                bg="bg-[#F2594B] hover:drop-shadow-[0px_4px_4px_#F2594B]"
-                color="text-[#FFF]"
-                title="Chapter Resources"
-                content={chapterResourcesContent}
-                footer="Our Resources"
-              ></Initiative>
-            </div>
-            <h1 className="text-[48px] font-semibold">Featured Projects</h1>
-            <div className="my-10 flex w-full flex-col justify-between gap-5">
-              <Feature
-                title="Habitat for Humanity"
-                description="Volunteer Management System"
-                content={habitatContent}
-                footer="Visit Project"
-              ></Feature>
-              <Feature
-                title="Mapscout"
-                description="General Solution"
-                content={mapscoutContent}
-                footer="Visit Project"
-              ></Feature>
-            </div>
-            <div className="flex flex-row gap-5 pb-10">
-              <Button className="h-[50px] rounded-sm bg-[#0085FF] text-2xl font-medium text-[#FFF] hover:scale-105">
-                See all chapters
-              </Button>
-              <Button className="h-[50px] rounded-sm bg-[#10B875] text-2xl font-medium text-[#FFF] hover:scale-105">
-                Propose a nonprofit project
-              </Button>
-            </div>
+    <div className="min-h-screen w-screen px-10">
+      <main className="flex size-full flex-col pt-20">
+        <Hero />
+        <div className="flex w-full flex-col">
+          <h1 className="text-[48px] font-semibold">Our Initiatives</h1>
+          <div
+            id="container"
+            className="my-10 flex w-full flex-row justify-between gap-5"
+          >
+            <Initiative
+              bg="bg-[#0085FF] hover:drop-shadow-[0px_4px_4px_#0085FF]"
+              color="text-[#FFF]"
+              title="Chapter Network"
+              content={chapterNetworkContent}
+              footer="Our Chapters"
+            ></Initiative>
+            <Initiative
+              bg="bg-[#10B875] hover:drop-shadow-[0px_4px_4px_#10B875]"
+              color="text-[#FFF]"
+              title="Nonprofit Projects"
+              content={nonprofitProjectsContent}
+              footer="Our Projects"
+            ></Initiative>
+            <Initiative
+              bg="bg-[#F2594B] hover:drop-shadow-[0px_4px_4px_#F2594B]"
+              color="text-[#FFF]"
+              title="Chapter Resources"
+              content={chapterResourcesContent}
+              footer="Our Resources"
+            ></Initiative>
           </div>
-        </main>
-      </div>
-    </>
+          <h1 className="text-[48px] font-semibold">Featured Projects</h1>
+          <div className="my-10 flex w-full flex-col justify-between gap-5">
+            <Feature
+              title="Habitat for Humanity"
+              description="Volunteer Management System"
+              content={habitatContent}
+              footer="Visit Project"
+            ></Feature>
+            <Feature
+              title="Mapscout"
+              description="General Solution"
+              content={mapscoutContent}
+              footer="Visit Project"
+            ></Feature>
+          </div>
+          <div className="flex flex-row gap-5 pb-10">
+            <Button className="h-[50px] rounded-sm bg-[#0085FF] text-2xl font-medium text-[#FFF] hover:scale-105">
+              See all chapters
+            </Button>
+            <Button className="h-[50px] rounded-sm bg-[#10B875] text-2xl font-medium text-[#FFF] hover:scale-105">
+              Propose a nonprofit project
+            </Button>
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }
