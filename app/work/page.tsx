@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Highlight from "@/components/home/Hero";
-import Initiative from "@/components/home/Initiative";
+import Initiative from "@/components/home/TiltCard";
 
 import { useEffect } from "react";
 import Feature from "@/components/home/Feature";

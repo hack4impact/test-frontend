@@ -3,7 +3,7 @@ import { localFont } from "next/font/local";
 import "./globals.css";
 
 import Navbar from "../components/common/Navbar";
-import ClickSpark from "@/lib/ClickSpark";
+import ClickSpark from "@/components/common/ClickSpark";
 
 const inclusiveSans = localFont({
   src: [

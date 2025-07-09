@@ -36,6 +36,7 @@ export default function Navbar() {
               marginTop: "2vh",
               borderRadius: "5px",
               backgroundColor: "#0085FF",
+              filter: "drop-shadow(0px 4px 4px #00000050)",
             }
           : {
               height: "80px",

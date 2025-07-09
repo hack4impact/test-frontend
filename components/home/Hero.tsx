@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
-import { animate, stagger } from "motion/react";
+import { animate, LayoutGroup, stagger } from "motion/react";
 import { splitText } from "@/lib/utils";
+import RotatingText from "./RotatingText";
 
 export default function Hero() {
   const textRef = useRef<Element | null>(null);
@@ -29,8 +30,8 @@ export default function Hero() {
         { opacity: [0, 1], y: [10, 0] },
         {
           type: "spring",
-          duration: 2,
-          bounce: 0.5,
+          damping: 10,
+          stiffness: 100,
           delay: stagger(0.1),
         },
       );
@@ -44,14 +45,33 @@ export default function Hero() {
           <h1 id="text" className="text-[60px] leading-none font-bold">
             We are
           </h1>
-          <div>
-            <h1
-              id="text"
-              className="text-[75px] leading-none font-bold text-[#0085FF]"
-            >
-              Designers
-            </h1>
-          </div>
+          <LayoutGroup>
+            <RotatingText
+              texts={[
+                "Developers",
+                "Designers",
+                "Students",
+                "Humanitarians",
+                "Leaders",
+                "Activists",
+              ]}
+              mainClassName=" p-1 inline-flex bg-[#0085FF] overflow-hidden rounded-lg"
+              staggerFrom={"first"}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.025}
+              layoutId="rotatingText"
+              splitLevelClassName=" overflow-hidden leading-none text-[75px] pb-2 font-bold text-[#FFF]"
+              transition={{
+                type: "spring",
+                damping: 30,
+                stiffness: 400,
+              }}
+              rotationInterval={2000}
+            ></RotatingText>
+          </LayoutGroup>
+
           <h1 id="text" className="mb-5 text-[60px] leading-none font-bold">
             for social change
           </h1>
