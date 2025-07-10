@@ -72,3 +72,24 @@ export const item: Variants = {
     x: -10,
   },
 };
+
+export const navItems = [
+  { name: "About Us", link: "/" },
+  { name: "Our Work", link: "/" },
+  {
+    name: "Apply",
+    link: "/",
+    content: [
+      { name: "Chapters", link: "/" },
+      { name: "Nonprofits", link: "/" },
+    ],
+  },
+  {
+    name: "Donate",
+    link: "/",
+  },
+  {
+    name: "Log In",
+    link: "/",
+  },
+];

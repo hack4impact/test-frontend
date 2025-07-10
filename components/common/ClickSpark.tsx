@@ -1,5 +1,6 @@
 "use client";
-import React, { useRef, useEffect, useCallback } from "react";
+
+import React, { useCallback, useEffect, useRef } from "react";
 
 interface ClickSparkProps {
   sparkColor?: string;

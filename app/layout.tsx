@@ -1,9 +1,9 @@
+import ClickSpark from "@/components/common/ClickSpark";
 import type { Metadata } from "next";
-import { localFont } from "next/font/local";
-import "./globals.css";
+import localFont from "next/font/local";
 
 import Navbar from "../components/common/Navbar";
-import ClickSpark from "@/components/common/ClickSpark";
+import "./globals.css";
 
 const inclusiveSans = localFont({
   src: [
@@ -11,7 +11,6 @@ const inclusiveSans = localFont({
     { path: "./fonts/inclusive-sans-italic.ttf", style: "italic" },
   ],
   variable: "--font-inclusive-sans",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {

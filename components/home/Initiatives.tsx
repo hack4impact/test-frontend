@@ -1,8 +1,9 @@
+import { initiatives, item, list } from "@/data/HomeData";
+import { cn } from "@/lib/utils";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
-import { initiatives, list, item } from "@/data/HomeData";
+
 import TiltCard from "./TiltCard";
-import { cn } from "@/lib/utils";
 
 export default function Initiatives() {
   const MotionTiltCard = motion.create(TiltCard);

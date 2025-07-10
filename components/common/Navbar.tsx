@@ -1,24 +1,21 @@
 "use client";
 
-import {
-  motion,
-  useScroll,
-  useMotionValueEvent,
-  LayoutGroup,
-} from "motion/react";
+import { navItems } from "@/data/HomeData";
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useState } from "react";
+
 import {
   NavigationMenu,
-  NavigationMenuLink,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
-  NavigationMenuList,
   NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
 } from "../ui/navigation-menu";
 
 export default function Navbar() {
   const [scroll, setScroll] = useState<"expanded" | "compact">("expanded");
-  const { scrollY, scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll();
 
   useMotionValueEvent(scrollYProgress, "change", () => {
     if (scrollYProgress.get() > 0.05) setScroll("compact");
@@ -67,73 +64,51 @@ export default function Navbar() {
       <motion.div className="flex h-full flex-auto">
         <NavigationMenu
           viewport={false}
-          className="flex h-full w-full max-w-none"
+          className="flex h-full w-full max-w-none justify-end"
         >
           <NavigationMenuList className="flex h-full w-full">
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                className={`${
-                  scroll == "compact"
-                    ? "text-white hover:bg-white"
-                    : "hover:bg-[#0085FF] hover:text-white focus:bg-[#0085FF] focus:text-white"
-                } flex text-xl`}
-              >
-                About Us
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                className={`${
-                  scroll == "compact"
-                    ? "text-white hover:bg-white"
-                    : "hover:bg-[#0085FF] hover:text-white focus:bg-[#0085FF] focus:text-white"
-                } flex text-xl`}
-              >
-                Our Work
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuTrigger
-                className={`${
-                  scroll == "compact"
-                    ? "bg-[#FFFFFF00] text-white hover:bg-white hover:text-black data-[state=open]:bg-white/50 data-[state=open]:text-black data-[state=open]:hover:bg-white data-[state=open]:hover:text-black"
-                    : ""
-                } flex text-xl`}
-              >
-                Apply
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <NavigationMenuItem asChild>
-                  <NavigationMenuLink className="text-xl">
-                    Chapters
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem asChild>
-                  <NavigationMenuLink className="text-xl">
-                    Nonprofits
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuLink
-              className={`${
-                scroll == "compact"
-                  ? "text-white hover:bg-white"
-                  : "hover:bg-[#0085FF] hover:text-white focus:bg-[#0085FF] focus:text-white"
-              } flex text-xl`}
-            >
-              Donate
-            </NavigationMenuLink>
-            <NavigationMenuLink
-              className={`${
-                scroll == "compact"
-                  ? "text-white hover:bg-white"
-                  : "hover:bg-[#0085FF] hover:text-white focus:bg-[#0085FF] focus:text-white"
-              } flex text-xl`}
-            >
-              Log In
-            </NavigationMenuLink>
+            {navItems.map((item, idx) => {
+              if (item.content) {
+                return (
+                  <NavigationMenuItem key={idx}>
+                    <NavigationMenuTrigger
+                      className={`${
+                        scroll == "compact"
+                          ? "bg-transparent text-white hover:bg-white hover:text-black data-[state=open]:bg-white/50 data-[state=open]:text-black data-[state=open]:hover:bg-white data-[state=open]:hover:text-black"
+                          : ""
+                      } flex text-xl`}
+                    >
+                      {item.name}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      {item.content.map((item, idx) => {
+                        return (
+                          <NavigationMenuItem asChild key={idx}>
+                            <NavigationMenuLink className="text-xl">
+                              {item.name}
+                            </NavigationMenuLink>
+                          </NavigationMenuItem>
+                        );
+                      })}
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                );
+              } else {
+                return (
+                  <NavigationMenuItem key={idx}>
+                    <NavigationMenuLink
+                      className={`${
+                        scroll == "compact"
+                          ? "text-white hover:bg-white"
+                          : "hover:bg-[#0085FF] hover:text-white focus:bg-[#0085FF] focus:text-white"
+                      } flex text-xl`}
+                    >
+                      {item.name}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                );
+              }
+            })}
           </NavigationMenuList>
         </NavigationMenu>
       </motion.div>

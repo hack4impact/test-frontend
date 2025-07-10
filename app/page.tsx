@@ -1,18 +1,18 @@
 "use client";
 
-import Hero from "@/components/home/Hero";
-
-import { Button } from "@/components/ui/button";
-import { motion, Variants, useInView, AnimatePresence } from "motion/react";
-import GridPattern from "@/components/common/GridPattern";
-import { cn } from "@/lib/utils";
-import Initiatives from "@/components/home/Initiatives";
+import { GridPattern } from "@/components/common/GridPattern";
 import Features from "@/components/home/Features";
+import Hero from "@/components/home/Hero";
+import Initiatives from "@/components/home/Initiatives";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 
 export default function Home() {
   return (
     <div className={cn("min-h-screen w-screen px-10")}>
-      <GridPattern gridColor="#C0E1FF" className={cn("z-[-10]")} />
+      <GridPattern gridColor="stroke-[#C0E1FF]" className={cn("z-[-10]")} />
+
       <main className={cn("mx-auto flex size-full flex-col pt-20")}>
         <Hero />
 

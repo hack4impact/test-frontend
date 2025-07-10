@@ -2,20 +2,16 @@
 
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { motion } from "motion/react";
 import { Ref } from "react";
 
 interface FeatureCardProps {
   title: string;
-  description: string;
   content: string;
   footer: string;
   ref: Ref<HTMLDivElement>;
@@ -23,7 +19,6 @@ interface FeatureCardProps {
 
 export default function FeatureCard({
   title,
-  description,
   content,
   footer,
   ref,

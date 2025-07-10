@@ -1,9 +1,8 @@
-import * as React from "react";
+import { cn } from "@/lib/utils";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
 import { ChevronDownIcon } from "lucide-react";
-
-import { cn } from "@/lib/utils";
+import * as React from "react";
 
 function NavigationMenu({
   className,
@@ -59,7 +58,7 @@ function NavigationMenuItem({
 }
 
 const navigationMenuTriggerStyle = cva(
-  "data-[state=open]:text-white data-[state=open]:bg-[#0085FF50] group inline-flex h-full w-max items-center justify-center rounded-sm bg-[#FFFFFF00] px-2 py-2 text-xl font-medium disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 hover:bg-[#0085FF] hover:text-white focus:bg-[#0085FF] focus:text-white data-[state=open]:hover:bg-[#0085FF] data-[state=open]:hover:text-white data-[state=open]:focus:bg-[#0085FF] data-[state=open]:focus:text-white",
+  "data-[state=open]:text-white data-[state=open]:bg-[#C0E1FF] group inline-flex h-full w-max items-center justify-center rounded-sm bg-transparent px-2 py-2 text-xl font-medium disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 hover:bg-[#0085FF] hover:text-white focus:bg-[#0085FF] focus:text-white data-[state=open]:hover:bg-[#0085FF] data-[state=open]:hover:text-white data-[state=open]:focus:bg-[#0085FF] data-[state=open]:focus:text-white",
 );
 
 function NavigationMenuTrigger({

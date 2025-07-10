@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Button } from "../ui/button";
-import { animate, LayoutGroup, stagger } from "motion/react";
 import { cn, splitText } from "@/lib/utils";
+import { LayoutGroup, animate, stagger } from "motion/react";
+import { useEffect, useRef } from "react";
+
+import { Button } from "../ui/button";
 import RotatingText from "./RotatingText";
 
 export default function Hero() {
@@ -69,7 +70,6 @@ export default function Hero() {
                 stiffness: 400,
               }}
               rotationInterval={2000}
-              onNext={(e) => {}} // Change color of background every update?
             ></RotatingText>
           </LayoutGroup>
 

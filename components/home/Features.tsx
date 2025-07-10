@@ -1,7 +1,8 @@
-import { motion } from "motion/react";
 import { features, item } from "@/data/HomeData";
-import FeatureCard from "./FeatureCard";
 import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
+
+import FeatureCard from "./FeatureCard";
 
 export default function Features() {
   const MotionFeatureCard = motion.create(FeatureCard);
@@ -19,7 +20,6 @@ export default function Features() {
             viewport={{ amount: "some" }}
             key={i}
             title={e.title}
-            description={e.description}
             content={e.content}
             footer="Visit Project"
           ></MotionFeatureCard>
