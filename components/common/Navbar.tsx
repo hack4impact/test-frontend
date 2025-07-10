@@ -37,7 +37,7 @@ const navVariants = {
     marginTop: "2vh",
     borderRadius: "5px",
     backgroundColor: "var(--color-brand-blue)",
-    filter: "drop-shadow(0px 4px 4px var(--color-brand-black))",
+    filter: "drop-shadow(0px 4px 4px #33333350)",
   },
 };
 
@@ -111,7 +111,7 @@ export default function Navbar() {
       <motion.div
         layoutId="hovered"
         className={cn(
-          "absolute inset-0 z-[-1] rounded-md",
+          "absolute inset-0 z-[-1] rounded-sm",
           isCompact ? "bg-white" : "bg-brand-blue",
         )}
         initial={false}

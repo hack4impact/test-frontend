@@ -38,10 +38,10 @@ export default function FeatureCard({
         stiffness: 100,
         duration: 0.25,
       }}
-      className="w-full bg-transparent transition-shadow hover:shadow-[#00000050] hover:drop-shadow-xl"
+      className="w-full bg-transparent transition-shadow hover:shadow-brand-black/50 hover:drop-shadow-xl"
     >
-      <Card className="flex h-full w-full flex-row bg-[#333] text-white">
-        <div className="ml-5 flex w-1/2 rounded-sm border-3 border-[#0085FF]" />
+      <Card className="flex h-full w-full flex-row bg-brand-black text-white">
+        <div className="ml-5 flex w-1/2 rounded-sm border-3 border-brand-blue" />
         <div className="flex w-1/2 flex-col">
           <CardHeader>
             <CardTitle className="h-1/5 text-[35px] font-semibold">
