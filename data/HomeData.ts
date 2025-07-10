@@ -70,6 +70,11 @@ export const item: Variants = {
   hidden: {
     opacity: 0,
     x: -10,
+    transition: {
+      type: "spring",
+      damping: 10,
+      stiffness: 100,
+    },
   },
 };
 

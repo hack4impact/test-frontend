@@ -206,7 +206,7 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
           type: "spring",
           damping: 10,
           stiffness: 100,
-          delay: 0.25,
+          delay: 0.3,
         }}
       >
         <motion.span

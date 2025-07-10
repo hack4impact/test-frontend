@@ -56,7 +56,7 @@ export default function Hero() {
                 "Leaders",
                 "Activists",
               ]}
-              mainClassName=" px-1 pb-1 inline-flex bg-brand-blue overflow-hidden rounded-lg"
+              mainClassName=" px-1 pb-1 inline-flex bg-brand-blue overflow-hidden rounded-sm"
               staggerFrom={"first"}
               initial={{ y: "100%" }}
               animate={{ y: 0 }}

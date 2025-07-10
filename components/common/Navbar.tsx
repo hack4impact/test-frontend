@@ -58,6 +58,8 @@ const hoverTransition: Transition = {
 export default function Navbar() {
   const [scrollState, setScrollState] = useState<ScrollState>("expanded");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredSubIndex, setHoveredSubIndex] = useState<number | null>(null);
+
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const { scrollYProgress } = useScroll();
 
@@ -103,17 +105,42 @@ export default function Navbar() {
     );
   };
 
+  // Check if item should show hover effect
+  const shouldShowSubHover = (subIndex: number) => {
+    const item = navItems[subIndex];
+    const itemValue = `item-${subIndex}`;
+
+    // Show hover if:
+    // 1. Mouse is hovering over the item
+    // 2. Item has dropdown and dropdown is open
+    return hoveredSubIndex === subIndex;
+  };
+
   // Render hover effect overlay
   const renderHoverEffect = (index: number) => {
     if (!shouldShowHover(index)) return null;
 
     return (
       <motion.div
-        layoutId="hovered"
+        layoutId="subHovered"
         className={cn(
           "absolute inset-0 z-[-1] rounded-sm",
           isCompact ? "bg-white" : "bg-brand-blue",
         )}
+        initial={false}
+        transition={hoverTransition}
+      />
+    );
+  };
+
+  // Render hover effect overlay for dropdown menu items
+  const renderSubHoverEffect = (subIndex: number) => {
+    if (!shouldShowSubHover(subIndex)) return null;
+
+    return (
+      <motion.div
+        layoutId="hovered"
+        className={cn("absolute inset-0 z-[-1] rounded-sm", "bg-brand-green")}
         initial={false}
         transition={hoverTransition}
       />
@@ -132,12 +159,21 @@ export default function Navbar() {
         >
           {item.name}
         </NavigationMenuTrigger>
-        <NavigationMenuContent className="min-w-[200px]">
+        <NavigationMenuContent
+          className="min-w-[200px]"
+          onMouseLeave={() => setHoveredSubIndex(null)}
+        >
           {item.content.map((subItem: any, subIndex: number) => (
             <NavigationMenuItem asChild key={subIndex}>
-              <NavigationMenuLink className="text-xl block p-3 hover:bg-gray-100">
-                {subItem.name}
-              </NavigationMenuLink>
+              <div className="z-55">
+                <NavigationMenuLink
+                  onMouseEnter={() => setHoveredSubIndex(subIndex)}
+                  className="text-xl block p-3 hover:bg-transparent hover:text-white"
+                >
+                  {subItem.name}
+                </NavigationMenuLink>
+                {renderSubHoverEffect(subIndex)}
+              </div>
             </NavigationMenuItem>
           ))}
         </NavigationMenuContent>
