@@ -11,7 +11,7 @@ import { motion } from "motion/react";
 export default function Home() {
   return (
     <div className={cn("min-h-screen w-screen px-10")}>
-      <GridPattern gridColor="stroke-[#C0E1FF]" className={cn("z-[-10]")} />
+      <GridPattern gridColor="stroke-[#C0E1FF]" style={{ zIndex: -10 }} />
 
       <main className={cn("mx-auto flex size-full flex-col pt-20")}>
         <Hero />

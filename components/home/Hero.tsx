@@ -94,7 +94,7 @@ export default function Hero() {
       <div className={cn("flex h-full w-1/2 items-center pb-15")}>
         <div
           className={cn(
-            "h-[500px] w-full rounded-sm border-3 border-[#0085FF] backdrop-blur-xs",
+            "h-[500px] w-full rounded-sm border-3 border-[#0085FF] backdrop-blur-[2px]",
           )}
         ></div>
       </div>

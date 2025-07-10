@@ -1,6 +1,7 @@
 "use client";
 
 import { navItems } from "@/data/HomeData";
+import { cn } from "@/lib/utils";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useState } from "react";
 
@@ -50,7 +51,9 @@ export default function Navbar() {
         type: "spring",
         filter: { type: false },
       }}
-      className="fixed top-0 left-1/2 z-20 flex w-screen -translate-x-1/2 transform flex-row px-10"
+      className={cn(
+        "z-15 fixed top-0 left-1/2 flex w-screen -translate-x-1/2 transform flex-row px-10 bg-white/50 backdrop-blur-[1px]",
+      )}
     >
       <motion.div className="h-full flex-auto content-center">
         <motion.img
