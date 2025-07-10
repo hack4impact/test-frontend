@@ -200,6 +200,7 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
 
     return (
       <motion.div
+        // This animates the entrace alongside other text manually
         animate={{ opacity: [0, 1], y: [10, 0] }}
         transition={{
           type: "spring",

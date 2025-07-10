@@ -21,32 +21,33 @@ export default function Navbar() {
   const { scrollY, scrollYProgress } = useScroll();
 
   useMotionValueEvent(scrollYProgress, "change", () => {
-    console.log(scrollYProgress);
     if (scrollYProgress.get() > 0.05) setScroll("compact");
     else setScroll("expanded");
   });
 
+  const nav = {
+    expanded: {
+      height: "80px",
+      width: "100vw",
+      marginTop: "0vh",
+      borderRadius: "0px",
+      backgroundColor: "#FFFFFF00",
+      filter: "drop-shadow(0px 0px 0px)",
+    },
+    compact: {
+      height: "60px",
+      width: "80vw",
+      marginTop: "2vh",
+      borderRadius: "5px",
+      backgroundColor: "#0085FF",
+      filter: "drop-shadow(0px 4px 4px #00000050)",
+    },
+  };
+
   return (
     <motion.header
-      animate={
-        scroll == "compact"
-          ? {
-              height: "60px",
-              width: "80vw",
-              marginTop: "2vh",
-              borderRadius: "5px",
-              backgroundColor: "#0085FF",
-              filter: "drop-shadow(0px 4px 4px #00000050)",
-            }
-          : {
-              height: "80px",
-              width: "100vw",
-              marginTop: "0vh",
-              borderRadius: "0px",
-              backgroundColor: "#FFFFFF00",
-              filter: "drop-shadow(0px 0px 0px)",
-            }
-      }
+      variants={nav}
+      animate={scroll == "compact" ? "compact" : "expanded"}
       transition={{
         duration: 0.3,
         type: "spring",

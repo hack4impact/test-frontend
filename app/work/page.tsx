@@ -5,7 +5,7 @@ import Highlight from "@/components/home/Hero";
 import Initiative from "@/components/home/TiltCard";
 
 import { useEffect } from "react";
-import Feature from "@/components/home/Feature";
+import Feature from "@/components/home/FeatureCard";
 import { Button } from "@/components/ui/button";
 
 export default function Work() {

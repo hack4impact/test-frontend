@@ -9,19 +9,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { forwardRef } from "react";
 
 export interface TiltCardProps {
   title: string;
   content: string;
   footer: string;
-  bg: string;
-  color: string;
+  bgColor: string;
+  textColor: string;
 }
 
 const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
-  ({ title, content, footer, bg, color }, ref) => {
+  ({ title, content, footer, bgColor, textColor }, ref) => {
     return (
       // Container div provides perspective and handles mouseEvents
       <motion.div
@@ -30,7 +30,7 @@ const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
           scale: 1.05,
         }}
         whileTap={{
-          scale: 0.95,
+          scale: 0.98,
         }}
         onMouseMove={(event) => {
           const rect = event.currentTarget.getBoundingClientRect();
@@ -65,13 +65,16 @@ const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
             rotateX: "var(--x-rotation, 0deg)",
             rotateY: "var(--y-rotation, 0deg)",
           }}
-          className={cn(
-            `${bg} h-full rounded-md border-none transition-shadow hover:shadow-2xl`,
-            color,
-          )}
+          style={{
+            background: bgColor,
+          }}
+          className={cn(`h-full rounded-md border-none`)}
         >
           <Card
-            className={`flex h-full border-none bg-transparent shadow-none ${color}`}
+            style={{
+              color: textColor,
+            }}
+            className={`flex h-full border-none bg-transparent shadow-none`}
           >
             <CardHeader>
               <CardTitle className="h-1/5 flex-auto text-[35px] font-semibold">
