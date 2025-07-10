@@ -67,13 +67,13 @@ const TiltCard = forwardRef<HTMLDivElement, TiltCardProps>(
           style={{
             background: bgColor,
           }}
-          className={cn(`h-full rounded-md border-none`)}
+          className={cn("h-full rounded-md border-none")}
         >
           <Card
             style={{
               color: textColor,
             }}
-            className={`flex h-full border-none bg-transparent shadow-none`}
+            className={cn("flex h-full border-none bg-transparent shadow-none")}
           >
             <CardHeader>
               <CardTitle className="h-1/5 flex-auto text-[35px] font-semibold">

@@ -40,7 +40,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className={cn("flex h-svh w-full flex-row")}>
+    <div className={cn("flex h-svh w-full flex-row text-brand-black")}>
       <div className={cn("flex h-full w-1/2 items-center pr-15 pb-15")}>
         <div ref={containerRef} className={cn("h-fit max-h-[500px] w-full")}>
           <h1 id="text" className={cn("text-[60px] leading-none font-bold")}>
@@ -56,14 +56,14 @@ export default function Hero() {
                 "Leaders",
                 "Activists",
               ]}
-              mainClassName=" px-1 pb-1 inline-flex bg-[#0085FF] overflow-hidden rounded-lg"
+              mainClassName=" px-1 pb-1 inline-flex bg-brand-blue overflow-hidden rounded-lg"
               staggerFrom={"first"}
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-120%" }}
               staggerDuration={0.025}
               layoutId="rotatingText"
-              splitLevelClassName=" overflow-hidden leading-none text-[75px] pb-2 font-bold text-[#FFF]"
+              splitLevelClassName=" overflow-hidden leading-none text-[75px] pb-2 font-bold text-white"
               transition={{
                 type: "spring",
                 damping: 30,
@@ -84,7 +84,7 @@ export default function Hero() {
           </h2>
           <Button
             className={cn(
-              "h-[50px] w-2/5 min-w-[250px] rounded-sm bg-[#10B875] text-2xl font-medium text-[#FFF] hover:scale-105",
+              "h-[50px] w-2/5 min-w-[250px] rounded-sm bg-brand-green text-2xl font-medium text-white hover:scale-105",
             )}
           >
             Work with us
@@ -94,7 +94,7 @@ export default function Hero() {
       <div className={cn("flex h-full w-1/2 items-center pb-15")}>
         <div
           className={cn(
-            "h-[500px] w-full rounded-sm border-3 border-[#0085FF] backdrop-blur-[2px]",
+            "h-[500px] w-full rounded-sm border-3 border-brand-blue backdrop-blur-[2px]",
           )}
         ></div>
       </div>

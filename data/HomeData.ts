@@ -6,21 +6,21 @@ export const initiatives = [
     content:
       "We help new chapters help their local community by providing established communication channels with veteran chapters and mentors",
     footer: "Our Chapters",
-    color: "#0085FF",
+    color: "var(--color-brand-blue)",
   },
   {
     title: "Nonprofit Projects",
     content:
       "We help nonprofits do the good they are meant to be doing more  efficiently. By building them the custom software they need, they can  focus on their important work",
     footer: "Our Projects",
-    color: "#10B875",
+    color: "var(--color-brand-green)",
   },
   {
     title: "Chapter Resources",
     content:
       "Our 9 years of experience in building socially impactful technology  has given our chapters and members the tools to help nonprofits",
     footer: "Our Resources",
-    color: "#F2594B",
+    color: "var(--color-brand-red)",
   },
 ];
 

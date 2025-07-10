@@ -31,7 +31,7 @@ export function GridPattern({
       aria-hidden="true"
       className={cn(
         "pointer-events-none absolute inset-0 h-full w-full fill-gray-400/30",
-        gridColor ? gridColor : "stroke-black/50",
+        gridColor ? gridColor : "stroke-brand-black/25",
         className,
       )}
       {...props}

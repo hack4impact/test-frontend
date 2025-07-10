@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" className={`${inclusiveSans.variable}`}>
       <body className="ext-(--primary)">
         <Navbar />
-        <ClickSpark sparkColor="#10B875">{children}</ClickSpark>
+        <ClickSpark sparkColor="#10b875">{children}</ClickSpark>
       </body>
     </html>
   );

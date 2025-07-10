@@ -4,6 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-brand-blue: #0085ff;
+  --color-brand-blue-mid: #80c2ff;
+  --color-brand-blue-light: #c0e1ff;
+  --color-brand-green: #10b875;
+  --color-brand-green-mid: #88dcba;
+  --color-brand-green-light: #c4eedd;
+  --color-brand-red: #f2594b;
+  --color-brand-red-mid: #f9aca5;
+  --color-brand-red-light: #fcd6d2;
+  --color-brand-black: #333;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
