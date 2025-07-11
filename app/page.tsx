@@ -2,9 +2,9 @@
 
 import { AnimatedSectionTitle } from "@/components/common/AnimatedSectionTitle";
 import { GridPattern } from "@/components/common/GridPattern";
-import Features from "@/components/home/Features";
-import Hero from "@/components/home/Hero";
-import Initiatives from "@/components/home/Initiatives";
+import FeaturedProjects from "@/components/home/FeaturedProjects";
+import HeroSection from "@/components/home/HeroSection";
+import ImpactSection from "@/components/home/ImpactSection";
 import { Button } from "@/components/ui/button";
 
 // Action buttons component
@@ -28,14 +28,14 @@ export default function Home() {
       />
 
       <main className="mx-auto flex size-full flex-col pt-20">
-        <Hero />
+        <HeroSection />
 
         <div className="flex w-full flex-col">
-          <AnimatedSectionTitle>Our Initiatives</AnimatedSectionTitle>
-          <Initiatives />
+          <AnimatedSectionTitle>Our Impact</AnimatedSectionTitle>
+          <ImpactSection />
 
           <AnimatedSectionTitle>Featured Projects</AnimatedSectionTitle>
-          <Features />
+          <FeaturedProjects />
 
           <ActionButtons />
         </div>

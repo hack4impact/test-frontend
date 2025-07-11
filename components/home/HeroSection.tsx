@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import RotatingText from "./RotatingText";
 
-export default function Hero() {
+export default function HeroSection() {
   const textRef = useRef<Element | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 

@@ -4,11 +4,9 @@ import { motion } from "motion/react";
 
 import { MotionFeatureCard } from "./FeatureCard";
 
-export default function Features() {
+export default function FeaturedProjects() {
   return (
-    <motion.div
-      className={cn("my-10 flex w-full flex-col justify-between gap-5")}
-    >
+    <div className={cn("my-10 flex w-full flex-col justify-between gap-5")}>
       {features.map((item, index) => {
         return (
           <MotionFeatureCard
@@ -23,6 +21,6 @@ export default function Features() {
           ></MotionFeatureCard>
         );
       })}
-    </motion.div>
+    </div>
   );
 }

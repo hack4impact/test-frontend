@@ -92,7 +92,7 @@ export function TiltCard({
           <CardContent className="mt-5 h-3/5 flex-auto text-[20px]">
             <p>{content}</p>
           </CardContent>
-          <CardFooter className="mt-10 h-1/5 flex-auto text-[30px] leading-none font-semibold">
+          <CardFooter className="mt-10 h-1/5 flex-auto text-[30px] leading-none font-semibold items-end">
             {footer}
           </CardFooter>
         </Card>

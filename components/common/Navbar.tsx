@@ -105,11 +105,11 @@ export default function Navbar() {
   };
 
   const getActiveNavClasses = (link: string[]) => {
+    const baseActiveClasses = "underline-offset-5 decoration-2 underline";
     if (link.includes(pathname)) {
       return cn(
-        isCompact
-          ? "text-brand-blue-light underline underline-offset-5"
-          : "text-brand-blue underline underline-offset-5",
+        baseActiveClasses,
+        isCompact ? "text-brand-blue-light" : "text-brand-blue ",
       );
     } else {
       return cn(isCompact ? "text-white" : "text-brand-black");

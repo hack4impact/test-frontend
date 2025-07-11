@@ -1,11 +1,11 @@
 import { childVariants, initiatives, parentVariants } from "@/data/data";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion, useInView } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
 import { MotionTiltCard } from "./TiltCard";
 
-export default function Initiatives() {
+export default function ImpactSection() {
   const ref = useRef(null);
   useInView(ref, { amount: "some" });
 
