@@ -7,8 +7,16 @@ import "./globals.css";
 
 const inclusiveSans = localFont({
   src: [
-    { path: "./fonts/inclusive-sans.ttf", weight: "400" },
-    { path: "./fonts/inclusive-sans-italic.ttf", style: "italic" },
+    {
+      path: "./fonts/inclusive-sans.ttf",
+      weight: "300 700", // or whatever range your variable font supports
+      style: "normal",
+    },
+    {
+      path: "./fonts/inclusive-sans-italic.ttf",
+      weight: "300 700", // same range for italic
+      style: "italic",
+    },
   ],
   variable: "--font-inclusive-sans",
 });

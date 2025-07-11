@@ -1,6 +1,6 @@
 "use client";
 
-import { navItems } from "@/data/HomeData";
+import { navItems } from "@/data/data";
 import { cn } from "@/lib/utils";
 import {
   Transition,
@@ -8,7 +8,9 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "motion/react";
-import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import {
   NavigationMenu,
@@ -59,9 +61,18 @@ export default function Navbar() {
   const [scrollState, setScrollState] = useState<ScrollState>("expanded");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [hoveredSubIndex, setHoveredSubIndex] = useState<number | null>(null);
-
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  const pathname = usePathname();
   const { scrollYProgress } = useScroll();
+
+  // Reset navbar to expanded state on route change
+  useEffect(() => {
+    setScrollState("expanded");
+    setHoveredIndex(null);
+    setHoveredSubIndex(null);
+    setActiveDropdown(null);
+  }, [pathname]);
 
   // Handle scroll state changes
   useMotionValueEvent(scrollYProgress, "change", () => {
@@ -73,23 +84,36 @@ export default function Navbar() {
 
   // Generate CSS classes for navigation items
   const getNavItemClasses = (isDropdown: boolean) => {
-    const baseClasses = "flex text-xl relative";
+    const baseClasses =
+      "inline-flex h-full w-max items-center justify-center rounded-xs bg-transparent px-2 py-2 text-xl font-medium disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 relative";
 
     if (isCompact) {
       return cn(
         baseClasses,
         isDropdown
-          ? "data-[state=open]:hover:text-brand-black data-[state=open]:text-brand-black bg-transparent text-white hover:bg-transparent hover:text-brand-black data-[state=open]:bg-transparent data-[state=open]:text-brand-black"
-          : "text-white hover:bg-transparent",
+          ? "hover:bg-transparent hover:text-brand-black focus:bg-white focus:text-brand-black data-[state=open]:bg-transparent data-[state=open]:text-brand-black data-[state=open]:hover:bg-transparent data-[state=open]:hover:text-brand-black data-[state=open]:focus:bg-transparent data-[state=open]:focus:text-brand-black"
+          : " hover:bg-transparent hover:text-brand-black focus:bg-transparent focus:text-brand-black",
       );
     }
 
     return cn(
       baseClasses,
       isDropdown
-        ? "data-[state=open]:hover:text-white data-[state=open]:text-white hover:text-white"
-        : "hover:text-white focus:bg-transparent focus:text-white hover:bg-transparent",
+        ? " hover:bg-transparent hover:text-white focus:bg-brand-blue focus:text-white data-[state=open]:bg-transparent data-[state=open]:text-white data-[state=open]:hover:bg-transparent data-[state=open]:hover:text-white data-[state=open]:focus:bg-transparent data-[state=open]:focus:text-white"
+        : " hover:bg-transparent hover:text-white focus:bg-transparent focus:text-white",
     );
+  };
+
+  const getActiveNavClasses = (link: string[]) => {
+    if (link.includes(pathname)) {
+      return cn(
+        isCompact
+          ? "text-brand-blue-light underline underline-offset-5"
+          : "text-brand-blue underline underline-offset-5",
+      );
+    } else {
+      return cn(isCompact ? "text-white" : "text-brand-black");
+    }
   };
 
   // Check if item should show hover effect
@@ -112,7 +136,6 @@ export default function Navbar() {
 
     // Show hover if:
     // 1. Mouse is hovering over the item
-    // 2. Item has dropdown and dropdown is open
     return hoveredSubIndex === subIndex;
   };
 
@@ -150,12 +173,18 @@ export default function Navbar() {
   // Render navigation menu item with dropdown
   const renderDropdownItem = (item: any, index: number) => {
     const itemValue = `item-${index}`;
+    const subItemLinks: string[] = item.content.map(
+      (subItem: { name: string; link: string }) => subItem.link,
+    );
 
     return (
       <NavigationMenuItem key={index} className="relative" value={itemValue}>
         <NavigationMenuTrigger
           onMouseEnter={() => setHoveredIndex(index)}
-          className={getNavItemClasses(true)}
+          className={cn(
+            getNavItemClasses(true),
+            getActiveNavClasses(subItemLinks),
+          )}
         >
           {item.name}
         </NavigationMenuTrigger>
@@ -167,6 +196,7 @@ export default function Navbar() {
             <NavigationMenuItem asChild key={subIndex}>
               <div className="z-55">
                 <NavigationMenuLink
+                  href={item.link}
                   onMouseEnter={() => setHoveredSubIndex(subIndex)}
                   className="text-xl block p-3 hover:bg-transparent hover:text-white"
                 >
@@ -186,8 +216,12 @@ export default function Navbar() {
   const renderSimpleItem = (item: any, index: number) => (
     <NavigationMenuItem key={index} className="relative">
       <NavigationMenuLink
+        href={item.link}
         onMouseEnter={() => setHoveredIndex(index)}
-        className={getNavItemClasses(false)}
+        className={cn(
+          getNavItemClasses(false),
+          getActiveNavClasses([item.link]),
+        )}
       >
         {item.name}
       </NavigationMenuLink>
@@ -205,13 +239,13 @@ export default function Navbar() {
       )}
     >
       {/* Logo Section */}
-      <div className="h-full flex-auto content-center">
+      <Link href="/" className="h-full flex-auto content-center">
         <motion.img
           alt="Hack for Impact Logo"
           src={isCompact ? "/h4i.svg" : "/logo.svg"}
           className="h-10 min-h-5 flex-none"
         />
-      </div>
+      </Link>
 
       {/* Spacer */}
       <div className="h-full w-1/6 flex-auto" />

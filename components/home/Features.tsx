@@ -1,27 +1,25 @@
-import { features, item } from "@/data/HomeData";
+import { childVariants, features } from "@/data/data";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 
-import FeatureCard from "./FeatureCard";
+import { MotionFeatureCard } from "./FeatureCard";
 
 export default function Features() {
-  const MotionFeatureCard = motion.create(FeatureCard);
   return (
     <motion.div
       className={cn("my-10 flex w-full flex-col justify-between gap-5")}
     >
-      {features.map((e, i) => {
+      {features.map((item, index) => {
         return (
           <MotionFeatureCard
             style={{ opacity: 0 }}
             initial="hidden"
             whileInView="visible"
-            variants={item}
+            variants={childVariants}
             viewport={{ amount: "some" }}
-            key={i}
-            title={e.title}
-            content={e.content}
-            footer="Visit Project"
+            key={index}
+            title={item.title}
+            content={item.content}
           ></MotionFeatureCard>
         );
       })}

@@ -7,21 +7,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { Ref } from "react";
 
 interface FeatureCardProps {
   title: string;
   content: string;
-  footer: string;
+  footer?: string;
   ref: Ref<HTMLDivElement>;
+  bgColor?: string;
+  textColor?: string;
+  imgBorder?: string;
 }
+export const MotionFeatureCard = motion.create(FeatureCard);
 
-export default function FeatureCard({
+export function FeatureCard({
   title,
   content,
-  footer,
+  footer = "Visit Project",
   ref,
+  bgColor = "bg-brand-black",
+  textColor = "text-white",
+  imgBorder = "border-brand-blue",
 }: FeatureCardProps) {
   return (
     <motion.div
@@ -40,8 +48,8 @@ export default function FeatureCard({
       }}
       className="w-full bg-transparent transition-shadow hover:shadow-brand-black/50 hover:drop-shadow-xl"
     >
-      <Card className="flex h-full w-full flex-row bg-brand-black text-white">
-        <div className="ml-5 flex w-1/2 rounded-sm border-3 border-brand-blue" />
+      <Card className={cn("flex h-full w-full flex-row", bgColor, textColor)}>
+        <div className={cn("ml-5 flex w-1/2 rounded-sm border-3", imgBorder)} />
         <div className="flex w-1/2 flex-col">
           <CardHeader>
             <CardTitle className="h-1/5 text-[35px] font-semibold">

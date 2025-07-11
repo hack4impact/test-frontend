@@ -1,31 +1,11 @@
 "use client";
 
+import { AnimatedSectionTitle } from "@/components/common/AnimatedSectionTitle";
 import { GridPattern } from "@/components/common/GridPattern";
 import Features from "@/components/home/Features";
 import Hero from "@/components/home/Hero";
 import Initiatives from "@/components/home/Initiatives";
 import { Button } from "@/components/ui/button";
-import { motion } from "motion/react";
-
-// Animation configuration
-const sectionAnimation = {
-  initial: { opacity: 0, y: 10 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { amount: 0.5 },
-  transition: {
-    type: "spring",
-    damping: 10,
-    stiffness: 100,
-    delay: 0.25,
-  },
-} as const;
-
-// Reusable animated section title component
-const AnimatedSectionTitle = ({ children }: { children: React.ReactNode }) => (
-  <motion.h1 {...sectionAnimation} className="text-5xl font-semibold">
-    {children}
-  </motion.h1>
-);
 
 // Action buttons component
 const ActionButtons = () => (

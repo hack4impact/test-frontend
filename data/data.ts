@@ -6,21 +6,21 @@ export const initiatives = [
     content:
       "We help new chapters help their local community by providing established communication channels with veteran chapters and mentors",
     footer: "Our Chapters",
-    color: "var(--color-brand-blue)",
+    bgColor: "var(--color-brand-blue)",
   },
   {
     title: "Nonprofit Projects",
     content:
       "We help nonprofits do the good they are meant to be doing more  efficiently. By building them the custom software they need, they can  focus on their important work",
     footer: "Our Projects",
-    color: "var(--color-brand-green)",
+    bgColor: "var(--color-brand-green)",
   },
   {
     title: "Chapter Resources",
     content:
       "Our 9 years of experience in building socially impactful technology  has given our chapters and members the tools to help nonprofits",
     footer: "Our Resources",
-    color: "var(--color-brand-red)",
+    bgColor: "var(--color-brand-red)",
   },
 ];
 
@@ -39,7 +39,26 @@ export const features = [
   },
 ];
 
-export const list: Variants = {
+export const chapterFeatures = [
+  {
+    title: "Project Name",
+    description: "General VMS",
+    bgColor: "bg-brand-green",
+    imgBorder: "border-brand-green",
+    content:
+      "Description of the project. Describe the problem, research, design, development, solution, and handoff. Try to describe the impact that the project has on the nonprofit partner. Describe the work and field of impact that the nonprofit partner operates in as well.",
+  },
+  {
+    title: "Project Name",
+    description: "Map Resource",
+    bgColor: "bg-brand-red",
+    imgBorder: "border-brand-red",
+    content:
+      "Description of the project. Describe the problem, research, design, development, solution, and handoff. Try to describe the impact that the project has on the nonprofit partner. Describe the work and field of impact that the nonprofit partner operates in as well.",
+  },
+];
+
+export const parentVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
@@ -57,7 +76,7 @@ export const list: Variants = {
   },
 };
 
-export const item: Variants = {
+export const childVariants: Variants = {
   visible: {
     opacity: 1,
     x: 0,
@@ -79,11 +98,11 @@ export const item: Variants = {
 };
 
 export const navItems = [
-  { name: "About Us", link: "/" },
-  { name: "Our Work", link: "/" },
+  { name: "About Us", link: "/about" },
+  { name: "Our Work", link: "/work" },
   {
     name: "Apply",
-    link: "/",
+    link: "/apply",
     content: [
       { name: "Chapters", link: "/" },
       { name: "Nonprofits", link: "/" },
@@ -91,10 +110,10 @@ export const navItems = [
   },
   {
     name: "Donate",
-    link: "/",
+    link: "/donate",
   },
   {
     name: "Log In",
-    link: "/",
+    link: "/login",
   },
 ];
