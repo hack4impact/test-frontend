@@ -44,6 +44,7 @@ const cardData = [
 const Carousel = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardsPerView = 3;
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: cardsPerView - 1 });
 
   const handleCardClick = (index: number) => {
     const container = scrollRef.current;
@@ -70,8 +71,6 @@ const Carousel = () => {
       container.scrollBy({ left: -cardWidth, behavior: "smooth" });
     }
   };
-
-  const [visibleRange, setVisibleRange] = useState({ start: 0, end: cardsPerView - 1 });
 
   const handleScroll = () => {
     const container = scrollRef.current;
@@ -108,8 +107,31 @@ const Carousel = () => {
     }
   };
 
+  const getCardStyle = (index: number) => {
+    const isLeft = index === visibleRange.start;
+    const isCenter = index === visibleRange.start + 1;
+    const isRight = index === visibleRange.end;
+  
+    let style: React.CSSProperties = {
+      transition: 'transform 0.3s ease',
+    };
+  
+    if (isCenter) {
+      style.transform = 'scale(1.05) translateY(-10px) translateX(15px)';
+      style.zIndex = 5;
+    } else if (isLeft) {
+      style.transform = 'rotate(-2deg) translateY(4px)';
+      style.zIndex = 1;
+    } else if (isRight) {
+      style.transform = 'rotate(2deg) translateY(4px) translateX(-10px) translateY(30px)';
+      style.zIndex = 1;
+    }    
+  
+    return style;
+  };
+  
   return (
-    <div className="w-full overflow-hidden h-full">
+    <div className="w-full overflow-hidden">
       <div
         ref={scrollRef}
         className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar"
@@ -122,7 +144,7 @@ const Carousel = () => {
               className={`carousel-card snap-start shrink-0 w-[32%] p-5`}
               style={getCursorStyle(index)}
             >
-              <div className="p-2 w-[1250px]">
+              <div className="p-2 w-[1250px]" style={getCardStyle(index)}>
                 <ValueCard
                   bg={card.bg}
                   color="text-[#FFF]"
@@ -163,7 +185,7 @@ function About() {
             </h1>
             <div>
               <Carousel/>
-              </div>
+            </div>
             <h1 className="text-[48px] pt-10 font-bold">
               National Team
             </h1>
