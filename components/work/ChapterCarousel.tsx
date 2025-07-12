@@ -7,24 +7,27 @@ export function ChapterCarousel() {
   const [chapterIndex, setChapterIndex] = useState(0);
 
   return (
-    <div>
+    <div className="my-10 h-min w-full flex flex-col gap-2 items-center">
       <MotionSelector
-        className="pt-2 pb-4 px-2 "
+        className="pt-2 pb-3 px-2 overscroll-contain "
         chapterIndex={chapterIndex}
         setChapterIndex={setChapterIndex}
       />
-      <motion.div>
-        <MotionChapterCard />
-      </motion.div>
+      <div className="flex w-full h-[400px] overflow-x-auto">
+        <MotionChapterCard
+          chapterIndex={chapterIndex}
+          className="flex min-w-full w-full h-full rounded-md bg-brand-blue"
+        />
+      </div>
     </div>
   );
 }
 
 interface ChapterProps {
-  className: string;
+  className?: string;
+  chapter?: any;
   chapterIndex: number;
   setChapterIndex: Function;
-
   ref: Ref<HTMLDivElement>;
 }
 
@@ -35,8 +38,8 @@ const ChapterCard = ({
   setChapterIndex,
 }: ChapterProps) => {
   return (
-    <div>
-      <div></div>
+    <div ref={ref} className={cn(className)}>
+      <div className="text-5xl place-content-center">{chapterIndex}</div>
     </div>
   );
 };
@@ -82,12 +85,18 @@ function Selector({
                     y: 0,
                   }
             }
-            transition={{ backgroundColor: { type: false } }}
+            transition={{
+              backgroundColor: { type: false },
+              y: { type: "spring", damping: 20, stiffness: 300 },
+            }}
             whileHover={{
               rotateZ: "5deg",
               backgroundColor: "var(--color-brand-black)",
               border: "none",
-              y: -3,
+              y: 7,
+            }}
+            whileTap={{
+              scale: 0.95,
             }}
             onClick={() => {
               setChapterIndex(index);

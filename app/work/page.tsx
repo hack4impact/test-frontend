@@ -27,9 +27,7 @@ export default function Work() {
             <MotionInitiativeCard imgBorder="border-brand-red" />
           </div>
           <AnimatedSectionTitle>Our Chapters</AnimatedSectionTitle>
-          <div className="w-full h-[500px] my-10 border-3">
-            <ChapterCarousel />
-          </div>
+          <ChapterCarousel />
           <AnimatedSectionTitle>Featured Projects</AnimatedSectionTitle>
           <ChapterFeatures />
         </div>
