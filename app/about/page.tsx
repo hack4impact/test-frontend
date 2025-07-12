@@ -1,4 +1,5 @@
 "use client"
+import { GridPattern } from "@/components/common/GridPattern";
 import ValueCard from "@/components/valueCard";
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
@@ -163,61 +164,45 @@ const Carousel = () => {
 
 function About() {
   return (
-    <div>
-      <div className="px-10 w-screen min-h-screen">
-        <main className="pt-20 size-full flex flex-col min-w-[300px]">
-          <div className="w-full h-svh flex flex-col">
-            <h1 className="text-[48px] font-bold pt-10">
-              About Us
-            </h1>
-            <div className="flex flex-row gap-10 justify-between pt-10">
-                <Image src="/blank.png" alt="INSERT PIC" width={650} height={500} className="border-3 border-[#0085FF] rounded-sm" />
-                <Image src="/blank.png" alt="INSERT PIC" width={650} height={500} className="border-3 border-[#0085FF] rounded-sm" />
-            </div>
-            <h1 className="text-[48px] pt-10 font-bold">
-              Our Mission
-            </h1>
-            <div className="flex flex-row gap-10 justify-between pt-10">
-                <p className="h-3/5 text-[20px]">To empower engineers, designers, activists, and humanitarians to create lasting and impactful social change, fostering the wider adoption of software as a tool for social good.</p>
-            </div>
-            <h1 className="text-[48px] pt-10 font-bold">
-              Our Values
-            </h1>
-            <div>
-              <Carousel/>
-            </div>
-            <h1 className="text-[48px] pt-10 font-bold">
-              National Team
-            </h1>
-        
-            <div className="w-full flex flex-wrap pt-10 justify-center gap-6 pb-10">
-              {/* later replace with a looping code for members */}
-              {[...Array(8)].map((_, index) => (
-                <div key={`dummy${index + 1}`} id={`dummy${index + 1}`} className="basis-[calc(25%-1.5rem)]">
-                  <Image
-                    src="/blank.png"
-                    alt="INSERT PIC"
-                    width={315}
-                    height={250}
-                    className="border-3 border-[#0085FF] rounded-sm"
-                  />
-                </div>
+    <div className="relative w-screen">
+      <div className="absolute top-0 left-0 w-full h-full min-h-full z-[-10]">
+        <GridPattern gridColor="stroke-brand-blue-light" />
+      </div>
+
+      <main className="px-10 min-h-screen flex flex-col min-w-[300px]">
+        <div className="w-full flex flex-col">
+          <h1 className="text-[48px] font-bold pt-30">About Us</h1>
+
+          <div className="flex flex-row gap-10 justify-between pt-10">
+            <Image src="/blank.png" alt="INSERT PIC" width={650} height={500} className="border-3 border-[#0085FF] rounded-sm" />
+            <Image src="/blank.png" alt="INSERT PIC" width={650} height={500} className="border-3 border-[#0085FF] rounded-sm" />
+          </div>
+
+          <h1 className="text-[48px] pt-10 font-bold">Our Mission</h1>
+          <div className="flex flex-row gap-10 justify-between pt-10">
+            <p className="h-3/5 text-[20px]">
+              To empower engineers, designers, activists, and humanitarians to create lasting and impactful social change, fostering the wider adoption of software as a tool for social good.
+            </p>
+          </div>
+
+          <h1 className="text-[48px] pt-10 font-bold">Our Values</h1>
+          <div><Carousel /></div>
+
+          <h1 className="text-[48px] pt-10 font-bold">National Team</h1>
+          <div className="w-full flex flex-wrap pt-10 justify-center gap-6 pb-10">
+            {[...Array(8)].map((_, index) => (
+              <div key={`blue-${index}`} className="basis-[calc(25%-1.5rem)]">
+                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
+              </div>
             ))}
             {[...Array(8)].map((_, index) => (
-                <div key={`dummy${index + 1}`} id={`dummy${index + 1}`} className="basis-[calc(25%-1.5rem)]">
-                  <Image
-                    src="/blank.png"
-                    alt="INSERT PIC"
-                    width={315}
-                    height={250}
-                    className="border-3 border-[#10B875] rounded-sm"
-                  />
-                </div>
+              <div key={`green-${index}`} className="basis-[calc(25%-1.5rem)]">
+                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#10B875] rounded-sm" />
+              </div>
             ))}
-            </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   )
 }
