@@ -8,9 +8,8 @@ function About() {
 
   return (
     <div>
-        <div id="page" className="absolute w-screen h-10 "></div>
       <div className="px-10 w-screen min-h-screen">
-        <main className="pt-20 size-full flex flex-col">
+        <main className="pt-20 size-full flex flex-col min-w-[300px]">
           <div className="w-full h-svh flex flex-col">
             <h1 className="text-[48px] font-bold pt-10">
               About Us
@@ -39,24 +38,17 @@ function About() {
         
             <div className="w-full flex flex-wrap pt-10 justify-center gap-6">
               {/* later replace with a looping code for members */}
-              <div id="dummy1" className="basis-[calc(25%-1.5rem)]">
-                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
-              </div>
-              <div id="dummy2" className="basis-[calc(25%-1.5rem)]">
-                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
-              </div>
-              <div id="dummy3" className="basis-[calc(25%-1.5rem)]">
-                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
-              </div>
-              <div id="dummy4" className="basis-[calc(25%-1.5rem)]">
-                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
-              </div>
-              <div id="dummy4" className="basis-[calc(25%-1.5rem)]">
-                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
-              </div>
-              <div id="dummy4" className="basis-[calc(25%-1.5rem)]">
-                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
-              </div>
+              {[...Array(6)].map((_, index) => (
+                <div key={`dummy${index + 1}`} id={`dummy${index + 1}`} className="basis-[calc(25%-1.5rem)]">
+                  <Image
+                    src="/blank.png"
+                    alt="INSERT PIC"
+                    width={315}
+                    height={250}
+                    className="border-3 border-[#0085FF] rounded-sm"
+                  />
+                </div>
+            ))}
             </div>
           </div>
         </main>
