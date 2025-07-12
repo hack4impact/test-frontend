@@ -141,7 +141,7 @@ const Carousel = () => {
             <div
               key={`card-${index}`}
               onClick={() => handleCardClick(index)}
-              className={`carousel-card snap-start shrink-0 w-[32%] p-5`}
+              className={`carousel-card snap-start shrink-0 w-[32.5%] p-5`}
               style={getCursorStyle(index)}
             >
               <div className="p-2 w-[1250px]" style={getCardStyle(index)}>
