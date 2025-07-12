@@ -177,6 +177,8 @@ export default function Navbar() {
       (subItem: { name: string; link: string }) => subItem.link,
     );
 
+    console.log(subItemLinks);
+
     return (
       <NavigationMenuItem key={index} className="relative" value={itemValue}>
         <NavigationMenuTrigger

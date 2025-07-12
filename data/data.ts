@@ -104,8 +104,8 @@ export const navItems = [
     name: "Apply",
     link: "/apply",
     content: [
-      { name: "Chapters", link: "/" },
-      { name: "Nonprofits", link: "/" },
+      { name: "Chapters", link: "/apply/chapters" },
+      { name: "Nonprofits", link: "/apply/nonprofits" },
     ],
   },
   {

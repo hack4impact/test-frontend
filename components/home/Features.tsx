@@ -1,11 +1,10 @@
-import { features, item } from "@/data/HomeData";
+import { features, item } from "@/data/home-data";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 
-import FeatureCard from "./FeatureCard";
+import { MotionFeatureCard } from "./FeatureCard";
 
 export default function Features() {
-  const MotionFeatureCard = motion.create(FeatureCard);
   return (
     <motion.div
       className={cn("my-10 flex w-full flex-col justify-between gap-5")}
@@ -20,7 +19,6 @@ export default function Features() {
             viewport={{ amount: "some" }}
             key={i}
             title={e.title}
-            description={e.description}
             content={e.content}
             footer="Visit Project"
           ></MotionFeatureCard>

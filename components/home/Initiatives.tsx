@@ -1,4 +1,5 @@
-import { initiatives, item, list } from "@/data/HomeData";
+import { initiatives } from "@/data/data";
+import { item, list } from "@/data/home-data";
 import { cn } from "@/lib/utils";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
