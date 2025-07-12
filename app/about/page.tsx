@@ -4,6 +4,7 @@ import ValueCard from "@/components/valueCard";
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
 
+// current data in the ValueCards
 const GoBeyondTechContent =
 "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools.";
 const EngYourComContent = "Our community makes us special. The strength of our community comes from the contributions of its members. We welcome new members with warmth, and we make the effort to know each other beyond superficial details.";
@@ -42,11 +43,13 @@ const cardData = [
   },
 ];
 
+// for the ValueCard horizontal carasouel functionality and components
 const Carousel = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardsPerView = 3;
   const [visibleRange, setVisibleRange] = useState({ start: 0, end: cardsPerView - 1 });
 
+  // when card is clicked, it would scroll to a certain direction - either left or right
   const handleCardClick = (index: number) => {
     const container = scrollRef.current;
     if (!container) return;
@@ -73,6 +76,7 @@ const Carousel = () => {
     }
   };
 
+  // when scrolling happens, we need to adjust the position and type of layout of the cards on the page
   const handleScroll = () => {
     const container = scrollRef.current;
     if (!container) return;
@@ -89,6 +93,7 @@ const Carousel = () => {
     setVisibleRange({ start: visibleStart, end: visibleEnd });
   };
   
+  // this is to detect any changes within the container of the cards
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
@@ -98,6 +103,7 @@ const Carousel = () => {
     return () => container.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // this is responsible for changing the type of cursor style based on where it's hovered (right-most or left-most cards)
   const getCursorStyle = (index: number) => {
     if (index === visibleRange.end) {
       return { cursor: 'url("/ArrowRight.png"), auto' };
@@ -108,6 +114,7 @@ const Carousel = () => {
     }
   };
 
+  // this is the card style overall, depending on the positions a specific card is in
   const getCardStyle = (index: number) => {
     const isLeft = index === visibleRange.start;
     const isCenter = index === visibleRange.start + 1;
@@ -165,6 +172,7 @@ const Carousel = () => {
 function About() {
   return (
     <div className="relative w-screen">
+      {/* added the grid pattern */}
       <div className="absolute top-0 left-0 w-full h-full min-h-full z-[-10]">
         <GridPattern gridColor="stroke-brand-blue-light" />
       </div>
