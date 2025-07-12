@@ -1,11 +1,105 @@
+"use client"
 import ValueCard from "@/components/valueCard";
 import Image from "next/image";
+import React, { useRef, useState, useEffect } from "react";
+
+const GoBeyondTechContent =
+"Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools.";
+const EngYourComContent = "Our community makes us special. The strength of our community comes from the contributions of its members. We welcome new members with warmth, and we make the effort to know each other beyond superficial details.";
+const DevWCareContent = "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping."
+
+const cardData = [
+  {
+    title: "Go Beyond Technology",
+    content: GoBeyondTechContent,
+    bg: "bg-[#F2594B]",
+  },
+  {
+    title: "Engage Your Community",
+    content: EngYourComContent,
+    bg: "bg-[#0085FF]",
+  },
+  {
+    title: "Develop With Care",
+    content: DevWCareContent,
+    bg: "bg-[#10B875]",
+  },
+  {
+    title: "DUMMY CARD",
+    content: "Dummy Content",
+    bg: "bg-[#10B875]",
+  },
+  {
+    title: "DUMMY CARD",
+    content: "Dummy Content",
+    bg: "bg-[#10B875]",
+  },
+  {
+    title: "DUMMY CARD",
+    content: "Dummy Content",
+    bg: "bg-[#10B875]",
+  },
+];
+
+const Carousel = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const cardsPerView = 3;
+
+  const handleCardClick = (index: number) => {
+    const container = scrollRef.current;
+    if (!container) return;
+  
+    const cards = container.querySelectorAll(".carousel-card");
+    const card = cards[index] as HTMLElement;
+    if (!card) return;
+  
+    const cardWidth = card.offsetWidth;
+    const scrollLeft = container.scrollLeft;
+    const maxScrollLeft = container.scrollWidth - container.clientWidth;
+  
+    // calculating visible ranges:
+    const visibleStart = Math.floor(scrollLeft / cardWidth);
+    const visibleEnd = visibleStart + cardsPerView - 1;
+  
+    // allow right scrolling if the next scroll doesn't exceed max
+    if (index === visibleEnd && scrollLeft + cardWidth <= maxScrollLeft + 1) {
+      container.scrollBy({ left: cardWidth, behavior: "smooth" });
+    }
+    // allow left scrolling if not at start
+    else if (index === visibleStart && scrollLeft > 0) {
+      container.scrollBy({ left: -cardWidth, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="w-full overflow-hidden h-full">
+      <div
+        ref={scrollRef}
+        className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar"
+      >
+        {cardData.map((card, index) => (
+          <div
+            key={`card-${index}`}
+            onClick={() => handleCardClick(index)}
+            className="carousel-card snap-start shrink-0 w-[32%] cursor-pointer p-5"
+          >
+            <div className="p-2 w-[1300px]">
+              <ValueCard
+                bg={card.bg}
+                color="text-[#FFF]"
+                title={card.title}
+                content={card.content}
+                footer=""
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 function About() {
-  const GoBeyondTechContent = "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools.";
-  const EngYourComContent = "Our community makes us special. The strength of our community comes from the contributions of its members. We welcome new members with warmth, and we make the effort to know each other beyond superficial details.";
-  const DevWCareContent = "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping."
-
   return (
     <div>
       <div className="px-10 w-screen min-h-screen">
@@ -27,11 +121,9 @@ function About() {
             <h1 className="text-[48px] pt-10 font-bold">
               Our Values
             </h1>
-            <div className="w-full flex flex-row gap-6 pt-10">
-              <ValueCard bg="bg-[#F2594B]" color="text-[#FFF]" title="Go Beyond Technology" content={GoBeyondTechContent} footer={""}/>
-              <ValueCard bg="bg-[#0085FF]" color="text-[#FFF]" title="Engage Your Community" content={EngYourComContent} footer={""}/>
-              <ValueCard bg="bg-[#10B875]" color="text-[#FFF]" title="Develop With Care" content={DevWCareContent} footer={""}/>
-            </div>
+            <div>
+              <Carousel/>
+              </div>
             <h1 className="text-[48px] pt-10 font-bold">
               National Team
             </h1>
