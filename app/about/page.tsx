@@ -71,29 +71,69 @@ const Carousel = () => {
     }
   };
 
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: cardsPerView - 1 });
+
+  const handleScroll = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+  
+    const cards = container.querySelectorAll(".carousel-card") as NodeListOf<HTMLElement>;
+    if (!cards.length) return;
+  
+    const cardWidth = cards[0].offsetWidth;
+    const scrollLeft = container.scrollLeft;
+  
+    const visibleStart = Math.floor(scrollLeft / cardWidth);
+    const visibleEnd = visibleStart + cardsPerView - 1;
+  
+    setVisibleRange({ start: visibleStart, end: visibleEnd });
+  };
+  
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // set initial
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const getCursorStyle = (index: number) => {
+    if (index === visibleRange.end) {
+      return { cursor: 'url("/ArrowRight.png"), auto' };
+    } else if (index === visibleRange.start && index != 0) {
+      return { cursor: 'url("/ArrowLeft.png"), auto' };
+    } else {
+      return {};
+    }
+  };
+
   return (
     <div className="w-full overflow-hidden h-full">
       <div
         ref={scrollRef}
         className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar"
       >
-        {cardData.map((card, index) => (
-          <div
-            key={`card-${index}`}
-            onClick={() => handleCardClick(index)}
-            className="carousel-card snap-start shrink-0 w-[32%] cursor-pointer p-5"
-          >
-            <div className="p-2 w-[1300px]">
-              <ValueCard
-                bg={card.bg}
-                color="text-[#FFF]"
-                title={card.title}
-                content={card.content}
-                footer=""
-              />
+        {cardData.map((card, index) => {
+          return (
+            <div
+              key={`card-${index}`}
+              onClick={() => handleCardClick(index)}
+              className={`carousel-card snap-start shrink-0 w-[32%] p-5`}
+              style={getCursorStyle(index)}
+            >
+              <div className="p-2 w-[1300px]">
+                <ValueCard
+                  bg={card.bg}
+                  color="text-[#FFF]"
+                  title={card.title}
+                  content={card.content}
+                  footer=""
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -128,7 +168,7 @@ function About() {
               National Team
             </h1>
         
-            <div className="w-full flex flex-wrap pt-10 justify-center gap-6">
+            <div className="w-full flex flex-wrap pt-10 justify-center gap-6 pb-10">
               {/* later replace with a looping code for members */}
               {[...Array(6)].map((_, index) => (
                 <div key={`dummy${index + 1}`} id={`dummy${index + 1}`} className="basis-[calc(25%-1.5rem)]">
