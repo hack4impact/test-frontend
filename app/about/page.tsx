@@ -27,12 +27,12 @@ const cardData = [
   {
     title: "DUMMY CARD",
     content: "Dummy Content",
-    bg: "bg-[#10B875]",
+    bg: "bg-[#F2594B]",
   },
   {
     title: "DUMMY CARD",
     content: "Dummy Content",
-    bg: "bg-[#10B875]",
+    bg: "bg-[#0085FF]",
   },
   {
     title: "DUMMY CARD",
@@ -122,7 +122,7 @@ const Carousel = () => {
               className={`carousel-card snap-start shrink-0 w-[32%] p-5`}
               style={getCursorStyle(index)}
             >
-              <div className="p-2 w-[1300px]">
+              <div className="p-2 w-[1250px]">
                 <ValueCard
                   bg={card.bg}
                   color="text-[#FFF]"
@@ -170,7 +170,7 @@ function About() {
         
             <div className="w-full flex flex-wrap pt-10 justify-center gap-6 pb-10">
               {/* later replace with a looping code for members */}
-              {[...Array(6)].map((_, index) => (
+              {[...Array(8)].map((_, index) => (
                 <div key={`dummy${index + 1}`} id={`dummy${index + 1}`} className="basis-[calc(25%-1.5rem)]">
                   <Image
                     src="/blank.png"
@@ -178,6 +178,17 @@ function About() {
                     width={315}
                     height={250}
                     className="border-3 border-[#0085FF] rounded-sm"
+                  />
+                </div>
+            ))}
+            {[...Array(8)].map((_, index) => (
+                <div key={`dummy${index + 1}`} id={`dummy${index + 1}`} className="basis-[calc(25%-1.5rem)]">
+                  <Image
+                    src="/blank.png"
+                    alt="INSERT PIC"
+                    width={315}
+                    height={250}
+                    className="border-3 border-[#10B875] rounded-sm"
                   />
                 </div>
             ))}
