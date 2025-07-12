@@ -76,11 +76,12 @@ export function TiltCard({
         style={{
           background: bgColor,
         }}
+        whileHover={{ background: "var(--color-brand-black)" }}
         className={cn("h-full rounded-md border-none")}
       >
         <Card
           className={cn(
-            "flex h-full border-none bg-transparent shadow-none",
+            "flex h-full border-none bg-transparent shadow-none ",
             textColor,
           )}
         >

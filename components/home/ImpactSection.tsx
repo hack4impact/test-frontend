@@ -1,9 +1,9 @@
-import { childVariants, initiatives, parentVariants } from "@/data/data";
+import { childVariants, impactInfo, parentVariants } from "@/data/data";
 import { cn } from "@/lib/utils";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
-import { MotionTiltCard } from "./TiltCard";
+import { MotionTiltCard } from "../common/TiltCard";
 
 export default function ImpactSection() {
   const ref = useRef(null);
@@ -17,7 +17,7 @@ export default function ImpactSection() {
       initial="hidden"
       whileInView="visible"
     >
-      {initiatives.map((item, index) => {
+      {impactInfo.map((item, index) => {
         return (
           <MotionTiltCard
             key={index}

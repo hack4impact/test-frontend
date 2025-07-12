@@ -14,7 +14,7 @@ export function InitiativeCard({
   title?: string;
   content?: string;
   footer?: string;
-  ref: Ref<HTMLDivElement>;
+  ref?: Ref<HTMLDivElement>;
   imgBorder?: string;
 }) {
   const [hovered, setHovered] = useState(false);
