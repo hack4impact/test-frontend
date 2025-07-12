@@ -44,7 +44,7 @@ export const chapterFeatures = [
     title: "Project Name",
     description: "General VMS",
     bgColor: "bg-brand-green",
-    imgBorder: "border-brand-green",
+    imgBorder: "border-brand-green-light",
     content:
       "Description of the project. Describe the problem, research, design, development, solution, and handoff. Try to describe the impact that the project has on the nonprofit partner. Describe the work and field of impact that the nonprofit partner operates in as well.",
   },
@@ -52,7 +52,7 @@ export const chapterFeatures = [
     title: "Project Name",
     description: "Map Resource",
     bgColor: "bg-brand-red",
-    imgBorder: "border-brand-red",
+    imgBorder: "border-brand-red-light",
     content:
       "Description of the project. Describe the problem, research, design, development, solution, and handoff. Try to describe the impact that the project has on the nonprofit partner. Describe the work and field of impact that the nonprofit partner operates in as well.",
   },
