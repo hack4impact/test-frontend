@@ -1,24 +1,32 @@
 import { chapters } from "@/data/data";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import { Ref, useState } from "react";
+import { Ref, useEffect, useRef, useState } from "react";
 
 export function ChapterCarousel() {
   const [chapterIndex, setChapterIndex] = useState(0);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Scroll to the corresponding card when chapterIndex changes
+  useEffect(() => {
+    const targetCard = cardRefs.current[chapterIndex];
+    if (targetCard) {
+      targetCard.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    }
+  }, [chapterIndex]);
 
   return (
     <div className="my-10 h-min w-full flex flex-col gap-2 items-center">
       <MotionSelector
-        className="pt-2 pb-3 px-2 overscroll-contain "
+        className="pt-2 pb-3 px-2 overscroll-contain border-x-3 border-brand-green "
         chapterIndex={chapterIndex}
         setChapterIndex={setChapterIndex}
       />
-      <div className="flex w-full h-[400px] overflow-x-auto">
-        <MotionChapterCard
-          chapterIndex={chapterIndex}
-          className="flex min-w-full w-full h-full rounded-md bg-brand-blue"
-        />
-      </div>
+      <ChapterCards chapterIndex={chapterIndex} cardRefs={cardRefs} />
     </div>
   );
 }
@@ -26,20 +34,48 @@ export function ChapterCarousel() {
 interface ChapterProps {
   className?: string;
   chapter?: any;
+  index?: number;
   chapterIndex: number;
   setChapterIndex: Function;
   ref: Ref<HTMLDivElement>;
 }
 
+function ChapterCards({
+  chapterIndex,
+  cardRefs,
+}: {
+  chapterIndex: number;
+  cardRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
+}) {
+  return (
+    <motion.div className="overscroll-contain flex flex-row w-full h-[400px] overflow-x-auto gap-2 snap-x snap-mandatory justify-start">
+      {chapters.map((chapter, index) => {
+        return (
+          <MotionChapterCard
+            key={index}
+            index={index}
+            chapterIndex={chapterIndex}
+            setChapterIndex={() => {}}
+            ref={(el: HTMLDivElement | null) => {
+              cardRefs.current[index] = el;
+            }}
+            className="flex min-w-full w-full h-full rounded-md bg-brand-blue justify-center snap-start"
+          />
+        );
+      })}
+    </motion.div>
+  );
+}
+
 const ChapterCard = ({
+  index,
   className,
   ref,
-  chapterIndex,
   setChapterIndex,
 }: ChapterProps) => {
   return (
     <div ref={ref} className={cn(className)}>
-      <div className="text-5xl place-content-center">{chapterIndex}</div>
+      <div className="text-9xl place-content-center">{index}</div>
     </div>
   );
 };
@@ -103,7 +139,7 @@ function Selector({
               console.log(index, chapterIndex);
             }}
             className={cn(
-              "snap-start scroll-ml-2 rounded-sm flex-none w-[120px] h-[80px] scroll-smooth",
+              "scroll-ml-2 snap-start rounded-sm flex-none w-[120px] h-[80px] scroll-smooth",
             )}
           ></motion.button>
         );
