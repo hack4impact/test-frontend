@@ -51,13 +51,13 @@ export function FeatureCard({
       <Card className={cn("flex h-full w-full flex-row", bgColor, textColor)}>
         <div className={cn("ml-5 flex w-1/2 rounded-sm border-3", imgBorder)} />
         <div className="flex w-1/2 flex-col">
-          <CardHeader>
-            <CardTitle className="h-1/5 text-[35px] font-semibold">
+          <CardHeader className="h-1/5">
+            <CardTitle className="h-full text-[35px] font-semibold">
               {title}
             </CardTitle>
           </CardHeader>
           <CardContent className="mt-5 h-3/5 text-[20px]">
-            <p>{content}</p>
+            {content}
           </CardContent>
           <CardFooter className="mt-10 h-1/5 text-[30px] leading-none font-semibold">
             {footer}

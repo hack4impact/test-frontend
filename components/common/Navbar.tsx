@@ -177,8 +177,6 @@ export default function Navbar() {
       (subItem: { name: string; link: string }) => subItem.link,
     );
 
-    console.log(subItemLinks);
-
     return (
       <NavigationMenuItem key={index} className="relative" value={itemValue}>
         <NavigationMenuTrigger
@@ -198,7 +196,7 @@ export default function Navbar() {
             <NavigationMenuItem asChild key={subIndex}>
               <div className="z-55">
                 <NavigationMenuLink
-                  href={item.link}
+                  href={subItem.link}
                   onMouseEnter={() => setHoveredSubIndex(subIndex)}
                   className="text-xl block p-3 hover:bg-transparent hover:text-white"
                 >

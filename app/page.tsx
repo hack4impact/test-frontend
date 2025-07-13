@@ -21,25 +21,22 @@ const ActionButtons = () => (
 
 export default function Home() {
   return (
-    <div className="min-h-screen w-screen px-10">
+    <main className="min-h-screen w-screen px-10 mx-auto flex size-full flex-col pt-20">
       <GridPattern
         gridColor="stroke-brand-blue-light"
         style={{ zIndex: -10 }}
       />
+      <HeroSection />
 
-      <main className="mx-auto flex size-full flex-col pt-20">
-        <HeroSection />
+      <div className="flex w-full flex-col">
+        <AnimatedSectionTitle>Our Impact</AnimatedSectionTitle>
+        <ImpactSection />
 
-        <div className="flex w-full flex-col">
-          <AnimatedSectionTitle>Our Impact</AnimatedSectionTitle>
-          <ImpactSection />
+        <AnimatedSectionTitle>Featured Projects</AnimatedSectionTitle>
+        <FeaturedProjects />
 
-          <AnimatedSectionTitle>Featured Projects</AnimatedSectionTitle>
-          <FeaturedProjects />
-
-          <ActionButtons />
-        </div>
-      </main>
-    </div>
+        <ActionButtons />
+      </div>
+    </main>
   );
 }

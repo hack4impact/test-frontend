@@ -85,15 +85,15 @@ export function TiltCard({
             textColor,
           )}
         >
-          <CardHeader>
-            <CardTitle className="h-1/5 flex-auto text-[35px] font-semibold">
+          <CardHeader className="h-1/5">
+            <CardTitle className="h-full text-[35px] font-semibold">
               {title}
             </CardTitle>
           </CardHeader>
-          <CardContent className="mt-5 h-3/5 flex-auto text-[20px]">
-            <p>{content}</p>
+          <CardContent className="mt-5 h-3/5 text-[20px]">
+            {content}
           </CardContent>
-          <CardFooter className="mt-10 h-1/5 flex-auto text-[30px] leading-none font-semibold items-end">
+          <CardFooter className="mt-10 h-min text-[30px] leading-none font-semibold items-end">
             {footer}
           </CardFooter>
         </Card>

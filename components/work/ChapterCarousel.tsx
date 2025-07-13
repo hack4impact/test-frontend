@@ -4,14 +4,15 @@ import { motion, useInView, useScroll } from "motion/react";
 import { Ref, RefObject, useEffect, useRef, useState } from "react";
 
 export function ChapterCarousel() {
-  const [chapterIndex, setChapterIndex] = useState(0);
+  const [chapterIndex, setChapterIndex] = useState<number>(0);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const carouselRef = useRef<HTMLDivElement | null>(null);
+  const [interacted, setInteracted] = useState<boolean>(false);
 
   // Scroll to the corresponding card when chapterIndex changes
   useEffect(() => {
     const targetCard = cardRefs.current[chapterIndex];
-    if (targetCard) {
+    if (targetCard && interacted) {
       targetCard.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
@@ -28,6 +29,7 @@ export function ChapterCarousel() {
         setChapterIndex={setChapterIndex}
       />
       <ChapterCards
+        setInteracted={setInteracted}
         setChapterIndex={setChapterIndex}
         ref={carouselRef}
         chapterIndex={chapterIndex}
@@ -42,7 +44,9 @@ interface ChapterProps {
   chapter?: any;
   index?: number;
   chapterIndex: number;
+  interacted?: boolean;
   setChapterIndex: (index: number) => void;
+  setInteracted: (interact: boolean) => void;
 }
 
 interface ChapterCardProps extends ChapterProps {
@@ -50,11 +54,15 @@ interface ChapterCardProps extends ChapterProps {
 }
 
 function ChapterCards({
+  interacted,
+  setInteracted,
   setChapterIndex,
   chapterIndex,
   cardRefs,
   ref,
 }: {
+  interacted?: boolean;
+  setInteracted: (interact: boolean) => void;
   setChapterIndex: (index: number) => void;
   chapterIndex: number;
   cardRefs: RefObject<(HTMLDivElement | null)[]>;
@@ -68,6 +76,7 @@ function ChapterCards({
       {chapters.map((chapter, index) => {
         return (
           <MotionChapterCard
+            setInteracted={setInteracted}
             chapter={chapter}
             key={index}
             index={index}
@@ -86,10 +95,12 @@ function ChapterCards({
 }
 
 const ChapterCard = ({
+  ref,
   chapter,
   index,
   className,
-  ref,
+  interacted,
+  setInteracted,
   setChapterIndex,
 }: ChapterCardProps) => {
   return (
@@ -97,7 +108,10 @@ const ChapterCard = ({
       whileHover={{
         background: "var(--color-brand-black)",
       }}
-      onMouseEnter={() => setChapterIndex(index!)}
+      onMouseEnter={() => {
+        setChapterIndex(index!);
+        if (!interacted) setInteracted(true);
+      }}
       ref={ref}
       className={cn(
         className,
