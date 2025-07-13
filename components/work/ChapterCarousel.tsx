@@ -104,19 +104,18 @@ const ChapterCard = ({
         " flex p-3 min-w-full w-full h-full gap-2 rounded-md bg-brand-blue justify-center snap-start",
       )}
     >
-      <div className="w-1/2 h-full rounded-sm flex flex-col p-2 gap-1 text-white">
+      <a
+        href="https://upenn.hack4impact.org"
+        className="w-1/2 h-full rounded-sm flex flex-col p-2 gap-1 text-white"
+      >
         <h1 className="text-3xl font-semibold w-full">{chapter.university}</h1>
         <p className="text-2xl w-full font-thin italic">
           Est. {chapter.est} in {chapter.location}
         </p>
         <div className="flex flex-auto"></div>
-        <a
-          href="https://upenn.hack4impact.org"
-          className="text-3xl font-semibold w-full"
-        >
-          Visit Chapter Website
-        </a>
-      </div>
+        <p className="text-3xl font-semibold w-full">Visit Chapter Website</p>
+        <motion.div className="w-full h-10 border-1 rounded-sm"></motion.div>
+      </a>
       <div className="w-1/2 h-full border-3 text-9xl place-content-center rounded-sm border-brand-blue-light"></div>
     </motion.div>
   );
