@@ -23,7 +23,7 @@ export function ChapterCarousel() {
   return (
     <div className="my-10 h-min w-full flex flex-col gap-2 items-center">
       <MotionSelector
-        className="pt-2 pb-3 px-2 overscroll-contain border-x-3 border-brand-green "
+        className="pt-2 pb-3 px-2 overscroll-x-contain border-x-3  "
         chapterIndex={chapterIndex}
         setChapterIndex={setChapterIndex}
       />
@@ -63,11 +63,12 @@ function ChapterCards({
   return (
     <motion.div
       ref={ref}
-      className="overscroll-contain flex flex-row w-full h-[400px] overflow-x-auto gap-2 snap-x snap-mandatory justify-start"
+      className="overscroll-x-contain flex flex-row w-full h-[400px] overflow-x-auto gap-2 snap-x snap-mandatory justify-start"
     >
       {chapters.map((chapter, index) => {
         return (
           <MotionChapterCard
+            chapter={chapter}
             key={index}
             index={index}
             chapterIndex={chapterIndex}
@@ -77,7 +78,6 @@ function ChapterCards({
                 cardRefs.current[index] = el;
               }
             }}
-            className="flex min-w-full w-full h-full rounded-md bg-brand-blue justify-center snap-start"
           />
         );
       })}
@@ -86,19 +86,39 @@ function ChapterCards({
 }
 
 const ChapterCard = ({
+  chapter,
   index,
   className,
   ref,
   setChapterIndex,
 }: ChapterCardProps) => {
   return (
-    <div
+    <motion.div
+      whileHover={{
+        background: "var(--color-brand-black)",
+      }}
       onMouseEnter={() => setChapterIndex(index!)}
       ref={ref}
-      className={cn(className)}
+      className={cn(
+        className,
+        " flex p-3 min-w-full w-full h-full gap-2 rounded-md bg-brand-blue justify-center snap-start",
+      )}
     >
-      <div className="text-9xl place-content-center">{index}</div>
-    </div>
+      <div className="w-1/2 h-full rounded-sm flex flex-col p-2 gap-1 text-white">
+        <h1 className="text-3xl font-semibold w-full">{chapter.university}</h1>
+        <p className="text-2xl w-full font-thin italic">
+          Est. {chapter.est} in {chapter.location}
+        </p>
+        <div className="flex flex-auto"></div>
+        <a
+          href="https://upenn.hack4impact.org"
+          className="text-3xl font-semibold w-full"
+        >
+          Visit Chapter Website
+        </a>
+      </div>
+      <div className="w-1/2 h-full border-3 text-9xl place-content-center rounded-sm border-brand-blue-light"></div>
+    </motion.div>
   );
 };
 
@@ -115,7 +135,11 @@ function Selector({
       ref={ref}
       className={cn(
         className,
-        "  mask-x-to-90% mask-x-from-70% flex relative flex-initial w-full h-min justify-start gap-2 overflow-x-auto snap-x snap-mandatory",
+        chapterIndex == 0 ? "border-l-brand-red" : "border-l-brand-green",
+        chapterIndex == chapters.length - 1
+          ? "border-r-brand-red"
+          : "border-r-brand-green",
+        "flex relative flex-initial w-full h-min justify-start gap-2 overflow-x-auto snap-x snap-mandatory",
       )}
     >
       {chapters.map((_, index) => {
