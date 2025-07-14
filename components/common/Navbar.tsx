@@ -169,10 +169,16 @@ export default function Navbar() {
       />
     );
   };
-
+  interface NavItem {
+    name: string;
+    link: string;
+    content?: NavItem[];
+  }
   // Render navigation menu item with dropdown
-  const renderDropdownItem = (item: any, index: number) => {
+  const renderDropdownItem = (item: NavItem, index: number) => {
     const itemValue = `item-${index}`;
+    if (!item.content) return;
+
     const subItemLinks: string[] = item.content.map(
       (subItem: { name: string; link: string }) => subItem.link,
     );
@@ -192,7 +198,7 @@ export default function Navbar() {
           className="min-w-[200px]"
           onMouseLeave={() => setHoveredSubIndex(null)}
         >
-          {item.content.map((subItem: any, subIndex: number) => (
+          {item.content.map((subItem: NavItem, subIndex: number) => (
             <NavigationMenuItem asChild key={subIndex}>
               <div className="z-55">
                 <NavigationMenuLink
@@ -213,7 +219,7 @@ export default function Navbar() {
   };
 
   // Render simple navigation menu item
-  const renderSimpleItem = (item: any, index: number) => (
+  const renderSimpleItem = (item: NavItem, index: number) => (
     <NavigationMenuItem key={index} className="relative">
       <NavigationMenuLink
         href={item.link}

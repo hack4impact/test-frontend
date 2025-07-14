@@ -5,7 +5,7 @@ import { GridPattern } from "@/components/common/GridPattern";
 import { Button } from "@/components/ui/button";
 import { applyChapters, applyNonprofits } from "@/data/apply-data";
 import { cn } from "@/lib/utils";
-import { Transition, motion } from "motion/react";
+import { Transition, motion, scale } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -34,15 +34,24 @@ export default function Work() {
           <div className="h-[48px] flex flex-row gap-5 items-center">
             <div className="relative h-full content-center">
               <MotionLink
-                whileHover={{
-                  scale: 1.05,
-                  background: "var(--color-brand-black)",
-                  color: "white",
-                }}
+                whileHover={
+                  pathname != "/apply/chapters"
+                    ? {
+                        scale: 1.05,
+                        background: "var(--color-brand-black)",
+                        color: "white",
+                      }
+                    : {
+                        scale: 1.05,
+                      }
+                }
                 initial={
                   pathname == "/apply/chapters"
-                    ? { color: "white" }
-                    : { color: "var(--color-brand-black)" }
+                    ? { color: "white", background: "var(--color-brand-red)" }
+                    : {
+                        color: "var(--color-brand-black)",
+                        background: "transparent",
+                      }
                 }
                 href="/apply/chapters"
                 className="flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium  "
@@ -53,8 +62,7 @@ export default function Work() {
                 <motion.div
                   layoutId="toggled"
                   className={cn(
-                    "rounded-sm absolute inset-0 z-[-1]",
-                    "bg-brand-red",
+                    "rounded-sm absolute inset-0 z-[-1] bg-brand-red",
                   )}
                   initial={false}
                   transition={hoverTransition}
@@ -63,17 +71,26 @@ export default function Work() {
             </div>
             <div className="relative h-full content-center">
               <MotionLink
-                whileHover={{
-                  scale: 1.05,
-                  background: "var(--color-brand-black)",
-                  color: "white",
-                }}
+                whileHover={
+                  pathname != "/apply/nonprofits"
+                    ? {
+                        scale: 1.05,
+                        background: "var(--color-brand-black)",
+                        color: "white",
+                      }
+                    : {
+                        scale: 1.05,
+                      }
+                }
                 initial={
                   pathname == "/apply/nonprofits"
-                    ? { color: "white" }
-                    : { color: "var(--color-brand-black)" }
+                    ? { color: "white", background: "var(--color-brand-red)" }
+                    : {
+                        color: "var(--color-brand-black)",
+                        background: "transparent",
+                      }
                 }
-                href="."
+                href="/apply/nonprofits"
                 className="flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium "
               >
                 Nonprofits
@@ -85,8 +102,7 @@ export default function Work() {
                   }}
                   layoutId="toggled"
                   className={cn(
-                    "rounded-sm absolute inset-0 z-[-1]",
-                    "bg-brand-red",
+                    "rounded-sm absolute inset-0 z-[-1] bg-brand-red",
                   )}
                   initial={false}
                   transition={hoverTransition}
@@ -117,7 +133,7 @@ export default function Work() {
             >
               <h3 className="w-full text-5xl font-semibold">
                 {applyNonprofits.tag}
-              </h3>{" "}
+              </h3>
               <p className="whitespace-pre-line w-full text-2xl">
                 {applyNonprofits.info}
               </p>

@@ -19,7 +19,7 @@ export function ChapterCarousel() {
         inline: "start",
       });
     }
-  }, [chapterIndex]);
+  }, [chapterIndex, interacted]);
 
   return (
     <div className="my-10 h-min w-full flex flex-col gap-2 items-center">
@@ -41,7 +41,7 @@ export function ChapterCarousel() {
 
 interface ChapterProps {
   className?: string;
-  chapter?: any;
+  chapter?: ChapterDataType;
   index?: number;
   chapterIndex: number;
   interacted?: boolean;
@@ -51,6 +51,14 @@ interface ChapterProps {
 
 interface ChapterCardProps extends ChapterProps {
   ref?: Ref<HTMLDivElement>;
+}
+
+interface ChapterDataType {
+  university: string;
+  est: number;
+  location: string;
+  website: string;
+  github: string;
 }
 
 function ChapterCards({
@@ -103,6 +111,8 @@ const ChapterCard = ({
   setInteracted,
   setChapterIndex,
 }: ChapterCardProps) => {
+  if (!chapter) return;
+
   return (
     <motion.div
       whileHover={{
