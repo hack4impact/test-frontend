@@ -22,9 +22,14 @@ export function ChapterCarousel() {
   }, [chapterIndex, interacted]);
 
   return (
-    <div className="my-10 h-min w-full flex flex-col gap-2 items-center">
+    <div
+      onMouseEnter={() => {
+        if (!interacted) setInteracted(true);
+      }}
+      className="my-10 h-min w-full flex flex-col gap-2 items-center justify-center"
+    >
       <MotionSelector
-        className="pt-2 pb-3 px-2 overscroll-x-contain border-x-3  "
+        className="pt-2 pb-3 px-2 border-x-3  "
         chapterIndex={chapterIndex}
         setChapterIndex={setChapterIndex}
       />
@@ -79,7 +84,7 @@ function ChapterCards({
   return (
     <motion.div
       ref={ref}
-      className="overscroll-x-contain flex flex-row w-full h-[400px] overflow-x-auto gap-2 snap-x snap-mandatory justify-start"
+      className="overscroll-x-none flex flex-row w-full h-[400px] overflow-x-auto snap-x snap-mandatory justify-start"
     >
       {chapters.map((chapter, index) => {
         return (
@@ -120,17 +125,17 @@ const ChapterCard = ({
       }}
       onMouseEnter={() => {
         setChapterIndex(index!);
-        if (!interacted) setInteracted(true);
+        // if (!interacted) setInteracted(true);
       }}
       ref={ref}
       className={cn(
         className,
-        " flex p-3 min-w-full w-full h-full gap-2 rounded-md bg-brand-blue justify-center snap-start",
+        " flex p-3 flex-none w-full h-full rounded-md bg-brand-blue justify-center snap-start mr-2 last:mr-0",
       )}
     >
       <a
         href="https://upenn.hack4impact.org"
-        className="w-1/2 h-full rounded-sm flex flex-col p-2 gap-1 text-white"
+        className="w-1/2 h-full rounded-sm flex flex-col p-2 gap-1 text-white mr-2"
       >
         <h1 className="text-3xl font-semibold w-full">{chapter.university}</h1>
         <p className="text-2xl w-full font-thin italic">
@@ -162,7 +167,7 @@ function Selector({
         chapterIndex == chapters.length - 1
           ? "border-r-brand-red"
           : "border-r-brand-green",
-        "flex relative flex-initial w-full h-min justify-start gap-2 overflow-x-auto snap-x snap-mandatory",
+        "overscroll-x-none flex relative flex-initial w-full h-min justify-start overflow-x-auto snap-x snap-mandatory",
       )}
     >
       {chapters.map((_, index) => {
@@ -208,7 +213,7 @@ function Selector({
               console.log(index, chapterIndex);
             }}
             className={cn(
-              "scroll-ml-2 snap-start rounded-sm flex-none w-[120px] h-[80px] scroll-smooth",
+              "scroll-ml-2 snap-start rounded-sm flex-none w-[120px] h-[80px] scroll-smooth mr-2 last:mr-0",
             )}
           ></motion.button>
         );

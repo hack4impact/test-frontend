@@ -5,13 +5,10 @@ import { GridPattern } from "@/components/common/GridPattern";
 import { ChapterCarousel } from "@/components/work/ChapterCarousel";
 import { ChapterFeatures } from "@/components/work/ChapterFeatures";
 import { MotionInitiativeCard } from "@/components/work/InitiativeCard";
-import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
-import { useEffect } from "react";
 
 export default function Work() {
   return (
-    <main className="min-h-screen w-screen px-10 mx-auto flex size-full flex-col pt-20">
+    <main className="min-h-screen w-full px-10 mx-auto flex size-full flex-col pt-20">
       <GridPattern
         gridColor="stroke-brand-blue-light"
         style={{ zIndex: -10 }}
