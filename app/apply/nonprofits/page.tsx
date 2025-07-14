@@ -101,14 +101,23 @@ export default function Work() {
               "mb-10  justify-center items-center flex h-[30rem] w-full flex-row text-brand-black",
             )}
           >
-            <div
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ amount: 0.5 }}
+              transition={{
+                type: "spring",
+                damping: 10,
+                stiffness: 100,
+                delay: 0.25,
+              }}
               className={cn(
                 "gap-5 flex flex-col h-full w-1/2 items-center pr-5",
               )}
             >
-              <AnimatedSectionTitle className="w-full text-5xl font-semibold">
+              <h3 className="w-full text-5xl font-semibold">
                 {applyNonprofits.tag}
-              </AnimatedSectionTitle>
+              </h3>{" "}
               <p className="whitespace-pre-line w-full text-2xl">
                 {applyNonprofits.info}
               </p>
@@ -121,12 +130,21 @@ export default function Work() {
                   Partner with us
                 </Button>
               </div>
-            </div>
-            <div
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ amount: 0.5 }}
+              transition={{
+                type: "spring",
+                damping: 10,
+                stiffness: 100,
+                delay: 0.25,
+              }}
               className={cn(
                 "h-full w-1/2 rounded-sm border-3 border-brand-blue backdrop-blur-[2px]",
               )}
-            ></div>
+            ></motion.div>
           </div>
           <AnimatedSectionTitle>
             Frequently Asked Questions
