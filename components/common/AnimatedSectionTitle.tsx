@@ -21,10 +21,10 @@ interface AnimatedSectionTitleProps {
 
 // Reusable animated section title component
 export const AnimatedSectionTitle = ({
-  className = "font-semibold",
+  className = "font-semibold text-5xl",
   children,
 }: AnimatedSectionTitleProps) => (
-  <motion.h1 {...sectionAnimation} className={cn(className, "text-5xl")}>
+  <motion.h1 {...sectionAnimation} className={cn(className)}>
     {children}
   </motion.h1>
 );

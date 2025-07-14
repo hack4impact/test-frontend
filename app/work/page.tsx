@@ -16,7 +16,7 @@ export default function Work() {
         gridColor="stroke-brand-blue-light"
         style={{ zIndex: -10 }}
       />
-      <AnimatedSectionTitle className="sticky mt-5 font-bold">
+      <AnimatedSectionTitle className="sticky mt-5 font-bold text-5xl">
         Our Work
       </AnimatedSectionTitle>
       <div className="my-10 flex w-full flex-col">

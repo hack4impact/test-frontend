@@ -3,8 +3,7 @@
 import { AnimatedSectionTitle } from "@/components/common/AnimatedSectionTitle";
 import { GridPattern } from "@/components/common/GridPattern";
 import { Button } from "@/components/ui/button";
-import { ChapterFeatures } from "@/components/work/ChapterFeatures";
-import { MotionInitiativeCard } from "@/components/work/InitiativeCard";
+import { applyChapters, applyNonprofits } from "@/data/apply-data";
 import { cn } from "@/lib/utils";
 import { Transition, motion } from "motion/react";
 import Link from "next/link";
@@ -28,7 +27,7 @@ export default function Work() {
 
       <main className="mx-auto flex size-full flex-col pt-20">
         <div className="h-min flex flex-auto items-center mt-5">
-          <AnimatedSectionTitle className="sticky font-bold">
+          <AnimatedSectionTitle className="sticky font-bold text-5xl">
             Apply
           </AnimatedSectionTitle>
           <div className="h-full flex flex-auto"></div>
@@ -55,7 +54,7 @@ export default function Work() {
                   layoutId="toggled"
                   className={cn(
                     "rounded-sm absolute inset-0 z-[-1]",
-                    "bg-brand-green",
+                    "bg-brand-red",
                   )}
                   initial={false}
                   transition={hoverTransition}
@@ -87,7 +86,7 @@ export default function Work() {
                   layoutId="toggled"
                   className={cn(
                     "rounded-sm absolute inset-0 z-[-1]",
-                    "bg-brand-green",
+                    "bg-brand-red",
                   )}
                   initial={false}
                   transition={hoverTransition}
@@ -97,24 +96,31 @@ export default function Work() {
           </div>
         </div>
         <div className="my-10 flex w-full flex-col">
-          <AnimatedSectionTitle>Nonprofit Partners</AnimatedSectionTitle>
           <div
             className={cn(
-              "border-3 my-10 justify-center items-center flex h-[30rem] w-full flex-row text-brand-black",
+              "mb-10  justify-center items-center flex h-[30rem] w-full flex-row text-brand-black",
             )}
           >
             <div
               className={cn(
-                "border-3 border-red-500 flex h-full w-1/2 items-center pr-15 pb-15",
+                "gap-5 flex flex-col h-full w-1/2 items-center pr-5",
               )}
             >
-              <Button
-                className={cn(
-                  "h-[50px] w-2/5 min-w-[250px] rounded-sm bg-brand-green text-2xl font-medium text-white hover:scale-105",
-                )}
-              >
-                Start a chapter
-              </Button>
+              <AnimatedSectionTitle className="w-full text-5xl font-semibold">
+                {applyNonprofits.tag}
+              </AnimatedSectionTitle>
+              <p className="whitespace-pre-line w-full text-2xl">
+                {applyNonprofits.info}
+              </p>
+              <div className="w-full h-min">
+                <Button
+                  className={cn(
+                    "h-[50px] w-2/5 min-w-[250px] rounded-sm bg-brand-green text-2xl font-medium text-white hover:scale-105",
+                  )}
+                >
+                  Partner with us
+                </Button>
+              </div>
             </div>
             <div
               className={cn(
@@ -125,7 +131,7 @@ export default function Work() {
           <AnimatedSectionTitle>
             Frequently Asked Questions
           </AnimatedSectionTitle>
-          <div className="w-full h-[10rem] my-10 border-3"></div>
+          <div className="w-full h-[50rem] my-10 border-3"></div>
         </div>
       </main>
     </div>
