@@ -340,7 +340,11 @@ function RotatingText({
             totalCharsCount,
           ),
         }}
-        className={cn("inline-block", elementLevelClassName)}
+        className={cn("inline-block leading-none", elementLevelClassName)}
+        style={{
+          lineHeight: 1,
+          verticalAlign: "baseline",
+        }}
       >
         {char}
       </motion.span>
@@ -353,7 +357,11 @@ function RotatingText({
   const renderWord = (wordObj: WordStructure, wordIndex: number) => (
     <motion.span
       key={wordIndex}
-      className={cn("inline-flex", splitLevelClassName)}
+      className={cn(
+        "inline-flex items-baseline leading-none",
+        splitLevelClassName,
+      )}
+      style={{ lineHeight: 1 }}
     >
       {wordObj.characters.map((char, charIndex) =>
         renderCharacter(char, charIndex, wordIndex, elements),
@@ -368,15 +376,18 @@ function RotatingText({
       transition={ROTATING_TEXT_CONFIG.entranceAnimation.transition}
       aria-live="polite"
       aria-label="Rotating text animation"
+      className="leading-none"
+      style={{ lineHeight: 1 }}
     >
       <motion.span
         className={cn(
-          "relative flex flex-wrap whitespace-pre-wrap",
+          "relative flex flex-wrap whitespace-pre-wrap leading-none",
           mainClassName,
         )}
         {...rest}
         layout
         transition={transition}
+        style={{ lineHeight: 1 }}
       >
         {/* Screen reader text */}
         <span className="sr-only">{texts[currentTextIndex]}</span>
@@ -390,11 +401,12 @@ function RotatingText({
             key={currentTextIndex}
             className={cn(
               splitBy === "lines"
-                ? "flex w-full flex-col"
-                : "relative flex flex-wrap whitespace-pre-wrap",
+                ? "flex w-full flex-col leading-none"
+                : "relative flex flex-wrap whitespace-pre-wrap items-baseline leading-none",
             )}
             layout
             aria-hidden="true"
+            style={{ lineHeight: 1 }}
           >
             {elements.map((wordObj, wordIndex) =>
               renderWord(wordObj, wordIndex),
