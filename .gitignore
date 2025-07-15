@@ -3,16 +3,13 @@
 # dependencies
 /node_modules
 /.pnp
-<<<<<<< HEAD
 .pnp.js
-=======
 .pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
->>>>>>> 685e8f9 (Initial commit from Create Next App)
 
 # testing
 /coverage
