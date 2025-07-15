@@ -6,7 +6,6 @@ import HeroSection from "@/components/features/home/HeroSection";
 import ImpactSection from "@/components/features/home/ImpactSection";
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
-import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (

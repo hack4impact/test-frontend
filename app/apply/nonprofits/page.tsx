@@ -5,7 +5,7 @@ import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 import { Button } from "@/components/ui/button";
 import { applyNonprofits } from "@/data/content";
 import { cn } from "@/lib/utils";
-import { Transition, motion, scale } from "motion/react";
+import { Transition, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

@@ -70,7 +70,6 @@ export default function Hero() {
                 stiffness: 400,
               }}
               rotationInterval={2000}
-              onNext={(e) => {}} // Change color of background every update?
             ></RotatingText>
           </LayoutGroup>
 

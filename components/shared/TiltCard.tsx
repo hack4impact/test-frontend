@@ -8,13 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import {
-  MotionProps,
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { MotionProps, motion, useMotionValue, useSpring } from "motion/react";
 import { MouseEvent, useRef } from "react";
 
 /**

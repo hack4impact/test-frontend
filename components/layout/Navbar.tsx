@@ -2,6 +2,7 @@
 
 import { navItems } from "@/data/navigation";
 import { cn } from "@/lib/utils";
+import { NavItem } from "@/types";
 import {
   Transition,
   motion,
@@ -230,7 +231,7 @@ export default function Navbar() {
           className="min-w-[200px]"
           onMouseLeave={() => setHoveredSubIndex(null)}
         >
-          {item.content.map((subItem, subIndex) => (
+          {item.content.map((subItem: NavItem, subIndex) => (
             <NavigationMenuItem asChild key={subIndex}>
               <div className="z-55">
                 <NavigationMenuLink
@@ -274,11 +275,17 @@ export default function Navbar() {
    * Render the logo with appropriate version for current state
    */
   const renderLogo = () => (
-    <Link href="/" className="h-full flex-auto content-center">
+    <Link
+      href="/"
+      className={cn(
+        "h-full flex-auto justify-start items-center",
+        isCompact ? "hidden xl:flex" : "hidden lg:flex",
+      )}
+    >
       <motion.img
         alt="Hack for Impact Logo"
         src={isCompact ? "/h4i.svg" : "/logo.svg"}
-        className="h-10 min-h-5 flex-none"
+        className={cn("h-10 min-h-5 flex-none")}
       />
     </Link>
   );

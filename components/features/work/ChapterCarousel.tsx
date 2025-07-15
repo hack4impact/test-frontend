@@ -1,7 +1,7 @@
 import { chapters } from "@/data/content";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Chapter data structure
@@ -70,18 +70,12 @@ const CAROUSEL_CONFIG = {
 interface ChapterCardProps {
   chapter: ChapterData;
   index: number;
-  isActive: boolean;
+  isActive?: boolean;
   onHover: (index: number) => void;
   ref: (el: HTMLDivElement | null) => void;
 }
 
-function ChapterCard({
-  chapter,
-  index,
-  isActive,
-  onHover,
-  ref,
-}: ChapterCardProps) {
+function ChapterCard({ chapter, index, onHover, ref }: ChapterCardProps) {
   return (
     <motion.div
       ref={ref}
@@ -212,16 +206,19 @@ export function ChapterCarousel() {
   /**
    * Scroll to the selected chapter card
    */
-  const scrollToCard = (index: number) => {
-    const targetCard = cardRefs.current[index];
-    if (targetCard && hasInteracted) {
-      targetCard.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
-      });
-    }
-  };
+  const scrollToCard = useCallback(
+    (index: number) => {
+      const targetCard = cardRefs.current[index];
+      if (targetCard && hasInteracted) {
+        targetCard.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "start",
+        });
+      }
+    },
+    [hasInteracted],
+  );
 
   /**
    * Handle index changes and scroll to card
@@ -257,7 +254,7 @@ export function ChapterCarousel() {
   // Scroll to card when index changes
   useEffect(() => {
     scrollToCard(activeIndex);
-  }, [activeIndex, hasInteracted]);
+  }, [activeIndex, hasInteracted, scrollToCard]);
 
   return (
     <div

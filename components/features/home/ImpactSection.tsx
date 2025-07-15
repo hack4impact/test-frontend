@@ -150,7 +150,7 @@ export default function ImpactSection({
   /**
    * Render individual impact card
    */
-  const renderImpactCard = (item: ImpactData, index: number) => (
+  const renderImpactCard = (item: ImpactData) => (
     <MotionTiltCard
       key={item.id}
       variants={IMPACT_SECTION_CONFIG.cardVariants}
