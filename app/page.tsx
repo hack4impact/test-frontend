@@ -1,10 +1,10 @@
 "use client";
 
-import { AnimatedSectionTitle } from "@/components/common/AnimatedSectionTitle";
-import { GridPattern } from "@/components/common/GridPattern";
 import FeaturedProjects from "@/components/features/home/FeaturedProjects";
 import HeroSection from "@/components/features/home/HeroSection";
 import ImpactSection from "@/components/features/home/ImpactSection";
+import { GridPattern } from "@/components/layout/GridPattern";
+import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 import { Button } from "@/components/ui/button";
 
 // Action buttons component

@@ -1,7 +1,7 @@
 import { chapterFeatures, childVariants } from "@/data/data";
 import { cn } from "@/lib/utils";
 
-import { MotionFeatureCard } from "../../common/FeatureCard";
+import { MotionFeatureCard } from "../../shared/FeatureCard";
 
 export function ChapterFeatures() {
   return (

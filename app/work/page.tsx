@@ -1,10 +1,10 @@
 "use client";
 
-import { AnimatedSectionTitle } from "@/components/common/AnimatedSectionTitle";
-import { GridPattern } from "@/components/common/GridPattern";
 import { ChapterCarousel } from "@/components/features/work/ChapterCarousel";
 import { ChapterFeatures } from "@/components/features/work/ChapterFeatures";
 import { MotionInitiativeCard } from "@/components/features/work/InitiativeCard";
+import { GridPattern } from "@/components/layout/GridPattern";
+import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 
 export default function Work() {
   return (

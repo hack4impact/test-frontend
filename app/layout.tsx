@@ -1,4 +1,4 @@
-import ClickSpark from "@/components/common/ClickSpark";
+import ClickSpark from "@/components/layout/ClickSpark";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 

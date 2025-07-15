@@ -4,7 +4,7 @@ import { cn, splitText } from "@/lib/utils";
 import { LayoutGroup, animate, stagger } from "motion/react";
 import { useEffect, useRef } from "react";
 
-import RotatingText from "../../common/RotatingText";
+import RotatingText from "../../shared/RotatingText";
 import { Button } from "../../ui/button";
 
 export default function Hero() {

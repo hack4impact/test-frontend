@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 
-import { MotionTiltCard } from "../../common/TiltCard";
+import { MotionTiltCard } from "../../shared/TiltCard";
 
 export default function ImpactSection() {
   const ref = useRef(null);

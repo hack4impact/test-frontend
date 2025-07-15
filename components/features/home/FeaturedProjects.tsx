@@ -1,8 +1,7 @@
 import { childVariants, features } from "@/data/data";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
 
-import { MotionFeatureCard } from "../../common/FeatureCard";
+import { MotionFeatureCard } from "../../shared/FeatureCard";
 
 export default function FeaturedProjects() {
   return (
