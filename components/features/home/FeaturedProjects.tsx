@@ -1,4 +1,5 @@
 import { childVariants } from "@/data/animation";
+import { features } from "@/data/content";
 import { cn } from "@/lib/utils";
 
 import { MotionFeatureCard } from "../../shared/FeatureCard";
@@ -6,7 +7,7 @@ import { MotionFeatureCard } from "../../shared/FeatureCard";
 export default function FeaturedProjects() {
   return (
     <div className={cn("my-10 flex w-full flex-col justify-between gap-5")}>
-      {feature.map((item, index) => {
+      {features.map((item, index) => {
         return (
           <MotionFeatureCard
             style={{ opacity: 0 }}

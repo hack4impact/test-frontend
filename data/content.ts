@@ -101,7 +101,7 @@ export const chapterFeatures = [
   },
 ];
 
-export const chapters: Chapter[] = [
+export const chapters = [
   {
     university: "University of Pennsylvannia",
     est: 2014,

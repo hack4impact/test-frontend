@@ -43,3 +43,5 @@ export type ComponentPropsWithoutRef<T extends React.ElementType> =
 export type ForwardedRefComponent<T, P = {}> = React.ForwardRefExoticComponent<
   React.PropsWithoutRef<P> & React.RefAttributes<T>
 >;
+
+export type ScrollState = "expanded" | "compact";

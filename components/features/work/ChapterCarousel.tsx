@@ -1,4 +1,4 @@
-import { chapters } from "@/data/data";
+import { chapters } from "@/data/content";
 import { cn } from "@/lib/utils";
 import { motion, useInView, useScroll } from "motion/react";
 import { Ref, RefObject, useEffect, useRef, useState } from "react";
