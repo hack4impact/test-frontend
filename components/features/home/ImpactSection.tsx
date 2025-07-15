@@ -1,4 +1,5 @@
-import { childVariants, impactInfo, parentVariants } from "@/data/data";
+import { childVariants, parentVariants } from "@/data/animation";
+import { impactInfo } from "@/data/content";
 import { cn } from "@/lib/utils";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";

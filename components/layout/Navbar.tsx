@@ -1,6 +1,6 @@
 "use client";
 
-import { navItems } from "@/data/data";
+import { navItems } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import {
   Transition,

@@ -1,4 +1,5 @@
-import { chapterFeatures, childVariants } from "@/data/data";
+import { childVariants } from "@/data/animation";
+import { chapterFeatures } from "@/data/content";
 import { cn } from "@/lib/utils";
 
 import { MotionFeatureCard } from "../../shared/FeatureCard";

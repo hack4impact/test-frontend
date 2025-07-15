@@ -3,7 +3,7 @@
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 import { Button } from "@/components/ui/button";
-import { applyChapters } from "@/data/apply-data";
+import { applyChapters } from "@/data/content";
 import { cn } from "@/lib/utils";
 import { Transition, motion } from "motion/react";
 import Link from "next/link";
