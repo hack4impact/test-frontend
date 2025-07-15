@@ -2,9 +2,9 @@
 
 import { AnimatedSectionTitle } from "@/components/common/AnimatedSectionTitle";
 import { GridPattern } from "@/components/common/GridPattern";
-import { ChapterCarousel } from "@/components/work/ChapterCarousel";
-import { ChapterFeatures } from "@/components/work/ChapterFeatures";
-import { MotionInitiativeCard } from "@/components/work/InitiativeCard";
+import { ChapterCarousel } from "@/components/features/work/ChapterCarousel";
+import { ChapterFeatures } from "@/components/features/work/ChapterFeatures";
+import { MotionInitiativeCard } from "@/components/features/work/InitiativeCard";
 
 export default function Work() {
   return (

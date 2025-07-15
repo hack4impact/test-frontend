@@ -1,25 +1,24 @@
-import { chapterFeatures, childVariants } from "@/data/data";
+import { childVariants, features } from "@/data/data";
 import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 
-import { MotionFeatureCard } from "../common/FeatureCard";
+import { MotionFeatureCard } from "../../common/FeatureCard";
 
-export function ChapterFeatures() {
+export default function FeaturedProjects() {
   return (
     <div className={cn("my-10 flex w-full flex-col justify-between gap-5")}>
-      {chapterFeatures.map((item, index) => {
+      {features.map((item, index) => {
         return (
           <MotionFeatureCard
-            key={index}
             style={{ opacity: 0 }}
             initial="hidden"
             whileInView="visible"
             variants={childVariants}
             viewport={{ amount: "some" }}
+            key={index}
             title={item.title}
             content={item.content}
-            bgColor={item.bgColor}
-            imgBorder={item.imgBorder}
-          />
+          ></MotionFeatureCard>
         );
       })}
     </div>

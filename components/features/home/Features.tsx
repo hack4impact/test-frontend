@@ -2,7 +2,7 @@ import { features, item } from "@/data/home-data";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 
-import { MotionFeatureCard } from "../common/FeatureCard";
+import { MotionFeatureCard } from "../../common/FeatureCard";
 
 export default function Features() {
   return (
