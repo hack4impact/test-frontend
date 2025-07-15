@@ -4,8 +4,8 @@ import { cn, splitText } from "@/lib/utils";
 import { LayoutGroup, animate, stagger } from "motion/react";
 import { useEffect, useRef } from "react";
 
-import RotatingText from "../../shared/RotatingText";
 import { Button } from "../../ui/button";
+import RotatingText from "./RotatingText";
 
 /**
  * Configuration for the HeroSection component

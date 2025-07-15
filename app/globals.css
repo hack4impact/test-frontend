@@ -3,9 +3,9 @@
 @import "tw-animate-css";
 
 /* Debug styles */
-* {
-  border: 1px solid red !important;
-}
+/* * { */
+/*   border: 1px solid red !important; */
+/* } */
 @custom-variant dark (&:is(.dark *));
 
 @theme {

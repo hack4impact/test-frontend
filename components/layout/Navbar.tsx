@@ -295,7 +295,7 @@ export default function Navbar() {
       animate={scrollState}
       transition={ANIMATION_CONFIG.navTransition}
       className={cn(
-        "z-50 fixed top-0 left-1/2 flex w-screen -translate-x-1/2 transform flex-row px-10 bg-white/50 backdrop-blur-[1px]",
+        "z-50 fixed top-0 left-1/2 flex w-screen -translate-x-1/2 transform flex-row px-10 backdrop-blur-[1px]",
       )}
     >
       {/* Logo Section */}
@@ -313,7 +313,11 @@ export default function Navbar() {
           className="flex h-full w-full max-w-none justify-center lg:justify-end"
         >
           <NavigationMenuList
-            className="flex h-full w-full"
+            className={
+              isCompact
+                ? "gap-1 md:gap-6 lg:gap-1"
+                : "sm:gap-8 md:gap-10 lg:gap-1"
+            }
             onMouseLeave={() => setHoveredIndex(null)}
           >
             {navItems.map((item, index) =>
