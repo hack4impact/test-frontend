@@ -278,8 +278,7 @@ export default function Navbar() {
     <Link
       href="/"
       className={cn(
-        "h-full flex-auto justify-start items-center",
-        isCompact ? "hidden xl:flex" : "hidden lg:flex",
+        "h-full flex-auto justify-start items-center hidden lg:flex",
       )}
     >
       <motion.img
@@ -303,7 +302,7 @@ export default function Navbar() {
       {renderLogo()}
 
       {/* Spacer */}
-      <div className="h-full w-1/6 flex-auto" />
+      <div className={cn("h-full w-1/6 flex-auto hidden lg:flex")} />
 
       {/* Navigation Menu */}
       <div className="flex h-full flex-auto">
@@ -311,7 +310,7 @@ export default function Navbar() {
           value={activeDropdown!}
           onValueChange={setActiveDropdown}
           viewport={false}
-          className="flex h-full w-full max-w-none justify-end"
+          className="flex h-full w-full max-w-none justify-center lg:justify-end"
         >
           <NavigationMenuList
             className="flex h-full w-full"
