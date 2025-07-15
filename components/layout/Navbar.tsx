@@ -1,14 +1,13 @@
 "use client";
 
-import {
-  navbarTransition,
-  navbarVariants,
-  transitions,
-} from "@/data/animation";
 import { navItems } from "@/data/navigation";
 import { cn } from "@/lib/utils";
-import { ScrollState } from "@/types";
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import {
+  Transition,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -23,13 +22,49 @@ import {
 } from "../ui/navigation-menu";
 
 /**
- * Navigation item structure from data source
+ * Possible states for the navbar based on scroll position
  */
-interface NavItem {
-  name: string;
-  link: string;
-  content?: NavItem[];
-}
+type ScrollState = "expanded" | "compact";
+
+/**
+ * Animation configuration for navbar state transitions
+ */
+const ANIMATION_CONFIG = {
+  // Navbar state variants
+  navVariants: {
+    expanded: {
+      height: "80px",
+      width: "100vw",
+      marginTop: "0vh",
+      borderRadius: "0px",
+      backgroundColor: "transparent",
+      filter: "drop-shadow(0px 0px 0px)",
+    },
+    compact: {
+      height: "60px",
+      width: "80vw",
+      marginTop: "2vh",
+      borderRadius: "5px",
+      backgroundColor: "var(--color-brand-blue)",
+      filter: "drop-shadow(0px 4px 4px #33333350)",
+    },
+  },
+
+  // Transition configuration
+  navTransition: {
+    duration: 0.3,
+    type: "spring" as const,
+    filter: { type: false },
+  } as Transition,
+
+  // Hover effect transition
+  hoverTransition: {
+    type: "spring",
+    stiffness: 500,
+    damping: 30,
+    mass: 1,
+  } as Transition,
+} as const;
 
 /**
  * Responsive navigation bar that adapts based on scroll position
@@ -119,7 +154,7 @@ export default function Navbar() {
   /**
    * Check if item should show hover effect
    */
-  const shouldShowHover = (index: number): boolean => {
+  const shouldShowHover = (index: number): boolean | undefined => {
     const item = navItems[index];
     const itemValue = `item-${index}`;
 
@@ -149,7 +184,7 @@ export default function Navbar() {
           isCompact ? "bg-white" : "bg-brand-blue",
         )}
         initial={false}
-        transition={transitions.springHover}
+        transition={ANIMATION_CONFIG.hoverTransition}
       />
     );
   };
@@ -165,7 +200,7 @@ export default function Navbar() {
         layoutId="hovered"
         className="absolute inset-0 z-[-1] rounded-sm bg-brand-green"
         initial={false}
-        transition={transitions.springHover}
+        transition={ANIMATION_CONFIG.hoverTransition}
       />
     );
   };
@@ -250,9 +285,9 @@ export default function Navbar() {
 
   return (
     <motion.header
-      variants={navbarVariants}
+      variants={ANIMATION_CONFIG.navVariants}
       animate={scrollState}
-      transition={navbarTransition}
+      transition={ANIMATION_CONFIG.navTransition}
       className={cn(
         "z-50 fixed top-0 left-1/2 flex w-screen -translate-x-1/2 transform flex-row px-10 bg-white/50 backdrop-blur-[1px]",
       )}

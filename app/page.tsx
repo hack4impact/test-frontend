@@ -16,7 +16,6 @@ export default function Home() {
         style={{ zIndex: -10 }}
       />
       <HeroSection />
-
       <div className="flex w-full flex-col">
         <AnimatedSectionTitle>Our Impact</AnimatedSectionTitle>
         <ImpactSection />
