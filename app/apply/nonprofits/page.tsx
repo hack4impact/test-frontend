@@ -13,10 +13,8 @@ import { usePathname } from "next/navigation";
 export default function Work() {
   const pathname = usePathname();
   const hoverTransition: Transition = {
-    type: "spring",
-    stiffness: 250,
-    damping: 25,
-    mass: 1,
+    duration: 0.2,
+    ease: [0.4, 0, 0.2, 1],
   };
 
   return (
