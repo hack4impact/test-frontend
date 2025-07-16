@@ -52,9 +52,9 @@ export default function Expandable({
           color: "var(--color-brand-black)",
           borderRadius: "8px",
         },
-        expandedHover: { background: expandedColor, color: "white" },
+        expandedHover: { background: hoverColor, color: "white" },
         closedHover: {
-          background: hoverColor,
+          background: expandedColor,
           color: "white",
         },
       }

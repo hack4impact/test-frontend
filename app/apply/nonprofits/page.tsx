@@ -14,8 +14,8 @@ export default function Work() {
   const pathname = usePathname();
   const hoverTransition: Transition = {
     type: "spring",
-    stiffness: 500,
-    damping: 30,
+    stiffness: 250,
+    damping: 25,
     mass: 1,
   };
 
@@ -27,18 +27,17 @@ export default function Work() {
       />
 
       <main className="mx-auto flex size-full flex-col pt-20">
-        <div className="h-min flex flex-auto items-center mt-5">
+        <div className="h-[48px] flex flex-auto items-center mt-5">
           <AnimatedSectionTitle className="sticky font-bold text-5xl">
             Apply
           </AnimatedSectionTitle>
           <div className="h-full flex flex-auto"></div>
-          <div className="h-[48px] flex flex-row gap-5 items-center">
+          <div className="z-1 p-[2px] bg-brand-red-light/50 h-full flex flex-row gap-3 items-center border-2 border-brand-red rounded-md">
             <div className="relative h-full content-center">
               <MotionLink
                 whileHover={
                   pathname != "/apply/chapters"
                     ? {
-                        scale: 1.05,
                         background: "var(--color-brand-black)",
                         color: "white",
                       }
@@ -46,16 +45,12 @@ export default function Work() {
                         scale: 1.05,
                       }
                 }
-                initial={
-                  pathname == "/apply/chapters"
-                    ? { color: "white", background: "var(--color-brand-red)" }
-                    : {
-                        color: "var(--color-brand-black)",
-                        background: "transparent",
-                      }
-                }
+                initial={{
+                  color: "var(--color-brand-black)",
+                  background: "transparent",
+                }}
                 href="/apply/chapters"
-                className="flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium  "
+                className=" flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium  "
               >
                 Chapters
               </MotionLink>
@@ -75,7 +70,6 @@ export default function Work() {
                 whileHover={
                   pathname != "/apply/nonprofits"
                     ? {
-                        scale: 1.05,
                         background: "var(--color-brand-black)",
                         color: "white",
                       }
@@ -85,22 +79,18 @@ export default function Work() {
                 }
                 initial={
                   pathname == "/apply/nonprofits"
-                    ? { color: "white", background: "var(--color-brand-red)" }
+                    ? { color: "white" }
                     : {
                         color: "var(--color-brand-black)",
-                        background: "transparent",
                       }
                 }
                 href="/apply/nonprofits"
-                className="flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium "
+                className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium "
               >
                 Nonprofits
               </MotionLink>
               {pathname == "/apply/nonprofits" && (
                 <motion.div
-                  whileHover={{
-                    background: "var(--color-brand-black)",
-                  }}
                   layoutId="toggled"
                   className={cn(
                     "rounded-sm absolute inset-0 z-[-1] bg-brand-red",
