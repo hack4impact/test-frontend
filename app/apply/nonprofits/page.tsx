@@ -1,5 +1,6 @@
 "use client";
 
+import FAQ from "@/components/features/apply/FAQ";
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 import { Button } from "@/components/ui/button";
@@ -165,7 +166,12 @@ export default function Work() {
           <AnimatedSectionTitle>
             Frequently Asked Questions
           </AnimatedSectionTitle>
-          <div className="w-full h-[50rem] my-10 border-3"></div>
+          <FAQ
+            expandedColor="var(--color-brand-green)"
+            closedColor="var(--color-brand-green-light)"
+            hoverColor="var(--color-brand-blue)"
+            items={applyNonprofits}
+          ></FAQ>
         </div>
       </main>
     </div>

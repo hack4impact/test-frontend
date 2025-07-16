@@ -72,3 +72,35 @@ export const item: Variants = {
     x: -10,
   },
 };
+
+export const expandableTitle: Variants = {
+  expanded: {
+    background: "var(--color-brand-blue)",
+    color: "white",
+    borderBottomLeftRadius: "0px",
+    borderBottomRightRadius: "0px",
+  },
+  closed: {
+    background: "var(--color-brand-blue-light)",
+    color: "var(--color-brand-black)",
+    borderRadius: "8px",
+  },
+  expandedHover: { background: "var(--color-brand-green)", color: "white" },
+  closedHover: {
+    background: "var(--color-brand-blue)",
+    color: "white",
+  },
+};
+
+export const expandableIcon: Variants = {
+  expanded: {
+    rotate: 45,
+    color: "white",
+  },
+  closed: { rotate: 0, color: "var(--color-brand-black)" },
+  expandedHover: {
+    rotate: 45,
+    color: "white",
+  },
+  closedHover: { rotate: 0, color: "white" },
+};
