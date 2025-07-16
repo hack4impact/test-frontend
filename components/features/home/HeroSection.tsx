@@ -2,6 +2,7 @@
 
 import { cn, splitText } from "@/lib/utils";
 import { LayoutGroup, animate, stagger } from "motion/react";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 import { Button } from "../../ui/button";
@@ -160,15 +161,16 @@ export default function HeroSection() {
         Building powerful nonprofit software as a tool for social good
       </h2>
 
-      <Button
+      <Link
+        href="/apply/nonprofits"
         className={cn(
-          "h-[50px] w-2/5 min-w-[250px] rounded-sm",
-          "bg-brand-green text-2xl font-medium text-white",
-          "hover:scale-105 transition-transform duration-200",
+          "h-[50px] w-2/5 min-w-[250px] rounded-sm inline-flex items-center justify-center",
+          "bg-brand-green text-2xl font-medium text-white whitespace-nowrap",
+          "hover:scale-105 hover:bg-brand-black transition-transform duration-200",
         )}
       >
         Work with us
-      </Button>
+      </Link>
     </>
   );
 
