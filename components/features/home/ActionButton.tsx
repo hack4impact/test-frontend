@@ -60,7 +60,7 @@ const ACTION_BUTTONS_CONFIG = {
     {
       id: "chapters",
       label: "See all chapters",
-      href: "/chapters",
+      href: "/apply/chapters",
       variant: "primary" as const,
       bgColor: "bg-brand-blue",
     },
