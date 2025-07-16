@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -138,9 +137,14 @@ function getButtonStyling(
 
   const baseClasses = cn(
     sizeClasses[size],
-    "rounded-sm font-medium text-white hover:scale-105 transition-transform duration-200",
+    "inline-flex items-center justify-center rounded-sm font-medium text-white hover:scale-105 transition-transform hover:bg-brand-black duration-200 px-6 py-3 no-underline",
     action.className,
   );
+
+  // Handle disabled state
+  if (action.disabled) {
+    return cn(baseClasses, "opacity-50 cursor-not-allowed pointer-events-none");
+  }
 
   // Use custom background color if provided
   if (action.bgColor) {
@@ -200,7 +204,11 @@ function ActionButtonItem({
       }
     : {};
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    if (action.disabled) {
+      e.preventDefault();
+      return;
+    }
     action.onClick?.();
   };
 
@@ -215,30 +223,26 @@ function ActionButtonItem({
   return (
     <ButtonComponent {...buttonProps}>
       {action.external ? (
-        <Button
-          asChild
+        <a
+          href={action.href}
+          target="_blank"
+          rel="noopener noreferrer"
           className={buttonStyling}
-          disabled={action.disabled}
           onClick={handleClick}
+          aria-label={`${action.label} (opens in new tab)`}
+          aria-disabled={action.disabled}
         >
-          <a
-            href={action.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${action.label} (opens in new tab)`}
-          >
-            {buttonContent}
-          </a>
-        </Button>
+          {buttonContent}
+        </a>
       ) : (
-        <Button
-          asChild
+        <Link
+          href={action.href}
           className={buttonStyling}
-          disabled={action.disabled}
           onClick={handleClick}
+          aria-disabled={action.disabled}
         >
-          <Link href={action.href}>{buttonContent}</Link>
-        </Button>
+          {buttonContent}
+        </Link>
       )}
     </ButtonComponent>
   );
