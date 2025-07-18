@@ -5,7 +5,6 @@ import { LayoutGroup, animate, stagger } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-import { Button } from "../../ui/button";
 import RotatingText from "./RotatingText";
 
 /**

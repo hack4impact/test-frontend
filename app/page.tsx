@@ -7,10 +7,10 @@ import ImpactSection from "@/components/features/home/ImpactSection";
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 import { useFeaturedProjects } from "@/hooks/useFeaturedProjects";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   const { projects, loading, error } = useFeaturedProjects();
+  console.log(loading, error);
 
   return (
     <main className="min-h-screen w-screen px-10 mx-auto flex size-full flex-col pt-20">

@@ -1,5 +1,6 @@
 import { features } from "@/data/content";
 import { cn } from "@/lib/utils";
+import { Image, RichText } from "@/types";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 
 import {
@@ -23,12 +24,16 @@ const FEATURED_PROJECTS_CONFIG = {
  */
 interface ProjectData {
   name: string;
-  description: string;
+  description: RichText;
   footer?: string;
   bgColor?: string;
   textColor?: string;
   imgBorder?: string;
   link: string;
+  photo?: Image;
+  tags?: string[];
+  featuredOnHomePage?: boolean;
+  type?: "National Initiative" | "Chapter Project";
 }
 
 /**
@@ -64,8 +69,7 @@ export default function FeaturedProjects({
   isLoading = false,
 }: FeaturedProjectsProps = {}) {
   // Use provided projects or fallback data
-  const displayProjects = projects || FEATURED_PROJECTS_CONFIG.fallbackProjects;
-
+  const displayProjects = projects;
   /**
    * Render loading skeleton
    */
@@ -113,14 +117,13 @@ export default function FeaturedProjects({
       </div>
     </div>
   );
-
   // Handle loading state
   if (isLoading) {
     return renderLoadingSkeleton();
   }
 
   // Handle empty state
-  if (!displayProjects.length) {
+  if (displayProjects == null || !displayProjects.length) {
     return renderEmptyState();
   }
 

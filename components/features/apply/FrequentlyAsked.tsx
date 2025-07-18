@@ -17,7 +17,7 @@ export default function FrequentlyAsked({
 }) {
   return (
     <div className="my-10">
-      {items.map((item: any, index: number) => {
+      {items.map((item: FAQ, index: number) => {
         return (
           <Expandable
             expandedColor={expandedColor}

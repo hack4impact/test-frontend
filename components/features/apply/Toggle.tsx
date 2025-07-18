@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { Transition, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Ref } from "react";
 
 const MotionLink = motion.create(Link);
 const hoverTransition: Transition = {
@@ -9,11 +10,14 @@ const hoverTransition: Transition = {
   ease: [0.4, 0, 0.2, 1],
 };
 
-export default function Toggle() {
+export function Toggle({ ref }: { ref: Ref<HTMLDivElement> }) {
   const pathname = usePathname();
 
   return (
-    <div className="z-1 p-[2px] bg-brand-red-light/50 h-full flex flex-row gap-3 items-center border-2 border-brand-red rounded-md">
+    <div
+      ref={ref}
+      className="z-1 p-[2px] bg-brand-red-light/50 h-full flex flex-row gap-3 items-center border-2 border-brand-red rounded-md"
+    >
       <div className="relative h-full content-center">
         <MotionLink
           whileHover={
@@ -83,3 +87,5 @@ export default function Toggle() {
     </div>
   );
 }
+
+export const MotionToggle = motion.create(Toggle);

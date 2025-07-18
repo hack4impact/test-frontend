@@ -55,7 +55,6 @@ const IMPACT_SECTION_CONFIG = {
   // Default impact info (fallback data)
   fallbackData: [
     {
-      id: 1,
       title: "Chapter Network",
       content:
         "We help new chapters help their local community by providing established communication channels with veteran chapters and mentors",
@@ -63,7 +62,6 @@ const IMPACT_SECTION_CONFIG = {
       bgColor: "var(--color-brand-blue)",
     },
     {
-      id: 2,
       title: "Nonprofit Projects",
       content:
         "We help nonprofits do the good they are meant to be doing more efficiently. By building them the custom software they need, they can focus on their important work",
@@ -71,7 +69,6 @@ const IMPACT_SECTION_CONFIG = {
       bgColor: "var(--color-brand-green)",
     },
     {
-      id: 3,
       title: "Chapter Resources",
       content:
         "Our 9 years of experience in building socially impactful technology has given our chapters and members the tools to help nonprofits",
@@ -85,7 +82,6 @@ const IMPACT_SECTION_CONFIG = {
  * Interface for impact data structure
  */
 interface ImpactData {
-  id: number | string;
   title: string;
   content: string;
   footer: string;
@@ -150,9 +146,9 @@ export default function ImpactSection({
   /**
    * Render individual impact card
    */
-  const renderImpactCard = (item: ImpactData) => (
+  const renderImpactCard = (item: ImpactData, index: number) => (
     <MotionTiltCard
-      key={item.id}
+      key={index}
       variants={IMPACT_SECTION_CONFIG.cardVariants}
       title={item.title}
       content={item.content}
@@ -198,7 +194,7 @@ export default function ImpactSection({
         Our Impact Areas
       </h2>
 
-      {displayData.map((item, index) => renderImpactCard(item))}
+      {displayData.map((item, index) => renderImpactCard(item, index))}
     </motion.section>
   );
 }

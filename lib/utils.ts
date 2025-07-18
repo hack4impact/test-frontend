@@ -202,39 +202,6 @@ export function isValidUrl(url: string): boolean {
 }
 
 /**
- * Debounce function to limit the rate of function calls
- */
-export function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  delay: number,
-): (...args: Parameters<T>) => void {
-  let timeoutId: NodeJS.Timeout;
-
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func(...args), delay);
-  };
-}
-
-/**
- * Throttle function to limit the rate of function calls
- */
-export function throttle<T extends (...args: any[]) => any>(
-  func: T,
-  delay: number,
-): (...args: Parameters<T>) => void {
-  let lastCall = 0;
-
-  return (...args: Parameters<T>) => {
-    const now = Date.now();
-    if (now - lastCall >= delay) {
-      lastCall = now;
-      func(...args);
-    }
-  };
-}
-
-/**
  * Generates a random ID string
  */
 export function generateId(length = 8): string {
@@ -291,27 +258,6 @@ export function deepClone<T>(obj: T): T {
   }
 
   return clonedObj;
-}
-
-/**
- * Safely gets a nested object property
- */
-export function safeGet<T>(
-  obj: any,
-  path: string,
-  defaultValue?: T,
-): T | undefined {
-  const keys = path.split(".");
-  let result = obj;
-
-  for (const key of keys) {
-    if (result == null || typeof result !== "object") {
-      return defaultValue;
-    }
-    result = result[key];
-  }
-
-  return result !== undefined ? result : defaultValue;
 }
 
 /**
