@@ -1,10 +1,10 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { cn, splitText } from "@/lib/utils";
 import { LayoutGroup, animate, stagger } from "motion/react";
 import { useEffect, useRef } from "react";
 
-import { Button } from "../../ui/button";
 import RotatingText from "./RotatingText";
 
 export default function Hero() {

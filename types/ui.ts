@@ -4,8 +4,6 @@
  * This file contains type definitions for all UI components,
  * including button variants, form components, and layout components.
  */
-import { VariantProps } from "class-variance-authority";
-
 import { ComponentPropsWithoutRef } from "./index";
 
 /**

@@ -1,4 +1,6 @@
+import { features } from "@/data/content";
 import { cn } from "@/lib/utils";
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 
 import {
   MotionFeatureCard,
@@ -12,20 +14,7 @@ import {
 const FEATURED_PROJECTS_CONFIG = {
   containerClasses: "my-10 flex w-full flex-col justify-between gap-5",
   // This would typically come from your CMS or API
-  fallbackProjects: [
-    {
-      id: 1,
-      title: "Habitat for Humanity",
-      content:
-        "Habitat for Humanity of Tompkins and Cortland Counties partner with first-time homebuyers in our community to help them build or improve a place they can call home. We built an administration and volunteer sign-ups portal allowing them to manage multiple forms at once and streamline administrative processes.",
-    },
-    {
-      id: 2,
-      title: "MapScout",
-      content:
-        "MapScout is an interactive resource map that allows people looking for behavioral/mental health and trauma-specific services to be able to see what is offered near them and more easily navigate a system that is often confusing and overwhelming. We currently partner with two nonprofit organizations, PACTS and EPIC.",
-    },
-  ],
+  fallbackProjects: features,
 } as const;
 
 /**
@@ -33,13 +22,13 @@ const FEATURED_PROJECTS_CONFIG = {
  * This should match your CMS/API data structure
  */
 interface ProjectData {
-  id: number | string;
-  title: string;
-  content: string;
+  name: string;
+  description: string;
   footer?: string;
   bgColor?: string;
   textColor?: string;
   imgBorder?: string;
+  link: string;
 }
 
 /**
@@ -97,14 +86,15 @@ export default function FeaturedProjects({
    */
   const renderProjectCard = (project: ProjectData, index: number) => (
     <MotionFeatureCard
-      key={project.id}
-      title={project.title}
-      content={project.content}
+      key={index}
+      title={project.name}
+      content={documentToPlainTextString(project.description.json)}
       footer={project.footer}
       bgColor={project.bgColor}
       textColor={project.textColor}
       imgBorder={project.imgBorder}
       variants={featureCardVariants}
+      link={project.link}
       {...featureCardScrollProps}
       transition={{
         ...featureCardVariants.visible.transition,

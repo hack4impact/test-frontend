@@ -37,11 +37,11 @@ const CHAPTER_FEATURES_CONFIG = {
  */
 interface ChapterFeatureData {
   id?: number | string;
-  title: string;
+  name: string;
   description?: string;
   bgColor?: string;
   imgBorder?: string;
-  content: string;
+  link: string;
 }
 
 /**
@@ -74,7 +74,7 @@ interface ChapterFeaturesProps {
  * <ChapterFeatures features={customFeatures} />
  * ```
  */
-export function ChapterFeatures({
+export function ChapterProjects({
   features,
   className,
   isLoading = false,
@@ -106,10 +106,11 @@ export function ChapterFeatures({
       key={feature.id || index}
       variants={childVariants}
       {...CHAPTER_FEATURES_CONFIG.animation}
-      title={feature.title}
-      content={feature.content}
+      title={feature.name}
+      content={feature.description}
       bgColor={feature.bgColor}
       imgBorder={feature.imgBorder}
+      link={feature.link}
     />
   );
 

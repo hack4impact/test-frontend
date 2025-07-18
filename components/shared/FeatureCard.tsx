@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Card,
   CardContent,
   CardFooter,
   CardHeader,
@@ -9,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { MotionProps, motion } from "motion/react";
+import Link from "next/link";
 
 /**
  * Configuration for FeatureCard component
@@ -20,6 +20,7 @@ const FEATURE_CARD_CONFIG = {
     textColor: "text-white",
     imgBorder: "border-brand-blue",
     footer: "Visit Project",
+    link: "/",
   },
 
   // Animation presets
@@ -77,7 +78,7 @@ export interface FeatureCardProps {
   /** Main title text */
   title: string;
   /** Main content/description text */
-  content: string;
+  content?: string;
   /** Footer text (optional) */
   footer?: string;
   /** Background color class */
@@ -90,6 +91,8 @@ export interface FeatureCardProps {
   className?: string;
   /** Ref for the component */
   ref?: React.Ref<HTMLDivElement>;
+  /** Link navigation to project */
+  link: string;
 }
 
 /**
@@ -126,6 +129,7 @@ function FeatureCard({
   textColor = FEATURE_CARD_CONFIG.defaults.textColor,
   imgBorder = FEATURE_CARD_CONFIG.defaults.imgBorder,
   className,
+  link = FEATURE_CARD_CONFIG.defaults.link,
   ref,
 }: FeatureCardProps) {
   return (
@@ -138,7 +142,14 @@ function FeatureCard({
         className,
       )}
     >
-      <Card className={cn("flex h-full w-full flex-row", bgColor, textColor)}>
+      <Link
+        href={link}
+        className={cn(
+          "rounded-xl py-6 flex h-full w-full flex-row",
+          bgColor,
+          textColor,
+        )}
+      >
         {/* Image placeholder area */}
         <div
           className={cn("ml-5 flex w-1/2 rounded-sm border-3", imgBorder)}
@@ -173,7 +184,7 @@ function FeatureCard({
             {footer}
           </CardFooter>
         </div>
-      </Card>
+      </Link>
     </motion.div>
   );
 }
@@ -204,6 +215,7 @@ function MotionFeatureCard({
   imgBorder,
   className,
   ref,
+  link = FEATURE_CARD_CONFIG.defaults.link,
   ...motionProps
 }: MotionFeatureCardProps) {
   return (
@@ -217,9 +229,10 @@ function MotionFeatureCard({
         className,
       )}
     >
-      <Card
+      <Link
+        href={link}
         className={cn(
-          "flex h-full w-full flex-row",
+          "flex h-full w-full flex-row rounded-xl py-6",
           bgColor || FEATURE_CARD_CONFIG.defaults.bgColor,
           textColor || FEATURE_CARD_CONFIG.defaults.textColor,
         )}
@@ -261,7 +274,7 @@ function MotionFeatureCard({
             {footer || FEATURE_CARD_CONFIG.defaults.footer}
           </CardFooter>
         </div>
-      </Card>
+      </Link>
     </motion.div>
   );
 }

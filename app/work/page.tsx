@@ -1,7 +1,7 @@
 "use client";
 
 import { ChapterCarousel } from "@/components/features/work/ChapterCarousel";
-import { ChapterFeatures } from "@/components/features/work/ChapterFeatures";
+import { ChapterProjects } from "@/components/features/work/ChapterProjects";
 import { MotionInitiativeCard } from "@/components/features/work/InitiativeCard";
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
@@ -24,8 +24,8 @@ export default function Work() {
         </div>
         <AnimatedSectionTitle>Our Chapters</AnimatedSectionTitle>
         <ChapterCarousel />
-        <AnimatedSectionTitle>Featured Projects</AnimatedSectionTitle>
-        <ChapterFeatures />
+        <AnimatedSectionTitle>Chapter Projects</AnimatedSectionTitle>
+        <ChapterProjects />
       </div>
     </main>
   );

@@ -1,3 +1,5 @@
+import { Document } from "@contentful/rich-text-types";
+
 // Global type augmentations
 declare global {
   namespace NodeJS {
@@ -45,3 +47,17 @@ export type ForwardedRefComponent<T, P = {}> = React.ForwardRefExoticComponent<
 >;
 
 export type ScrollState = "expanded" | "compact";
+
+export interface RichText {
+  json: Document;
+}
+
+export interface Image {
+  url: string;
+  name?: string;
+  description?: string;
+}
+
+export interface Collection<T> {
+  items: T[];
+}

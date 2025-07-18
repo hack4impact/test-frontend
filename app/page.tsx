@@ -6,8 +6,12 @@ import HeroSection from "@/components/features/home/HeroSection";
 import ImpactSection from "@/components/features/home/ImpactSection";
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
+import { useFeaturedProjects } from "@/hooks/useFeaturedProjects";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const { projects, loading, error } = useFeaturedProjects();
+
   return (
     <main className="min-h-screen w-screen px-10 mx-auto flex size-full flex-col pt-20">
       <GridPattern
@@ -20,7 +24,7 @@ export default function Home() {
         <ImpactSection />
 
         <AnimatedSectionTitle>Featured Projects</AnimatedSectionTitle>
-        <FeaturedProjects />
+        <FeaturedProjects projects={projects} />
 
         <ActionButtons />
       </div>

@@ -1,6 +1,10 @@
-import Expandable from "@/components/shared/Expandable";
+"use client";
 
-export default function FAQ({
+import Expandable from "@/components/shared/Expandable";
+import { FAQ } from "@/types/contentful";
+import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
+
+export default function FrequentlyAsked({
   expandedColor,
   closedColor,
   hoverColor,
@@ -9,20 +13,20 @@ export default function FAQ({
   expandedColor?: string;
   closedColor?: string;
   hoverColor?: string;
-  items: any;
+  items: FAQ[];
 }) {
   return (
     <div className="my-10">
-      {items.faq.map((item: any, index: number) => {
+      {items.map((item: any, index: number) => {
         return (
           <Expandable
             expandedColor={expandedColor}
             closedColor={closedColor}
             hoverColor={hoverColor}
             title={item.question}
-            content={item.answer}
+            content={documentToPlainTextString(item.answer.json)}
             key={index}
-            identifier={`q-${index}`}
+            identifier={`${index}`}
           ></Expandable>
         );
       })}

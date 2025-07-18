@@ -198,7 +198,7 @@ export default function ImpactSection({
         Our Impact Areas
       </h2>
 
-      {displayData.map((item, index) => renderImpactCard(item, index))}
+      {displayData.map((item, index) => renderImpactCard(item))}
     </motion.section>
   );
 }
