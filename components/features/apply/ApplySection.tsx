@@ -7,7 +7,8 @@ import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Application } from "@/types/contentful";
-import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import parse from "html-react-parser";
 import { motion } from "motion/react";
 
 export default function ApplySection({
@@ -36,7 +37,7 @@ export default function ApplySection({
         <div className="my-10 flex  w-full flex-col">
           <div
             className={cn(
-              "mb-10 justify-center items-center flex h-[30rem] w-full flex-row text-brand-black",
+              "border-3 mb-10 justify-center items-center flex flex-auto w-full flex-row text-brand-black",
             )}
           >
             <motion.div
@@ -56,9 +57,9 @@ export default function ApplySection({
               <h3 className="w-full text-5xl font-semibold">
                 {applyInfo.headerTitle}
               </h3>
-              <p className="whitespace-pre-line flex w-full text-2xl">
-                {documentToPlainTextString(applyInfo.description.json)}
-              </p>
+              <div className="whitespace-pre-line flex w-full text-2xl flex-col">
+                {parse(documentToHtmlString(applyInfo.description.json))}
+              </div>
               <div className="w-full h-min">
                 <Button
                   className={cn(
@@ -80,7 +81,7 @@ export default function ApplySection({
                 delay: 0.25,
               }}
               className={cn(
-                "h-full w-1/2 rounded-sm border-3 border-brand-blue backdrop-blur-[2px]",
+                "h-[30rem] w-1/2 rounded-sm border-3 border-brand-blue backdrop-blur-[2px]",
               )}
             ></motion.div>
           </div>
