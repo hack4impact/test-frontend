@@ -1,5 +1,5 @@
-import { chapters } from "@/data/content";
 import { cn } from "@/lib/utils";
+import { Project } from "@/types/contentful";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -7,11 +7,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
  * Chapter data structure
  */
 interface ChapterData {
-  university: string;
-  est: number;
+  name: string;
+  establishedDate: number;
+  email: string;
   location: string;
-  website: string;
-  github: string;
+  websiteLink: string;
+  codeRepoLink: string;
+  socialMediaLInk: string;
+  photo?: { url: string; description: string };
+  projects: Project[];
 }
 
 /**
@@ -87,15 +91,15 @@ function ChapterCard({ chapter, index, onHover, ref }: ChapterCardProps) {
       )}
     >
       <a
-        href={chapter.website}
+        href={chapter.websiteLink}
         target="_blank"
         rel="noopener noreferrer"
         className="w-1/2 h-full rounded-sm flex flex-col p-2 gap-1 text-white mr-2"
-        aria-label={`Visit ${chapter.university} chapter website`}
+        aria-label={`Visit ${chapter.name} chapter website`}
       >
-        <h3 className="text-3xl font-semibold w-full">{chapter.university}</h3>
+        <h3 className="text-3xl font-semibold w-full">{chapter.name}</h3>
         <p className="text-2xl w-full font-thin italic">
-          Est. {chapter.est} in {chapter.location}
+          Est. {chapter.establishedDate} in {chapter.location}
         </p>
         <div className="flex flex-auto" />
         <p className="text-3xl font-semibold w-full">Visit Chapter Website</p>
@@ -105,7 +109,7 @@ function ChapterCard({ chapter, index, onHover, ref }: ChapterCardProps) {
       {/* Image placeholder */}
       <div
         className="w-1/2 h-full border-3 text-9xl place-content-center rounded-sm border-brand-blue-light"
-        aria-label={`${chapter.university} chapter logo`}
+        aria-label={`${chapter.name} chapter logo`}
       />
     </motion.div>
   );
@@ -115,12 +119,18 @@ function ChapterCard({ chapter, index, onHover, ref }: ChapterCardProps) {
  * Selector button component
  */
 interface SelectorButtonProps {
+  chapters: any;
   index: number;
   isActive: boolean;
   onClick: (index: number) => void;
 }
 
-function SelectorButton({ index, isActive, onClick }: SelectorButtonProps) {
+function SelectorButton({
+  chapters,
+  index,
+  isActive,
+  onClick,
+}: SelectorButtonProps) {
   return (
     <motion.button
       initial={{
@@ -149,11 +159,12 @@ function SelectorButton({ index, isActive, onClick }: SelectorButtonProps) {
  * Selector component with navigation buttons
  */
 interface SelectorProps {
+  chapters: any;
   activeIndex: number;
   onIndexChange: (index: number) => void;
 }
 
-function Selector({ activeIndex, onIndexChange }: SelectorProps) {
+function Selector({ chapters, activeIndex, onIndexChange }: SelectorProps) {
   const getBorderClass = (position: "left" | "right") => {
     if (position === "left") {
       return activeIndex === 0 ? "border-l-brand-red" : "border-l-brand-green";
@@ -171,8 +182,9 @@ function Selector({ activeIndex, onIndexChange }: SelectorProps) {
         getBorderClass("right"),
       )}
     >
-      {chapters.map((_, index) => (
+      {chapters.map((_: any, index: number) => (
         <SelectorButton
+          chapters={chapters}
           key={index}
           index={index}
           isActive={index === activeIndex}
@@ -198,7 +210,7 @@ function Selector({ activeIndex, onIndexChange }: SelectorProps) {
  * <ChapterCarousel />
  * ```
  */
-export function ChapterCarousel() {
+export function ChapterCarousel({ chapters }: { chapters: any }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hasInteracted, setHasInteracted] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -264,11 +276,15 @@ export function ChapterCarousel() {
       aria-label="Chapter carousel"
     >
       {/* Selector */}
-      <Selector activeIndex={activeIndex} onIndexChange={handleIndexChange} />
+      <Selector
+        chapters={chapters}
+        activeIndex={activeIndex}
+        onIndexChange={handleIndexChange}
+      />
 
       {/* Chapter Cards */}
       <div className={CAROUSEL_CONFIG.cardsClasses}>
-        {chapters.map((chapter, index) => (
+        {chapters.map((chapter: any, index: number) => (
           <ChapterCard
             key={index}
             chapter={chapter}

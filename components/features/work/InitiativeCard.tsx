@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import parse from "html-react-parser";
 import { MotionProps, motion } from "motion/react";
 import { useState } from "react";
 
@@ -9,7 +10,7 @@ interface InitiativeCardProps {
   /** Title of the initiative */
   title?: string;
   /** Description content */
-  content?: string;
+  content: string;
   /** Footer action text */
   footer?: string;
   /** Border color class for the image area */
@@ -116,7 +117,7 @@ function InitiativeCard({
       >
         <h3 className="flex flex-none mb-2 text-4xl font-semibold">{title}</h3>
 
-        <p className="flex flex-auto text-xl">{content}</p>
+        <div className="flex flex-auto text-xl">{parse(content)}</div>
 
         {/* Footer with animated underline */}
         <div className="flex flex-none items-end text-2xl font-semibold">
@@ -162,14 +163,14 @@ function MotionInitiativeCard({
       ref={ref}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={cn("w-full h-[200px] flex flex-row gap-5", className)}
+      className={cn("w-full flex flex-row gap-5", className)}
       {...motionProps}
     >
       {/* Image placeholder area */}
       <motion.div
         {...INITIATIVE_CARD_CONFIG.animations.imageArea}
         className={cn(
-          "flex w-1/2 h-full border-3 rounded-sm backdrop-blur-[2px]",
+          "flex w-1/2 place-self-stretch flex-auto border-3 rounded-sm backdrop-blur-[2px]",
           imgBorder || INITIATIVE_CARD_CONFIG.defaults.imgBorder,
         )}
         aria-label="Initiative image placeholder"
@@ -184,9 +185,9 @@ function MotionInitiativeCard({
           {title || INITIATIVE_CARD_CONFIG.defaults.title}
         </h3>
 
-        <p className="flex flex-auto text-xl">
-          {content || INITIATIVE_CARD_CONFIG.defaults.content}
-        </p>
+        <div className="flex flex-auto text-xl">
+          {parse(content) || INITIATIVE_CARD_CONFIG.defaults.content}
+        </div>
 
         {/* Footer with animated underline */}
         <div className="flex flex-none items-end text-2xl font-semibold">

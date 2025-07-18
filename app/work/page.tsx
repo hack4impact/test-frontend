@@ -5,8 +5,21 @@ import { ChapterProjects } from "@/components/features/work/ChapterProjects";
 import { MotionInitiativeCard } from "@/components/features/work/InitiativeCard";
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
+import { useChapters } from "@/hooks/useChapters";
+import { useNationalInitiatives } from "@/hooks/useNationalInitiatives";
+import { Project } from "@/types/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 export default function Work() {
+  const { nationalInitiatives, loading, error } = useNationalInitiatives();
+
+  // Renaming destructured variables
+  const {
+    chapters,
+    loading: chapterLoading,
+    error: chapterError,
+  } = useChapters();
+
   return (
     <main className="min-h-screen w-full px-10 mx-auto flex size-full flex-col pt-20">
       <GridPattern
@@ -19,11 +32,18 @@ export default function Work() {
       <div className="my-10 flex w-full flex-col">
         <AnimatedSectionTitle>National Initiatives</AnimatedSectionTitle>
         <div className="my-10 flex flex-col gap-5">
-          <MotionInitiativeCard imgBorder="border-brand-blue" />
-          <MotionInitiativeCard imgBorder="border-brand-red" />
+          {nationalInitiatives.map((item: Project, index) => {
+            return (
+              <MotionInitiativeCard
+                key={index}
+                title={item.name}
+                content={documentToHtmlString(item.description.json)}
+              />
+            );
+          })}{" "}
         </div>
         <AnimatedSectionTitle>Our Chapters</AnimatedSectionTitle>
-        <ChapterCarousel />
+        <ChapterCarousel chapters={chapters} />
         <AnimatedSectionTitle>Chapter Projects</AnimatedSectionTitle>
         <ChapterProjects />
       </div>
