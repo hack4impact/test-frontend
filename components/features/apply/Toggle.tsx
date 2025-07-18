@@ -18,22 +18,32 @@ export function Toggle({ ref }: { ref: Ref<HTMLDivElement> }) {
     <motion.div
       ref={ref}
       className="z-1 p-[2px] bg-brand-red-light/50 h-full flex flex-row gap-3 items-center border-2 border-brand-red rounded-md"
+      // Prevent the container from animating on mount
+      initial={false}
     >
       <div className="relative h-full content-center">
         <MotionLink
-          whileHover={{
-            scale: 1.05,
-          }}
-          // Remove all color animations to prevent fade effects
-          href="/apply/chapters"
-          className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium"
-          style={{
-            // Set static styles instead of animating them
+          whileHover={
+            pathname != "/apply/chapters"
+              ? {
+                  background: "var(--color-brand-black)",
+                  color: "white",
+                }
+              : {
+                  scale: 1.05,
+                }
+          }
+          // Use animate instead of initial/animate to prevent mount animations
+          animate={{
             color:
               pathname == "/apply/chapters"
                 ? "white"
                 : "var(--color-brand-black)",
           }}
+          // Disable transition for the animate prop to make it instant
+          transition={{ duration: 0 }}
+          href="/apply/chapters"
+          className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium"
         >
           Chapters
         </MotionLink>
@@ -43,24 +53,34 @@ export function Toggle({ ref }: { ref: Ref<HTMLDivElement> }) {
             layoutId="toggled"
             className={cn("rounded-sm absolute inset-0 z-[-1] bg-brand-red")}
             transition={hoverTransition}
+            // Prevent initial animation
+            initial={false}
           />
         )}
       </div>
       <div className="relative h-full content-center">
         <MotionLink
-          whileHover={{
-            scale: 1.05,
-          }}
-          // Remove all color animations to prevent fade effects
-          href="/apply/nonprofits"
-          className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium"
-          style={{
-            // Set static styles instead of animating them
+          whileHover={
+            pathname != "/apply/nonprofits"
+              ? {
+                  background: "var(--color-brand-black)",
+                  color: "white",
+                }
+              : {
+                  scale: 1.05,
+                }
+          }
+          // Use animate instead of initial/animate to prevent mount animations
+          animate={{
             color:
               pathname == "/apply/nonprofits"
                 ? "white"
                 : "var(--color-brand-black)",
           }}
+          // Disable transition for the animate prop to make it instant
+          transition={{ duration: 0 }}
+          href="/apply/nonprofits"
+          className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium"
         >
           Nonprofits
         </MotionLink>
@@ -70,6 +90,8 @@ export function Toggle({ ref }: { ref: Ref<HTMLDivElement> }) {
             layoutId="toggled"
             className={cn("rounded-sm absolute inset-0 z-[-1] bg-brand-red")}
             transition={hoverTransition}
+            // Prevent initial animation
+            initial={false}
           />
         )}
       </div>
