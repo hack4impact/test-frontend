@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Project } from "@/types/contentful";
+import { Chapter, Project } from "@/types/contentful";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -210,8 +210,15 @@ function Selector({ chapters, activeIndex, onIndexChange }: SelectorProps) {
  * <ChapterCarousel />
  * ```
  */
-export function ChapterCarousel({ chapters }: { chapters: any }) {
-  const [activeIndex, setActiveIndex] = useState(0);
+export function ChapterCarousel({
+  activeIndex,
+  setActiveIndex,
+  chapters,
+}: {
+  activeIndex: number;
+  setActiveIndex: Function;
+  chapters: Chapter[];
+}) {
   const [hasInteracted, setHasInteracted] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 

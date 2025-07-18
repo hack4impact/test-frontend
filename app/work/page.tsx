@@ -1,24 +1,81 @@
 "use client";
 
 import { ChapterCarousel } from "@/components/features/work/ChapterCarousel";
-import { ChapterProjects } from "@/components/features/work/ChapterProjects";
+import {
+  CHAPTER_FEATURES_CONFIG,
+  ChapterProjects,
+} from "@/components/features/work/ChapterProjects";
 import { MotionInitiativeCard } from "@/components/features/work/InitiativeCard";
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 import { useChapters } from "@/hooks/useChapters";
 import { useNationalInitiatives } from "@/hooks/useNationalInitiatives";
-import { Project } from "@/types/contentful";
+import { cn } from "@/lib/utils";
+import { Project, ProjectExtended } from "@/types/contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { useEffect, useMemo, useState } from "react";
+
+/**
+ * Render empty state
+ */
+const renderState = (status: string) => (
+  <div className={cn(CHAPTER_FEATURES_CONFIG.containerClasses)}>
+    <div className="flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300">
+      <p className="text-lg text-gray-500">{status}</p>
+    </div>
+  </div>
+);
+
+const addProjectStyling = (projects: Project[]): ProjectExtended[] => {
+  const colors = ["bg-brand-blue", "bg-brand-green", "bg-brand-red"];
+  const borders = [
+    "border-brand-blue-light",
+    "border-brand-green-light",
+    "border-brand-red-light",
+  ];
+
+  return projects.map((project, index) => ({
+    ...project,
+    bgColor: colors[index % colors.length],
+    imgBorder: borders[index % borders.length],
+  }));
+};
 
 export default function Work() {
   const { nationalInitiatives, loading, error } = useNationalInitiatives();
-
+  const [activeIndex, setActiveIndex] = useState(0);
   // Renaming destructured variables
   const {
     chapters,
     loading: chapterLoading,
     error: chapterError,
   } = useChapters();
+
+  const styledProjects = useMemo(() => {
+    // Add null/undefined checks
+    if (
+      !chapters ||
+      !chapters[activeIndex] ||
+      !chapters[activeIndex].projects
+    ) {
+      return [];
+    }
+
+    return addProjectStyling(chapters[activeIndex].projects.items);
+  }, [chapters, activeIndex]);
+
+  // Don't render until chapters are loaded
+  if (chapterLoading) {
+    renderState("Loading...");
+  }
+
+  if (chapterError) {
+    renderState(`Error: ${chapterError.message}`);
+  }
+
+  if (!chapters || chapters.length === 0) {
+    renderState("No chapters found");
+  }
 
   return (
     <main className="min-h-screen w-full px-10 mx-auto flex size-full flex-col pt-20">
@@ -43,9 +100,13 @@ export default function Work() {
           })}{" "}
         </div>
         <AnimatedSectionTitle>Our Chapters</AnimatedSectionTitle>
-        <ChapterCarousel chapters={chapters} />
+        <ChapterCarousel
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+          chapters={chapters}
+        />
         <AnimatedSectionTitle>Chapter Projects</AnimatedSectionTitle>
-        <ChapterProjects />
+        <ChapterProjects features={styledProjects} />
       </div>
     </main>
   );

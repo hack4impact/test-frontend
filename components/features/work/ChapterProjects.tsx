@@ -1,13 +1,14 @@
 import { childVariants } from "@/data/animation";
-import { chapterFeatures } from "@/data/content";
 import { cn } from "@/lib/utils";
+import { ProjectExtended } from "@/types/contentful";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 
 import { MotionFeatureCard } from "../../shared/FeatureCard";
 
 /**
  * Configuration for ChapterFeatures component
  */
-const CHAPTER_FEATURES_CONFIG = {
+export const CHAPTER_FEATURES_CONFIG = {
   containerClasses: "my-10 flex w-full flex-col justify-between gap-5",
 
   // Animation settings
@@ -49,7 +50,7 @@ interface ChapterFeatureData {
  */
 interface ChapterFeaturesProps {
   /** Array of chapter features to display */
-  features?: ChapterFeatureData[];
+  features?: ProjectExtended[];
   /** Additional CSS classes */
   className?: string;
   /** Whether to show loading state */
@@ -80,9 +81,7 @@ export function ChapterProjects({
   isLoading = false,
 }: ChapterFeaturesProps = {}) {
   // Use provided features or fallback data
-  const displayFeatures =
-    features || chapterFeatures || CHAPTER_FEATURES_CONFIG.fallbackData;
-
+  const displayFeatures = features;
   /**
    * Render loading skeleton
    */
@@ -101,13 +100,13 @@ export function ChapterProjects({
   /**
    * Render individual feature card
    */
-  const renderFeatureCard = (feature: ChapterFeatureData, index: number) => (
+  const renderFeatureCard = (feature: ProjectExtended, index: number) => (
     <MotionFeatureCard
-      key={feature.id || index}
+      key={index}
       variants={childVariants}
       {...CHAPTER_FEATURES_CONFIG.animation}
       title={feature.name}
-      content={feature.description}
+      content={documentToHtmlString(feature.description.json)}
       bgColor={feature.bgColor}
       imgBorder={feature.imgBorder}
       link={feature.link}
@@ -131,7 +130,7 @@ export function ChapterProjects({
   }
 
   // Handle empty state
-  if (!displayFeatures.length) {
+  if (!displayFeatures || !displayFeatures.length) {
     return renderEmptyState();
   }
 

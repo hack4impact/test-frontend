@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import parse from "html-react-parser";
 import { MotionProps, motion } from "motion/react";
 import Link from "next/link";
 
@@ -78,7 +79,7 @@ export interface FeatureCardProps {
   /** Main title text */
   title: string;
   /** Main content/description text */
-  content?: string;
+  content: string;
   /** Footer text (optional) */
   footer?: string;
   /** Background color class */
@@ -230,7 +231,7 @@ function MotionFeatureCard({
       )}
     >
       <Link
-        href={link}
+        href={link ? link : "/"}
         className={cn(
           "flex h-full w-full flex-row rounded-xl py-6",
           bgColor || FEATURE_CARD_CONFIG.defaults.bgColor,
@@ -259,11 +260,14 @@ function MotionFeatureCard({
             </CardTitle>
           </CardHeader>
 
-          <CardContent
-            className={cn("mt-5 h-3/5", FEATURE_CARD_CONFIG.typography.content)}
+          <div
+            className={cn(
+              "px-6 mt-5 h-3/5",
+              FEATURE_CARD_CONFIG.typography.content,
+            )}
           >
-            {content}
-          </CardContent>
+            {parse(content)}
+          </div>
 
           <CardFooter
             className={cn(

@@ -10,6 +10,11 @@ export interface Project {
   link: string;
 }
 
+export interface ProjectExtended extends Project {
+  bgColor: string;
+  imgBorder: string;
+}
+
 export interface FAQ {
   question: string;
   answer: RichText;
