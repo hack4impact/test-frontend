@@ -63,11 +63,9 @@ export default function Work() {
         <AnimatedSectionTitle>National Initiatives</AnimatedSectionTitle>
         <div className="my-10 flex flex-col gap-5">
           {/* Fixed: Use nationalInitiatives instead of empty array */}
-          {loading ? (
-            <div>Loading initiatives...</div>
-          ) : error ? (
-            <div>Error loading initiatives: {error}</div>
-          ) : !nationalInitiatives || nationalInitiatives.length === 0 ? (
+          {loading ||
+          !nationalInitiatives ||
+          nationalInitiatives.length === 0 ? (
             // This will trigger the empty state in MotionInitiativeCard
             <MotionInitiativeCard item={{}} />
           ) : (
