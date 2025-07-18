@@ -20,7 +20,7 @@ export default function ApplySection({
     <div className="my-10 flex  w-full flex-col">
       <div
         className={cn(
-          "border-3 mb-10 justify-center items-center flex flex-auto w-full flex-row text-brand-black",
+          "mb-10 justify-center items-center flex flex-auto w-full flex-row text-brand-black",
         )}
       >
         <motion.div

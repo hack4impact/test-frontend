@@ -86,7 +86,7 @@ export default function Navbar() {
 
   // Hooks for navigation and scroll tracking
   const pathname = usePathname();
-  const { scrollYProgress } = useScroll();
+  const { scrollY } = useScroll();
 
   // Derived state
   const isCompact = scrollState === "compact";
@@ -103,10 +103,10 @@ export default function Navbar() {
 
   /**
    * Handle scroll position changes
-   * Switches to compact mode after scrolling 5% of the page
+   * Switches to compact mode after scrolling 50px of the page
    */
-  useMotionValueEvent(scrollYProgress, "change", () => {
-    const isScrolled = scrollYProgress.get() > 0.05;
+  useMotionValueEvent(scrollY, "change", () => {
+    const isScrolled = scrollY.get() > 50; // Use pixels instead of percentage
     setScrollState(isScrolled ? "compact" : "expanded");
   });
 
