@@ -119,7 +119,7 @@ export function ChapterProjects({
   const renderEmptyState = () => (
     <div className={cn(CHAPTER_FEATURES_CONFIG.containerClasses, className)}>
       <div className="flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300">
-        <p className="text-lg text-gray-500">No chapter features available</p>
+        <p className="text-lg text-gray-500">No chapter projects available</p>
       </div>
     </div>
   );

@@ -1,20 +1,25 @@
 import { cn } from "@/lib/utils";
+import { RichText } from "@/types";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import parse from "html-react-parser";
 import { MotionProps, motion } from "motion/react";
 import { useState } from "react";
+
+import { CHAPTER_FEATURES_CONFIG } from "./ChapterProjects";
 
 /**
  * Props for the InitiativeCard component
  */
 interface InitiativeCardProps {
-  /** Title of the initiative */
-  title?: string;
-  /** Description content */
-  content: string;
-  /** Footer action text */
-  footer?: string;
-  /** Border color class for the image area */
-  imgBorder?: string;
+  item?: {
+    /** Title of the initiative */ name?: string;
+    /** Description content */
+    description?: RichText;
+    /** Footer action text */
+    footer?: string;
+    /** Border color class for the image area */
+    imgBorder?: string;
+  };
   /** Additional CSS classes */
   className?: string;
   /** Component ref */
@@ -29,17 +34,9 @@ interface MotionInitiativeCardProps
     Omit<MotionProps, keyof InitiativeCardProps> {}
 
 /**
- * Default configuration for InitiativeCard
+ * Animation configuration for InitiativeCard
  */
 const INITIATIVE_CARD_CONFIG = {
-  defaults: {
-    title: "National Initiative",
-    content:
-      "To empower engineers, designers, activists, and humanitarians to create lasting and impactful social change, fostering the wider adoption of software as a tool for social good.",
-    footer: "Learn More",
-    imgBorder: "border-brand-black",
-  },
-
   animations: {
     container: {
       initial: { opacity: 0 },
@@ -68,6 +65,17 @@ const INITIATIVE_CARD_CONFIG = {
 } as const;
 
 /**
+ * Render empty state
+ */
+const renderEmptyState = () => (
+  <div className={cn(CHAPTER_FEATURES_CONFIG.containerClasses)}>
+    <div className="flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300">
+      <p className="text-lg text-gray-500">No initiatives available</p>
+    </div>
+  </div>
+);
+
+/**
  * Base InitiativeCard component
  *
  * Displays an initiative with an image placeholder, title, content,
@@ -76,22 +84,21 @@ const INITIATIVE_CARD_CONFIG = {
  * @example
  * ```tsx
  * <InitiativeCard
- *   title="Chapter Network"
- *   content="Supporting local chapters..."
- *   footer="Learn More"
- *   imgBorder="border-brand-blue"
+ *   item={{
+ *     name: "Chapter Network",
+ *     description: richTextContent,
+ *     footer: "Learn More",
+ *     imgBorder: "border-brand-blue"
+ *   }}
  * />
  * ```
  */
-function InitiativeCard({
-  title = INITIATIVE_CARD_CONFIG.defaults.title,
-  content = INITIATIVE_CARD_CONFIG.defaults.content,
-  footer = INITIATIVE_CARD_CONFIG.defaults.footer,
-  imgBorder = INITIATIVE_CARD_CONFIG.defaults.imgBorder,
-  className,
-  ref,
-}: InitiativeCardProps) {
+function InitiativeCard({ item, className, ref }: InitiativeCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+
+  if (!item || !item.name) {
+    return renderEmptyState();
+  }
 
   return (
     <div
@@ -105,7 +112,7 @@ function InitiativeCard({
         {...INITIATIVE_CARD_CONFIG.animations.imageArea}
         className={cn(
           "flex w-1/2 h-full border-3 rounded-sm backdrop-blur-[2px]",
-          imgBorder,
+          item.imgBorder,
         )}
         aria-label="Initiative image placeholder"
       />
@@ -115,14 +122,19 @@ function InitiativeCard({
         {...INITIATIVE_CARD_CONFIG.animations.contentArea}
         className="flex w-1/2 h-full flex-col justify-stretch"
       >
-        <h3 className="flex flex-none mb-2 text-4xl font-semibold">{title}</h3>
+        <h3 className="flex flex-none mb-2 text-4xl font-semibold">
+          {item.name}
+        </h3>
 
-        <div className="flex flex-auto text-xl">{parse(content)}</div>
+        <div className="flex flex-auto text-xl">
+          {item.description &&
+            parse(documentToHtmlString(item.description.json))}
+        </div>
 
         {/* Footer with animated underline */}
         <div className="flex flex-none items-end text-2xl font-semibold">
           <p className="relative flex items-end">
-            {footer}
+            {item.footer || "Learn More"}
             <motion.span
               animate={
                 isHovered
@@ -148,15 +160,16 @@ function InitiativeCard({
  * for additional animations and motion effects.
  */
 function MotionInitiativeCard({
-  title,
-  content,
-  footer,
-  imgBorder,
+  item,
   className,
   ref,
   ...motionProps
 }: MotionInitiativeCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+
+  if (!item || !item.name) {
+    return renderEmptyState();
+  }
 
   return (
     <motion.div
@@ -171,7 +184,7 @@ function MotionInitiativeCard({
         {...INITIATIVE_CARD_CONFIG.animations.imageArea}
         className={cn(
           "flex w-1/2 place-self-stretch flex-auto border-3 rounded-sm backdrop-blur-[2px]",
-          imgBorder || INITIATIVE_CARD_CONFIG.defaults.imgBorder,
+          item.imgBorder,
         )}
         aria-label="Initiative image placeholder"
       />
@@ -182,17 +195,18 @@ function MotionInitiativeCard({
         className="flex w-1/2 h-full flex-col justify-stretch"
       >
         <h3 className="flex flex-none mb-2 text-4xl font-semibold">
-          {title || INITIATIVE_CARD_CONFIG.defaults.title}
+          {item.name}
         </h3>
 
         <div className="flex flex-auto text-xl">
-          {parse(content) || INITIATIVE_CARD_CONFIG.defaults.content}
+          {item.description &&
+            parse(documentToHtmlString(item.description.json))}
         </div>
 
         {/* Footer with animated underline */}
         <div className="flex flex-none items-end text-2xl font-semibold">
           <p className="relative flex items-end">
-            {footer || INITIATIVE_CARD_CONFIG.defaults.footer}
+            {item.footer || "Learn More"}
             <motion.span
               animate={
                 isHovered

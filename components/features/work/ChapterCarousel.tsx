@@ -3,6 +3,8 @@ import { Chapter, Project } from "@/types/contentful";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { CHAPTER_FEATURES_CONFIG } from "./ChapterProjects";
+
 /**
  * Chapter data structure
  */
@@ -223,6 +225,17 @@ export function ChapterCarousel({
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   /**
+   * Render empty state
+   */
+  const renderEmptyState = () => (
+    <div className={cn(CHAPTER_FEATURES_CONFIG.containerClasses)}>
+      <div className="flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300">
+        <p className="text-lg text-gray-500">No chapters available</p>
+      </div>
+    </div>
+  );
+
+  /**
    * Scroll to the selected chapter card
    */
   const scrollToCard = useCallback(
@@ -274,6 +287,10 @@ export function ChapterCarousel({
   useEffect(() => {
     scrollToCard(activeIndex);
   }, [activeIndex, hasInteracted, scrollToCard]);
+
+  if (!chapters || chapters.length === 0) {
+    return renderEmptyState();
+  }
 
   return (
     <div
