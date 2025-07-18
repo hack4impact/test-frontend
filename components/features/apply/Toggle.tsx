@@ -21,35 +21,22 @@ export function Toggle({ ref }: { ref: Ref<HTMLDivElement> }) {
     >
       <div className="relative h-full content-center">
         <MotionLink
-          whileHover={
-            pathname != "/apply/chapters"
-              ? {
-                  background: "var(--color-brand-black)",
-                  color: "white",
-                }
-              : {
-                  scale: 1.05,
-                }
-          }
-          initial={
-            pathname == "/apply/chapters"
-              ? { color: "white" }
-              : {
-                  color: "var(--color-brand-black)",
-                }
-          }
-          animate={
-            pathname == "/apply/chapters"
-              ? { color: "white" }
-              : {
-                  color: "var(--color-brand-black)",
-                }
-          }
+          whileHover={{
+            scale: 1.05,
+          }}
+          // Remove all color animations to prevent fade effects
           href="/apply/chapters"
-          className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium  "
+          className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium"
+          style={{
+            // Set static styles instead of animating them
+            color:
+              pathname == "/apply/chapters"
+                ? "white"
+                : "var(--color-brand-black)",
+          }}
         >
           Chapters
-        </MotionLink>{" "}
+        </MotionLink>
         {pathname == "/apply/chapters" && (
           <motion.div
             layout
@@ -61,35 +48,22 @@ export function Toggle({ ref }: { ref: Ref<HTMLDivElement> }) {
       </div>
       <div className="relative h-full content-center">
         <MotionLink
-          whileHover={
-            pathname != "/apply/nonprofits"
-              ? {
-                  background: "var(--color-brand-black)",
-                  color: "white",
-                }
-              : {
-                  scale: 1.05,
-                }
-          }
-          initial={
-            pathname == "/apply/nonprofits"
-              ? { color: "white" }
-              : {
-                  color: "var(--color-brand-black)",
-                }
-          }
-          animate={
-            pathname == "/apply/nonprofits"
-              ? { color: "white" }
-              : {
-                  color: "var(--color-brand-black)",
-                }
-          }
+          whileHover={{
+            scale: 1.05,
+          }}
+          // Remove all color animations to prevent fade effects
           href="/apply/nonprofits"
-          className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium "
+          className="bg-transparent flex flex-initial justify-center items-center h-full w-full py-1 px-2 rounded-sm text-2xl font-medium"
+          style={{
+            // Set static styles instead of animating them
+            color:
+              pathname == "/apply/nonprofits"
+                ? "white"
+                : "var(--color-brand-black)",
+          }}
         >
           Nonprofits
-        </MotionLink>{" "}
+        </MotionLink>
         {pathname == "/apply/nonprofits" && (
           <motion.div
             layout
