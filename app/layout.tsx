@@ -36,9 +36,7 @@ export default function RootLayout({
     <html lang="en" className={`${inclusiveSans.variable}`}>
       <body className="text-brand-black">
         <MotionConfig reducedMotion="user">
-          <MotionConfig reducedMotion="user">
-            <Navbar />
-          </MotionConfig>
+          <Navbar />
 
           <ClickSpark sparkColor="#10b875">{children}</ClickSpark>
         </MotionConfig>
