@@ -1,6 +1,7 @@
 "use client";
 
 import { MotionExpandable } from "@/components/shared/Expandable";
+import { cn } from "@/lib/utils";
 import { FAQ } from "@/types/contentful";
 import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer";
 import { motion, useInView } from "motion/react";
@@ -10,6 +11,8 @@ import { useRef } from "react";
  * Configuration for ImpactSection component
  */
 const FAQ_CONFIG = {
+  containerClasses: "my-10 flex w-full flex-col justify-between gap-5",
+
   // Animation variants for container
   containerVariants: {
     hidden: {
@@ -60,6 +63,21 @@ export default function FrequentlyAsked({
   // Refs for animation control
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { amount: 0.3 });
+
+  /**
+   * Render empty state
+   */
+  const renderEmptyState = () => (
+    <div className={cn(FAQ_CONFIG.containerClasses)}>
+      <div className="flex h-48 w-full items-center justify-center rounded-lg border-2 border-dashed border-gray-300">
+        <p className="text-lg text-gray-500">
+          No frequently asked questions available
+        </p>
+      </div>
+    </div>
+  );
+
+  if (!items.length) return renderEmptyState();
 
   return (
     <motion.div
