@@ -20,3 +20,5 @@ export const navItems: NavItem[] = [
     link: "/login",
   },
 ];
+
+export const homeItem: NavItem = { name: "Home", link: "/" };

@@ -3,7 +3,7 @@
 import { cn, splitText } from "@/lib/utils";
 import { LayoutGroup, animate, stagger } from "motion/react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import RotatingText from "./RotatingText";
 
@@ -20,6 +20,10 @@ const HERO_CONFIG = {
     "Leaders",
     "Activists",
   ],
+
+  mdRotatingTexts: ["Coders", "Creators", "Learners", "Leaders", "Helpers"],
+
+  smRotatingTexts: ["Devs", "UXers", "Teams", "Voices"],
 
   // Animation settings
   animation: {
@@ -55,6 +59,34 @@ const HERO_CONFIG = {
  */
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [screenSize, setScreenSize] = useState<"sm" | "md" | "lg">("lg");
+
+  /**
+   * Handle responsive breakpoints
+   */
+  useEffect(() => {
+    const updateScreenSize = () => {
+      if (typeof window === "undefined") return;
+
+      const width = window.innerWidth;
+      if (width >= 1024) {
+        setScreenSize("lg");
+      } else if (width >= 768) {
+        setScreenSize("md");
+      } else {
+        setScreenSize("sm");
+      }
+    };
+
+    // Set initial screen size
+    updateScreenSize();
+
+    // Add resize listener
+    window.addEventListener("resize", updateScreenSize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, []);
 
   /**
    * Initialize text animations once fonts are loaded
@@ -106,6 +138,22 @@ export default function HeroSection() {
   }, []);
 
   /**
+   * Get the appropriate rotating texts based on screen size
+   */
+  const getRotatingTexts = () => {
+    switch (screenSize) {
+      case "lg":
+        return HERO_CONFIG.rotatingTexts;
+      case "md":
+        return HERO_CONFIG.mdRotatingTexts;
+      case "sm":
+        return HERO_CONFIG.smRotatingTexts;
+      default:
+        return HERO_CONFIG.rotatingTexts;
+    }
+  };
+
+  /**
    * Render the main headline with rotating text
    */
   const renderHeadline = () => (
@@ -122,8 +170,8 @@ export default function HeroSection() {
 
       <LayoutGroup>
         <RotatingText
-          texts={HERO_CONFIG.rotatingTexts}
-          mainClassName="px-1 pb-1 inline-flex bg-brand-blue overflow-hidden rounded-sm"
+          texts={getRotatingTexts()}
+          mainClassName="px-1 inline-flex bg-brand-blue overflow-hidden rounded-sm"
           staggerFrom="first"
           initial={{ y: "100%" }}
           animate={{ y: 0 }}

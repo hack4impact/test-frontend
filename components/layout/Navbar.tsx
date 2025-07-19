@@ -114,9 +114,11 @@ export default function Navbar() {
    * Generate CSS classes for navigation items
    * Different styles for expanded vs compact states
    */
-  const getNavItemClasses = (isDropdown: boolean): string => {
+  const getNavItemClasses = (isDropdown: boolean, logo?: boolean): string => {
     const baseClasses =
       "inline-flex h-full w-max items-center justify-center rounded-xs bg-transparent px-2 py-2 text-xl font-medium disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 relative";
+
+    if (logo) return baseClasses;
 
     if (isCompact) {
       return cn(
@@ -272,19 +274,26 @@ export default function Navbar() {
   );
 
   /**
-   * Render the logo with appropriate version for current state
+   * Render the logo with appropriate size & version for current state
    */
   const renderLogo = () => (
     <Link
       href="/"
-      className={cn(
-        "h-full flex-auto justify-start items-center hidden lg:flex",
-      )}
+      className={cn("h-full flex-auto justify-start items-center flex")}
     >
+      <div
+        className={cn(
+          " flex h-10 min-h-5 lg:hidden text-start",
+          getNavItemClasses(false, true),
+          getActiveNavClasses(["/"]),
+        )}
+      >
+        Hack4Impact
+      </div>
       <motion.img
         alt="Hack for Impact Logo"
         src={isCompact ? "/h4i.svg" : "/logo.svg"}
-        className={cn("h-10 min-h-5 flex-none")}
+        className={cn("hidden lg:flex h-10 min-h-5 flex-none")}
       />
     </Link>
   );
@@ -302,7 +311,12 @@ export default function Navbar() {
       {renderLogo()}
 
       {/* Spacer */}
-      <div className={cn("h-full w-1/6 flex-auto hidden lg:flex")} />
+      <div
+        className={cn(
+          "h-full w-1 lg:flex-auto flex-none ",
+          isCompact ? "md:w-2 hidden md:flex" : "md:w-1/6 flex",
+        )}
+      />
 
       {/* Navigation Menu */}
       <div className="flex h-full flex-auto">
@@ -310,14 +324,10 @@ export default function Navbar() {
           value={activeDropdown!}
           onValueChange={setActiveDropdown}
           viewport={false}
-          className="flex h-full w-full max-w-none justify-center lg:justify-end"
+          className="flex h-full w-full max-w-none justify-end"
         >
           <NavigationMenuList
-            className={
-              isCompact
-                ? "gap-1 md:gap-6 lg:gap-1"
-                : "sm:gap-8 md:gap-10 lg:gap-1"
-            }
+            className={cn(isCompact ? "gap-1" : "gap-1 md:gap-2 lg:gap-1")}
             onMouseLeave={() => setHoveredIndex(null)}
           >
             {navItems.map((item, index) =>
