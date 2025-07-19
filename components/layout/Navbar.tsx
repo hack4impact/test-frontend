@@ -39,7 +39,7 @@ const ANIMATION_CONFIG = {
       marginTop: "0vh",
       borderRadius: "0px",
       backgroundColor: "transparent",
-      filter: "drop-shadow(0px 0px 0px)",
+      filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
     },
     compact: {
       height: "60px",
@@ -47,7 +47,7 @@ const ANIMATION_CONFIG = {
       marginTop: "2vh",
       borderRadius: "5px",
       backgroundColor: "var(--color-brand-blue)",
-      filter: "drop-shadow(0px 4px 4px #33333350)",
+      filter: "drop-shadow(0px 4px 4px rgba(51,51,51,0.31))",
     },
   },
 
@@ -55,7 +55,6 @@ const ANIMATION_CONFIG = {
   navTransition: {
     duration: 0.3,
     type: "spring" as const,
-    filter: { type: false },
   } as Transition,
 
   // Hover effect transition
@@ -103,10 +102,10 @@ export default function Navbar() {
 
   /**
    * Handle scroll position changes
-   * Switches to compact mode after scrolling 50px of the page
+   * Switches to compact mode after scrolling 50px down the page
    */
   useMotionValueEvent(scrollY, "change", () => {
-    const isScrolled = scrollY.get() > 50; // Use pixels instead of percentage
+    const isScrolled = scrollY.get() > 50;
     setScrollState(isScrolled ? "compact" : "expanded");
   });
 
@@ -114,17 +113,15 @@ export default function Navbar() {
    * Generate CSS classes for navigation items
    * Different styles for expanded vs compact states
    */
-  const getNavItemClasses = (isDropdown: boolean, logo?: boolean): string => {
+  const getNavItemClasses = (isDropdown: boolean): string => {
     const baseClasses =
       "inline-flex h-full w-max items-center justify-center rounded-xs bg-transparent px-2 py-2 text-xl font-medium disabled:pointer-events-none disabled:opacity-50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 relative";
-
-    if (logo) return baseClasses;
 
     if (isCompact) {
       return cn(
         baseClasses,
         isDropdown
-          ? "hover:bg-transparent hover:text-brand-black focus:bg-white focus:text-brand-black data-[state=open]:bg-transparent data-[state=open]:text-brand-black data-[state=open]:hover:bg-transparent data-[state=open]:hover:text-brand-black data-[state=open]:focus:bg-transparent data-[state=open]:focus:text-brand-black"
+          ? "hover:bg-transparent hover:text-brand-black focus:bg-white focus:text-brand-black data-[state=open]:bg-transparent data-[state=open]:text-brand-black"
           : "hover:bg-transparent hover:text-brand-black focus:bg-transparent focus:text-brand-black",
       );
     }
@@ -132,7 +129,7 @@ export default function Navbar() {
     return cn(
       baseClasses,
       isDropdown
-        ? "hover:bg-transparent hover:text-white focus:bg-brand-blue focus:text-white data-[state=open]:bg-transparent data-[state=open]:text-white data-[state=open]:hover:bg-transparent data-[state=open]:hover:text-white data-[state=open]:focus:bg-transparent data-[state=open]:focus:text-white"
+        ? "hover:bg-transparent hover:text-white focus:bg-brand-blue focus:text-white data-[state=open]:bg-transparent data-[state=open]:text-white"
         : "hover:bg-transparent hover:text-white focus:bg-transparent focus:text-white",
     );
   };
@@ -157,12 +154,13 @@ export default function Navbar() {
   /**
    * Check if item should show hover effect
    */
-  const shouldShowHover = (index: number): boolean | undefined => {
+  const shouldShowHover = (index: number): boolean => {
     const item = navItems[index];
     const itemValue = `item-${index}`;
 
     return (
-      hoveredIndex === index || (item.content && activeDropdown === itemValue)
+      hoveredIndex === index ||
+      Boolean(item.content && activeDropdown === itemValue)
     );
   };
 
@@ -181,9 +179,9 @@ export default function Navbar() {
 
     return (
       <motion.div
-        layoutId="subHovered"
+        layoutId="navHovered"
         className={cn(
-          "absolute inset-0 z-[-1] rounded-sm",
+          "absolute inset-0 -z-1 rounded-sm",
           isCompact ? "bg-white" : "bg-brand-blue",
         )}
         initial={false}
@@ -200,11 +198,66 @@ export default function Navbar() {
 
     return (
       <motion.div
-        layoutId="hovered"
+        layoutId="subHovered"
         className="absolute inset-0 z-[-1] rounded-sm bg-brand-green"
         initial={false}
         transition={ANIMATION_CONFIG.hoverTransition}
       />
+    );
+  };
+
+  /**
+   * Return logo component based on version and color
+   */
+  const getLogo = (
+    version: "full" | "hack" | "h4i" | "logomark",
+    color: "color" | "white" | "black",
+  ) => {
+    const logoMap: Record<string, string | undefined> = {
+      "full-color": "/hack4impact_logo.svg",
+      "h4i-color": "/h4i_logo.svg",
+      "h4i-white": "/h4i_logo_white.svg",
+      "logomark-color": "/logomark.svg",
+      "logomark-white": "/logomark_white.svg",
+    };
+
+    const logoSrc = logoMap[`${version}-${color}`];
+
+    if (!logoSrc) return null;
+
+    return (
+      <img
+        alt="Hack for Impact Logo"
+        src={logoSrc}
+        className="flex h-10 min-h-5 flex-none"
+      />
+    );
+  };
+
+  /**
+   * Render the logo with appropriate size & version for current state
+   */
+  const renderLogo = () => {
+    const logoColor = isCompact ? "white" : "color";
+
+    return (
+      <Link
+        href="/"
+        className="h-full flex-auto justify-start items-center flex"
+      >
+        {/* Desktop */}
+        <div className="hidden lg:flex lg:flex-none">
+          {getLogo(isCompact ? "h4i" : "full", logoColor)}
+        </div>
+        {/* Tablet */}
+        <div className="hidden md:flex md:flex-none lg:hidden">
+          {getLogo(isCompact ? "logomark" : "h4i", logoColor)}
+        </div>
+        {/* Mobile */}
+        <div className="flex flex-none md:hidden">
+          {getLogo("logomark", logoColor)}
+        </div>
+      </Link>
     );
   };
 
@@ -235,7 +288,7 @@ export default function Navbar() {
         >
           {item.content.map((subItem: NavItem, subIndex) => (
             <NavigationMenuItem asChild key={subIndex}>
-              <div className="z-55">
+              <div className="relative z-50">
                 <NavigationMenuLink
                   href={subItem.link}
                   onMouseEnter={() => setHoveredSubIndex(subIndex)}
@@ -273,138 +326,54 @@ export default function Navbar() {
     </NavigationMenuItem>
   );
 
-  /**
-   * Return different sizes and versions of logo
-   */
-  const getLogo = (
-    version: "full" | "hack" | "h4i" | "logomark",
-    color: "color" | "white" | "black",
-  ) => {
-    if (version == "full") {
-      if (color == "color") {
-        return (
-          <motion.img
-            alt="Hack for Impact Logo"
-            src={"/hack4impact_logo.svg"}
-            className={cn("flex h-10 min-h-5 flex-none")}
-          />
-        );
-      }
-    } else if (version == "h4i") {
-      if (color == "color") {
-        return (
-          <motion.img
-            alt="Hack for Impact Logo"
-            src={"/h4i_logo.svg"}
-            className={cn("flex h-10 min-h-5 flex-none")}
-          />
-        );
-      } else if (color == "white") {
-        return (
-          <motion.img
-            alt="Hack for Impact Logo"
-            src={"/h4i_logo_white.svg"}
-            className={cn("flex h-10 min-h-5 flex-none")}
-          />
-        );
-      }
-    } else if (version == "logomark") {
-      if (color == "color") {
-        return (
-          <motion.img
-            alt="Hack for Impact Logomark"
-            src={"/logomark.svg"}
-            className={cn("flex h-10 min-h-5 flex-none")}
-          />
-        );
-      } else if (color == "white") {
-        return (
-          <motion.img
-            alt="Hack for Impact Logomark"
-            src={"/logomark_white.svg"}
-            className={cn("flex h-10 min-h-5 flex-none")}
-          />
-        );
-      }
-    }
-  };
-
-  /**
-   * Render the logo with appropriate size & version for current state
-   */
-  const renderLogo = () => {
-    const getLogoForBreakpoint = () => ({
-      // Mobile: always logomark
-      mobile: getLogo("logomark", isCompact ? "white" : "color"),
-      // Tablet: h4i or logomark based on compact state
-      tablet: getLogo(
-        isCompact ? "logomark" : "h4i",
-        isCompact ? "white" : "color",
-      ),
-      // Desktop: full or h4i based on compact state
-      desktop: getLogo(
-        isCompact ? "h4i" : "full",
-        isCompact ? "white" : "color",
-      ),
-    });
-
-    const logos = getLogoForBreakpoint();
-
-    return (
-      <Link
-        href="/"
-        className={cn("h-full flex-auto justify-start items-center flex")}
-      >
-        {/* Desktop */}
-        <div className="hidden lg:flex lg:flex-none">{logos.desktop}</div>
-        {/* Tablet */}
-        <div className="hidden md:flex lg:hidden">{logos.tablet}</div>
-        {/* Mobile */}
-        <div className="flex md:hidden">{logos.mobile}</div>
-      </Link>
-    );
-  };
-
   return (
-    <motion.header
-      variants={ANIMATION_CONFIG.navVariants}
-      animate={scrollState}
-      transition={ANIMATION_CONFIG.navTransition}
-      className={cn(
-        "z-50 fixed top-0 left-1/2 flex w-screen -translate-x-1/2 transform flex-row px-10 backdrop-blur-[1px]",
-      )}
-    >
-      {/* Logo Section */}
-      {renderLogo()}
-
-      {/* Spacer */}
-      <div
+    <>
+      <motion.header
         className={cn(
-          "h-full w-1 lg:flex-auto flex-none ",
-          isCompact ? "md:w-2 hidden md:flex" : "md:w-1/6 flex",
+          "border-3 w-[100vw] h-[80px] bg-transparent mt-0 rounded-none justify-end items-center sm:hidden flex z-50 fixed top-0 left-1/2 -translate-x-1/2 transform flex-row px-10 backdrop-blur-[1px]",
         )}
-      />
+      >
+        <div className=" w-20 h-12 border-3 bg-brand-blue rounded-full"></div>
+      </motion.header>
 
-      {/* Navigation Menu */}
-      <div className="flex h-full flex-auto">
-        <NavigationMenu
-          value={activeDropdown!}
-          onValueChange={setActiveDropdown}
-          viewport={false}
-          className="flex h-full w-full max-w-none justify-end"
-        >
-          <NavigationMenuList
-            className={cn(isCompact ? "gap-1" : "gap-1 md:gap-2 lg:gap-1")}
-            onMouseLeave={() => setHoveredIndex(null)}
+      <motion.header
+        variants={ANIMATION_CONFIG.navVariants}
+        animate={scrollState}
+        transition={ANIMATION_CONFIG.navTransition}
+        className="hidden sm:flex z-50 fixed top-0 left-1/2 w-screen -translate-x-1/2 transform flex-row px-10 backdrop-blur-[1px]"
+      >
+        {/* Logo Section */}
+        {renderLogo()}
+
+        {/* Spacer */}
+        <div
+          className={cn(
+            "h-full",
+            isCompact ? "w-1/6 flex-none" : "w-1/6 md:flex-auto lg:flex-auto",
+          )}
+        />
+
+        {/* Navigation Menu */}
+        <div className="flex h-full flex-auto justify-end">
+          <NavigationMenu
+            value={activeDropdown || undefined}
+            onValueChange={setActiveDropdown}
+            viewport={false}
+            className="flex h-full w-full max-w-none justify-end"
           >
-            {navItems.map((item, index) =>
-              item.content
-                ? renderDropdownItem(item, index)
-                : renderSimpleItem(item, index),
-            )}
-          </NavigationMenuList>
-        </NavigationMenu>
-      </div>
-    </motion.header>
+            <NavigationMenuList
+              className={cn(isCompact ? "gap-1" : "gap-1 md:gap-2 lg:gap-1")}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {navItems.map((item, index) =>
+                item.content
+                  ? renderDropdownItem(item, index)
+                  : renderSimpleItem(item, index),
+              )}
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+      </motion.header>
+    </>
   );
 }
