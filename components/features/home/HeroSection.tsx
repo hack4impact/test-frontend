@@ -228,7 +228,7 @@ export default function HeroSection() {
     <div className="flex h-full w-1/2 items-center pr-15 pb-15">
       <div
         ref={containerRef}
-        className="h-fit max-h-[500px] w-full"
+        className="w-full"
         style={{ visibility: "hidden" }} // Hidden until fonts load
       >
         {renderHeadline()}
@@ -255,7 +255,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="flex h-svh w-full flex-row text-brand-black"
+      className="flex w-full flex-row text-brand-black"
       aria-labelledby="hero-heading"
     >
       {renderContentArea()}
