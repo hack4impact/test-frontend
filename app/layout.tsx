@@ -1,6 +1,5 @@
-import { MotionToggle } from "@/components/a11y/MotionToggle";
 import ClickSpark from "@/components/layout/ClickSpark";
-import { MotionProvider } from "@/contexts/MotionContext";
+import { MotionConfig, MotionConfigContext } from "motion/react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -36,11 +35,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inclusiveSans.variable}`}>
       <body className="text-brand-black">
-        <MotionProvider>
+        <MotionConfig reducedMotion="user">
           <Navbar />
           <ClickSpark sparkColor="#10b875">{children}</ClickSpark>
-          <MotionToggle />
-        </MotionProvider>
+        </MotionConfig>
       </body>
     </html>
   );
