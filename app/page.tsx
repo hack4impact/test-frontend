@@ -23,10 +23,9 @@ export default function Home() {
       <div className="flex w-full flex-col">
         <AnimatedSectionTitle>Our Impact</AnimatedSectionTitle>
         <ImpactSection />
-
         <AnimatedSectionTitle>Featured Projects</AnimatedSectionTitle>
+        {/*  Weird red flash issue, might be a dev thing, but should look into */}
         <FeaturedProjects projects={projects} />
-
         <ActionButtons />
       </div>
     </main>

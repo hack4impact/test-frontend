@@ -36,7 +36,7 @@ export const CHAPTER_FEATURES_CONFIG = {
 /**
  * Interface for chapter feature data
  */
-interface ChapterFeatureData {
+interface ChapterProjectsData {
   id?: number | string;
   name: string;
   description?: string;
@@ -48,9 +48,9 @@ interface ChapterFeatureData {
 /**
  * Props for ChapterFeatures component
  */
-interface ChapterFeaturesProps {
+interface ChapterProjectsProps {
   /** Array of chapter features to display */
-  features?: ProjectExtended[];
+  projects?: ProjectExtended[];
   /** Additional CSS classes */
   className?: string;
   /** Whether to show loading state */
@@ -76,12 +76,12 @@ interface ChapterFeaturesProps {
  * ```
  */
 export function ChapterProjects({
-  features,
+  projects,
   className,
   isLoading = false,
-}: ChapterFeaturesProps = {}) {
+}: ChapterProjectsProps = {}) {
   // Use provided features or fallback data
-  const displayFeatures = features;
+  const displayProjects = projects;
   /**
    * Render loading skeleton
    */
@@ -130,7 +130,7 @@ export function ChapterProjects({
   }
 
   // Handle empty state
-  if (!displayFeatures || !displayFeatures.length) {
+  if (!displayProjects || !displayProjects.length) {
     return renderEmptyState();
   }
 
@@ -144,8 +144,8 @@ export function ChapterProjects({
         Chapter Featured Projects
       </h2>
 
-      {displayFeatures.map((feature, index) =>
-        renderFeatureCard(feature, index),
+      {displayProjects.map((project, index) =>
+        renderFeatureCard(project, index),
       )}
     </section>
   );

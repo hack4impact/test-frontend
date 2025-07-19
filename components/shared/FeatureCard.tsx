@@ -17,9 +17,9 @@ import Link from "next/link";
 const FEATURE_CARD_CONFIG = {
   // Default styling
   defaults: {
-    bgColor: "bg-brand-black",
+    bgColor: "bg-brand-blue",
     textColor: "text-white",
-    imgBorder: "border-brand-blue",
+    imgBorder: "border-brand-blue-light",
     footer: "Visit Project",
     link: "/",
   },
@@ -29,12 +29,16 @@ const FEATURE_CARD_CONFIG = {
     // Hover and tap interactions
     interactions: {
       whileTap: { scale: 0.98 },
-      whileHover: { rotateZ: "0.5deg" },
+      whileHover: {
+        rotateZ: "0.5deg",
+        backgroundColor: "var(--color-brand-black)",
+      },
       transition: {
         type: "spring" as const,
         damping: 10,
         stiffness: 100,
         duration: 0.25,
+        backgroundColor: { duration: 0.2, ease: "easeInOut" }, // Specific transition for color, without it it breaks because of weird styling issues (could be refactored to be better)
       },
     },
 
@@ -138,18 +142,16 @@ function FeatureCard({
       ref={ref}
       {...FEATURE_CARD_CONFIG.animations.interactions}
       className={cn(
-        "w-full bg-transparent transition-shadow",
-        "hover:shadow-brand-black/50 hover:drop-shadow-xl",
+        "w-full transition-shadow",
+        "hover:shadow-brand-black/50 hover:drop-shadow-xl rounded-xl",
+        bgColor || FEATURE_CARD_CONFIG.defaults.bgColor,
+        textColor || FEATURE_CARD_CONFIG.defaults.textColor,
         className,
       )}
     >
       <Link
         href={link}
-        className={cn(
-          "rounded-xl py-6 flex h-full w-full flex-row",
-          bgColor,
-          textColor,
-        )}
+        className={cn("rounded-xl py-6 flex h-full w-full flex-row")}
       >
         {/* Image placeholder area */}
         <div
@@ -225,18 +227,16 @@ function MotionFeatureCard({
       {...FEATURE_CARD_CONFIG.animations.interactions}
       {...motionProps}
       className={cn(
-        "w-full bg-transparent transition-shadow",
-        "hover:shadow-brand-black/50 hover:drop-shadow-xl",
+        "w-full transition-shadow",
+        "hover:shadow-brand-black/50 hover:drop-shadow-xl rounded-xl",
+        bgColor || FEATURE_CARD_CONFIG.defaults.bgColor,
+        textColor || FEATURE_CARD_CONFIG.defaults.textColor,
         className,
       )}
     >
       <Link
         href={link ? link : "/"}
-        className={cn(
-          "flex h-full w-full flex-row rounded-xl py-6",
-          bgColor || FEATURE_CARD_CONFIG.defaults.bgColor,
-          textColor || FEATURE_CARD_CONFIG.defaults.textColor,
-        )}
+        className={cn("flex h-full w-full flex-row rounded-xl py-6")}
       >
         {/* Image placeholder area */}
         <div

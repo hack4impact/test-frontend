@@ -92,7 +92,7 @@ export default function Work() {
             ? `${chapters[activeIndex].name} Projects`
             : "Chapter Projects"}
         </AnimatedSectionTitle>
-        <ChapterProjects features={styledProjects} />
+        <ChapterProjects projects={styledProjects} />
       </div>
     </main>
   );
