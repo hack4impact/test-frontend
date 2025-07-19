@@ -274,29 +274,96 @@ export default function Navbar() {
   );
 
   /**
+   * Return different sizes and versions of logo
+   */
+  const getLogo = (
+    version: "full" | "hack" | "h4i" | "logomark",
+    color: "color" | "white" | "black",
+  ) => {
+    if (version == "full") {
+      if (color == "color") {
+        return (
+          <motion.img
+            alt="Hack for Impact Logo"
+            src={"/hack4impact_logo.svg"}
+            className={cn("flex h-10 min-h-5 flex-none")}
+          />
+        );
+      }
+    } else if (version == "h4i") {
+      if (color == "color") {
+        return (
+          <motion.img
+            alt="Hack for Impact Logo"
+            src={"/h4i_logo.svg"}
+            className={cn("flex h-10 min-h-5 flex-none")}
+          />
+        );
+      } else if (color == "white") {
+        return (
+          <motion.img
+            alt="Hack for Impact Logo"
+            src={"/h4i_logo_white.svg"}
+            className={cn("flex h-10 min-h-5 flex-none")}
+          />
+        );
+      }
+    } else if (version == "logomark") {
+      if (color == "color") {
+        return (
+          <motion.img
+            alt="Hack for Impact Logomark"
+            src={"/logomark.svg"}
+            className={cn("flex h-10 min-h-5 flex-none")}
+          />
+        );
+      } else if (color == "white") {
+        return (
+          <motion.img
+            alt="Hack for Impact Logomark"
+            src={"/logomark_white.svg"}
+            className={cn("flex h-10 min-h-5 flex-none")}
+          />
+        );
+      }
+    }
+  };
+
+  /**
    * Render the logo with appropriate size & version for current state
    */
-  const renderLogo = () => (
-    <Link
-      href="/"
-      className={cn("h-full flex-auto justify-start items-center flex")}
-    >
-      <div
-        className={cn(
-          " flex h-10 min-h-5 lg:hidden text-start",
-          getNavItemClasses(false, true),
-          getActiveNavClasses(["/"]),
-        )}
+  const renderLogo = () => {
+    const getLogoForBreakpoint = () => ({
+      // Mobile: always logomark
+      mobile: getLogo("logomark", isCompact ? "white" : "color"),
+      // Tablet: h4i or logomark based on compact state
+      tablet: getLogo(
+        isCompact ? "logomark" : "h4i",
+        isCompact ? "white" : "color",
+      ),
+      // Desktop: full or h4i based on compact state
+      desktop: getLogo(
+        isCompact ? "h4i" : "full",
+        isCompact ? "white" : "color",
+      ),
+    });
+
+    const logos = getLogoForBreakpoint();
+
+    return (
+      <Link
+        href="/"
+        className={cn("h-full flex-auto justify-start items-center flex")}
       >
-        Hack4Impact
-      </div>
-      <motion.img
-        alt="Hack for Impact Logo"
-        src={isCompact ? "/h4i.svg" : "/logo.svg"}
-        className={cn("hidden lg:flex h-10 min-h-5 flex-none")}
-      />
-    </Link>
-  );
+        {/* Desktop */}
+        <div className="hidden lg:flex lg:flex-none">{logos.desktop}</div>
+        {/* Tablet */}
+        <div className="hidden md:flex lg:hidden">{logos.tablet}</div>
+        {/* Mobile */}
+        <div className="flex md:hidden">{logos.mobile}</div>
+      </Link>
+    );
+  };
 
   return (
     <motion.header
