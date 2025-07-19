@@ -1,14 +1,15 @@
 import { expandableIcon, expandableTitle } from "@/data/animation";
 import { AnimatePresence, Variants, motion } from "motion/react";
-import { useState } from "react";
+import { Ref, useState } from "react";
 
-export default function Expandable({
+export function Expandable({
   expandedColor = "var(--color-brand-blue)",
   closedColor = "var(--color-brand-blue-light)",
   hoverColor = "var(--color-brand-green)",
   title,
   content,
   identifier,
+  ref,
 }: {
   expandedColor?: string;
   closedColor?: string;
@@ -16,6 +17,7 @@ export default function Expandable({
   title?: string;
   content?: string;
   identifier: string;
+  ref: Ref<HTMLDivElement>;
 }) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
@@ -61,7 +63,7 @@ export default function Expandable({
     : null;
 
   return (
-    <div>
+    <motion.div ref={ref}>
       <motion.div
         variants={customExpandableTitle || expandableTitle}
         onClick={() => setIsExpanded(!isExpanded)}
@@ -102,6 +104,8 @@ export default function Expandable({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }
+
+export const MotionExpandable = motion.create(Expandable);

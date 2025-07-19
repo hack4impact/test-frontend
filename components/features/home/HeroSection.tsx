@@ -255,7 +255,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="flex w-full flex-row text-brand-black"
+      className="flex w-full flex-row text-brand-black pt-30 pb-25 "
       aria-labelledby="hero-heading"
     >
       {renderContentArea()}
