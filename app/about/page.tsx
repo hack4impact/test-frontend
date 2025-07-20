@@ -143,8 +143,8 @@ const Carousel = () => {
   };
   
   return (
-    <div className="h-[100vh]">
-      <div className="w-full overflow-hidden h-[100%]">
+    <div className="h-[90vh]">
+      <div className="w-full overflow-hidden h-full">
         <div
           ref={scrollRef}
           className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar overscroll-contain overflow-y-hidden h-full"
