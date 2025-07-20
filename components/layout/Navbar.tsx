@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { NavItem } from "@/types";
 import {
   Transition,
+  Variants,
+  easeIn,
   motion,
   useMotionValueEvent,
   useScroll,
@@ -326,21 +328,93 @@ export default function Navbar() {
     </NavigationMenuItem>
   );
 
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const mobileNavVariants = {
+    open: {
+      opacity: 1,
+      borderRadius: "16px",
+      height: "100%",
+      width: "100%",
+      marginTop: "0px",
+      marginRight: "0px",
+    },
+    closed: {
+      opacity: 1,
+      borderRadius: "8px",
+      height: "40px",
+      width: "80px",
+      marginTop: "20px",
+      marginRight: "40px",
+      transition: {},
+    },
+  };
+
+  const mobileHeaderVariants = {
+    open: {
+      transition: {
+        height: { stiffness: 1000, velocity: -100 },
+      },
+    },
+    closed: {
+      transition: {
+        height: { stiffness: 1000 },
+      },
+    },
+  };
+
+  const openCloseVariants: Variants = {
+    open: {
+      rotate: 45,
+      marginRight: "30px",
+      marginTop: "30px",
+    },
+    closed: { rotate: 0, marginRight: "70px", marginTop: "30px" },
+  };
+
+  const renderIcon = () => {
+    return (
+      <motion.svg
+        variants={openCloseVariants}
+        className="z-55 top-0 right-0 absolute w-5 h-5 text-white scale-200"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        xmlns="http://www.w3.org/2000/svg"
+        transition={{ duration: 0.2 }}
+        onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+      >
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </motion.svg>
+    );
+  };
+
   return (
     <>
+      {/* Mobile navigation */}
       <motion.header
+        variants={mobileHeaderVariants}
+        animate={isMobileNavOpen ? "open" : "closed"}
         className={cn(
-          "border-3 w-[100vw] h-[80px] bg-transparent mt-0 rounded-none justify-end items-center sm:hidden flex z-50 fixed top-0 left-1/2 -translate-x-1/2 transform flex-row px-10 backdrop-blur-[1px]",
+          "border-3 w-[100vw] h-screen mt-0 rounded-none justify-end items-center sm:hidden flex z-50 fixed top-0 left-1/2 -translate-x-1/2 flex-col",
         )}
       >
-        <div className=" w-20 h-12 border-3 bg-brand-blue rounded-full"></div>
+        {renderIcon()}
+        <motion.div
+          variants={mobileNavVariants}
+          className="z-50 absolute top-0 right-0  flex bg-brand-blue justify-center items-center"
+        ></motion.div>
       </motion.header>
 
+      {/* Website navigation */}
       <motion.header
         variants={ANIMATION_CONFIG.navVariants}
         animate={scrollState}
         transition={ANIMATION_CONFIG.navTransition}
-        className="hidden sm:flex z-50 fixed top-0 left-1/2 w-screen -translate-x-1/2 transform flex-row px-10 backdrop-blur-[1px]"
+        className="hidden sm:flex z-50 fixed top-0 left-1/2 w-screen -translate-x-1/2  flex-row px-10 backdrop-blur-[1px]"
       >
         {/* Logo Section */}
         {renderLogo()}
