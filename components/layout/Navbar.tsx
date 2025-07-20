@@ -153,6 +153,20 @@ export default function Navbar() {
   };
 
   /**
+   * Get classes for active navigation items for mobile navigation
+   * Highlights current page with underline and brand colors
+   */
+  const getActiveMobileNavClasses = (links: string[]): string => {
+    const baseActiveClasses = "underline-offset-5 decoration-2 underline";
+
+    if (links.includes(pathname)) {
+      return cn(baseActiveClasses, "text-brand-red");
+    }
+
+    return cn("text-white");
+  };
+
+  /**
    * Check if item should show hover effect
    */
   const shouldShowHover = (index: number): boolean => {
@@ -330,8 +344,21 @@ export default function Navbar() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const mobileHeaderVariants = {
-    open: {},
-    closed: {},
+    open: {
+      height: "100%",
+      transition: {
+        when: "beforeChildren",
+        duration: 0.05,
+      },
+    },
+    closed: {
+      height: "80px",
+      transition: {
+        when: "afterChildren",
+        delay: 0.8,
+        duration: 0.05,
+      },
+    },
   };
 
   const mobileNavVariants = {
@@ -416,7 +443,7 @@ export default function Navbar() {
         variants={mobileHeaderVariants}
         animate={isMobileNavOpen ? "open" : "closed"}
         className={cn(
-          " w-[100vw] h-screen mt-0 rounded-none justify-end items-center sm:hidden flex z-50 fixed top-0 left-1/2 -translate-x-1/2 flex-col",
+          " w-[100vw] mt-0 rounded-none justify-end items-center sm:hidden flex z-50 fixed top-0 left-1/2 -translate-x-1/2 flex-col",
         )}
       >
         <motion.button
@@ -451,7 +478,10 @@ export default function Navbar() {
                 initial={false}
                 variants={mobileNavItemVariants}
                 key={index}
-                className="text-5xl text-white font-bold w-full flex justify-center items-center"
+                className={cn(
+                  "text-5xl text-white font-bold w-full flex justify-center items-center",
+                  getActiveMobileNavClasses([item.link]),
+                )}
               >
                 <Link
                   href={item.link}

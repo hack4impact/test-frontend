@@ -225,7 +225,7 @@ export default function HeroSection() {
    * Render the content area (left side)
    */
   const renderContentArea = () => (
-    <div className="flex h-full w-1/2 items-center pr-15 pb-15">
+    <div className="flex h-full sm:w-1/2 w-full items-center sm:pr-15 pb-15">
       <div
         ref={containerRef}
         className="w-full"
@@ -242,7 +242,7 @@ export default function HeroSection() {
    * Currently a placeholder - could be replaced with actual content
    */
   const renderVisualArea = () => (
-    <div className="flex h-full w-1/2 items-center pb-15">
+    <div className="sm:flex hidden h-full w-1/2 items-center pb-15">
       <div
         className={cn(
           "h-[500px] w-full rounded-sm",
