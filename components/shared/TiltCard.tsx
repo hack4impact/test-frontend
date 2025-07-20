@@ -271,7 +271,7 @@ function MotionTiltCard({
   return (
     <motion.div
       ref={ref}
-      className={cn("w-1/3", className)}
+      className={cn("w-full", className)}
       style={{
         perspective: TILT_CARD_CONFIG.animation.perspective,
       }}
