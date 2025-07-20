@@ -111,7 +111,7 @@ function InitiativeCard({ item, className, ref }: InitiativeCardProps) {
       <motion.div
         {...INITIATIVE_CARD_CONFIG.animations.imageArea}
         className={cn(
-          "flex w-1/2 h-full border-3 rounded-sm backdrop-blur-[2px]",
+          "md:flex hidden w-1/2 h-full border-3 rounded-sm backdrop-blur-[2px]",
           item.imgBorder,
         )}
         aria-label="Initiative image placeholder"
@@ -120,7 +120,7 @@ function InitiativeCard({ item, className, ref }: InitiativeCardProps) {
       {/* Content area */}
       <motion.div
         {...INITIATIVE_CARD_CONFIG.animations.contentArea}
-        className="flex w-1/2 h-full flex-col justify-stretch"
+        className="flex md:w-1/2 w-full h-full flex-col justify-stretch"
       >
         <h3 className="flex flex-none mb-2 text-4xl font-semibold">
           {item.name}
@@ -183,7 +183,7 @@ function MotionInitiativeCard({
       <motion.div
         {...INITIATIVE_CARD_CONFIG.animations.imageArea}
         className={cn(
-          "flex w-1/2 place-self-stretch flex-auto border-3 rounded-sm backdrop-blur-[2px]",
+          "md:flex hidden w-1/2 place-self-stretch flex-auto border-3 rounded-sm backdrop-blur-[2px]",
           item.imgBorder,
         )}
         aria-label="Initiative image placeholder"
@@ -192,7 +192,7 @@ function MotionInitiativeCard({
       {/* Content area */}
       <motion.div
         {...INITIATIVE_CARD_CONFIG.animations.contentArea}
-        className="flex w-1/2 h-full flex-col justify-stretch"
+        className="flex md:w-1/2 w-full h-full flex-col justify-stretch"
       >
         <h3 className="flex flex-none mb-2 text-4xl font-semibold">
           {item.name}
