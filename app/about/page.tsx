@@ -1,5 +1,5 @@
 "use client"
-import { GridPattern } from "@/components/common/GridPattern";
+import { GridPattern } from "@/components/layout/GridPattern"
 import ValueCard from "@/components/valueCard";
 import Image from "next/image";
 import React, { useRef, useState, useEffect } from "react";
@@ -65,13 +65,16 @@ const Carousel = () => {
     // calculating visible ranges:
     const visibleStart = Math.floor(scrollLeft / cardWidth);
     const visibleEnd = visibleStart + cardsPerView - 1;
+
+    const isLastCard = visibleEnd >= cards.length - 1;
+    const isFirstCard = visibleStart <= 0;
   
     // allow right scrolling if the next scroll doesn't exceed max
-    if (index === visibleEnd && scrollLeft + cardWidth <= maxScrollLeft + 1) {
+    if (index === visibleEnd && !isLastCard && scrollLeft + cardWidth <= maxScrollLeft + 1) {
       container.scrollBy({ left: cardWidth, behavior: "smooth" });
     }
     // allow left scrolling if not at start
-    else if (index === visibleStart && scrollLeft > 0) {
+    else if (index === visibleStart && !isFirstCard && scrollLeft > 0) {
       container.scrollBy({ left: -cardWidth, behavior: "smooth" });
     }
   };
@@ -89,8 +92,9 @@ const Carousel = () => {
   
     const visibleStart = Math.floor(scrollLeft / cardWidth);
     const visibleEnd = visibleStart + cardsPerView - 1;
-  
+    
     setVisibleRange({ start: visibleStart, end: visibleEnd });
+
   };
   
   // this is to detect any changes within the container of the cards
@@ -105,7 +109,7 @@ const Carousel = () => {
 
   // this is responsible for changing the type of cursor style based on where it's hovered (right-most or left-most cards)
   const getCursorStyle = (index: number) => {
-    if (index === visibleRange.end) {
+    if (index === visibleRange.end && index != cardData.length - 1) {
       return { cursor: 'url("/ArrowRight.png"), auto' };
     } else if (index === visibleRange.start && index != 0) {
       return { cursor: 'url("/ArrowLeft.png"), auto' };
@@ -139,31 +143,33 @@ const Carousel = () => {
   };
   
   return (
-    <div className="w-full overflow-hidden">
-      <div
-        ref={scrollRef}
-        className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar"
-      >
-        {cardData.map((card, index) => {
-          return (
-            <div
-              key={`card-${index}`}
-              onClick={() => handleCardClick(index)}
-              className={`carousel-card snap-start shrink-0 w-[32.5%] p-5`}
-              style={getCursorStyle(index)}
-            >
-              <div className="p-2 w-[1250px]" style={getCardStyle(index)}>
-                <ValueCard
-                  bg={card.bg}
-                  color="text-[#FFF]"
-                  title={card.title}
-                  content={card.content}
-                  footer=""
-                />
-              </div>
-            </div>
-          );
-        })}
+    <div className="h-[100vh]">
+      <div className="w-full overflow-hidden h-[100%]">
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar overscroll-contain overflow-y-hidden h-full"
+        >
+          {cardData.map((card, index) => {
+            return (
+              <div
+                key={`card-${index}`}
+                onClick={() => handleCardClick(index)}
+                className={`carousel-card shrink-0 snap-start w-[32.5%] p-5`}
+                style={getCursorStyle(index)}
+              >
+                <div className="w-[1250px] mt-10" style={getCardStyle(index)}>
+                  <ValueCard
+                    bg={card.bg}
+                    color="text-[#FFF]"
+                    title={card.title}
+                    content={card.content}
+                    footer=""
+                  />
+                </div>
+              </div>            
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -179,25 +185,25 @@ function About() {
 
       <main className="px-10 min-h-screen flex flex-col min-w-[300px]">
         <div className="w-full flex flex-col">
-          <h1 className="text-[48px] font-bold pt-30">About Us</h1>
+          <h1 className="text-[48px] font-semibold pt-30">About Us</h1>
 
-          <div className="flex flex-row gap-10 justify-between pt-10">
+          <div className="flex flex-row gap-2 justify-between pt-10">
             <Image src="/blank.png" alt="INSERT PIC" width={650} height={500} className="border-3 border-[#0085FF] rounded-sm" />
             <Image src="/blank.png" alt="INSERT PIC" width={650} height={500} className="border-3 border-[#0085FF] rounded-sm" />
           </div>
 
-          <h1 className="text-[48px] pt-10 font-bold">Our Mission</h1>
-          <div className="flex flex-row gap-10 justify-between pt-10">
+          <h1 className="text-[48px] pt-10 font-semibold">Our Mission</h1>
+          <div className="flex flex-row gap-2 justify-between pt-10">
             <p className="h-3/5 text-[20px]">
               To empower engineers, designers, activists, and humanitarians to create lasting and impactful social change, fostering the wider adoption of software as a tool for social good.
             </p>
           </div>
 
-          <h1 className="text-[48px] pt-10 font-bold">Our Values</h1>
+          <h1 className="text-[48px] pt-10 font-semibold">Our Values</h1>
           <div><Carousel /></div>
 
-          <h1 className="text-[48px] pt-10 font-bold">National Team</h1>
-          <div className="w-full flex flex-wrap pt-10 justify-center gap-6 pb-10">
+          <h1 className="text-[48px] pt-10 font-semibold">National Team</h1>
+          <div className="w-full flex flex-wrap pt-10 justify-center gap-2 pb-10">
             {[...Array(8)].map((_, index) => (
               <div key={`blue-${index}`} className="basis-[calc(25%-1.5rem)]">
                 <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
