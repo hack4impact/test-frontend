@@ -1,12 +1,11 @@
 "use client";
 
-import { navItems } from "@/data/navigation";
+import { mobileNavItems, navItems } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import { NavItem } from "@/types";
 import {
   Transition,
   Variants,
-  easeIn,
   motion,
   useMotionValueEvent,
   useScroll,
@@ -446,7 +445,7 @@ export default function Navbar() {
               <motion.div>{getLogo("logomark", "white")}</motion.div>
             </Link>
           </motion.li>
-          {navItems.map((item, index) => {
+          {mobileNavItems.map((item, index) => {
             return (
               <motion.li
                 initial={false}

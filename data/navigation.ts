@@ -21,4 +21,21 @@ export const navItems: NavItem[] = [
   },
 ];
 
+export const mobileNavItems: NavItem[] = [
+  { name: "About Us", link: "/about" },
+  { name: "Our Work", link: "/work" },
+
+  { name: "Chapters", link: "/apply/chapters" },
+  { name: "Nonprofits", link: "/apply/nonprofits" },
+
+  {
+    name: "Donate",
+    link: "/donate",
+  },
+  {
+    name: "Log In",
+    link: "/login",
+  },
+];
+
 export const homeItem: NavItem = { name: "Home", link: "/" };
