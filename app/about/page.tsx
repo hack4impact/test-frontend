@@ -1,14 +1,20 @@
-"use client"
-import { GridPattern } from "@/components/layout/GridPattern"
+"use client";
+
+import { CircleCarousel } from "@/components/about/CircleCarousel";
+import { GridPattern } from "@/components/layout/GridPattern";
 import ValueCard from "@/components/valueCard";
+import { Clock5 } from "lucide-react";
+import { motion } from "motion/react";
 import Image from "next/image";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // current data in the ValueCards
 const GoBeyondTechContent =
-"Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools.";
-const EngYourComContent = "Our community makes us special. The strength of our community comes from the contributions of its members. We welcome new members with warmth, and we make the effort to know each other beyond superficial details.";
-const DevWCareContent = "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping."
+  "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools.";
+const EngYourComContent =
+  "Our community makes us special. The strength of our community comes from the contributions of its members. We welcome new members with warmth, and we make the effort to know each other beyond superficial details.";
+const DevWCareContent =
+  "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping.";
 
 const cardData = [
   {
@@ -43,138 +49,6 @@ const cardData = [
   },
 ];
 
-// for the ValueCard horizontal carasouel functionality and components
-const Carousel = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const cardsPerView = 3;
-  const [visibleRange, setVisibleRange] = useState({ start: 0, end: cardsPerView - 1 });
-
-  // when card is clicked, it would scroll to a certain direction - either left or right
-  const handleCardClick = (index: number) => {
-    const container = scrollRef.current;
-    if (!container) return;
-  
-    const cards = container.querySelectorAll(".carousel-card");
-    const card = cards[index] as HTMLElement;
-    if (!card) return;
-  
-    const cardWidth = card.offsetWidth;
-    const scrollLeft = container.scrollLeft;
-    const maxScrollLeft = container.scrollWidth - container.clientWidth;
-  
-    // calculating visible ranges:
-    const visibleStart = Math.floor(scrollLeft / cardWidth);
-    const visibleEnd = visibleStart + cardsPerView - 1;
-
-    const isLastCard = visibleEnd >= cards.length - 1;
-    const isFirstCard = visibleStart <= 0;
-  
-    // allow right scrolling if the next scroll doesn't exceed max
-    if (index === visibleEnd && !isLastCard && scrollLeft + cardWidth <= maxScrollLeft + 1) {
-      container.scrollBy({ left: cardWidth, behavior: "smooth" });
-    }
-    // allow left scrolling if not at start
-    else if (index === visibleStart && !isFirstCard && scrollLeft > 0) {
-      container.scrollBy({ left: -cardWidth, behavior: "smooth" });
-    }
-  };
-
-  // when scrolling happens, we need to adjust the position and type of layout of the cards on the page
-  const handleScroll = () => {
-    const container = scrollRef.current;
-    if (!container) return;
-  
-    const cards = container.querySelectorAll(".carousel-card") as NodeListOf<HTMLElement>;
-    if (!cards.length) return;
-  
-    const cardWidth = cards[0].offsetWidth;
-    const scrollLeft = container.scrollLeft;
-  
-    const visibleStart = Math.floor(scrollLeft / cardWidth);
-    const visibleEnd = visibleStart + cardsPerView - 1;
-    
-    setVisibleRange({ start: visibleStart, end: visibleEnd });
-
-  };
-  
-  // this is to detect any changes within the container of the cards
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    container.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // set initial
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // this is responsible for changing the type of cursor style based on where it's hovered (right-most or left-most cards)
-  const getCursorStyle = (index: number) => {
-    if (index === visibleRange.end && index != cardData.length - 1) {
-      return { cursor: 'url("/ArrowRight.png"), auto' };
-    } else if (index === visibleRange.start && index != 0) {
-      return { cursor: 'url("/ArrowLeft.png"), auto' };
-    } else {
-      return {};
-    }
-  };
-
-  // this is the card style overall, depending on the positions a specific card is in
-  const getCardStyle = (index: number) => {
-    const isLeft = index === visibleRange.start;
-    const isCenter = index === visibleRange.start + 1;
-    const isRight = index === visibleRange.end;
-  
-    let style: React.CSSProperties = {
-      transition: 'transform 0.3s ease',
-    };
-  
-    if (isCenter) {
-      style.transform = 'scale(1.05) translateY(-10px) translateX(15px)';
-      style.zIndex = 5;
-    } else if (isLeft) {
-      style.transform = 'rotate(-2deg) translateY(4px)';
-      style.zIndex = 1;
-    } else if (isRight) {
-      style.transform = 'rotate(2deg) translateY(4px) translateX(-10px) translateY(30px)';
-      style.zIndex = 1;
-    }    
-  
-    return style;
-  };
-  
-  return (
-    <div className="h-[90vh]">
-      <div className="w-full overflow-hidden h-full">
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar overscroll-contain overflow-y-hidden h-full"
-        >
-          {cardData.map((card, index) => {
-            return (
-              <div
-                key={`card-${index}`}
-                onClick={() => handleCardClick(index)}
-                className={`carousel-card shrink-0 snap-start w-[32.5%] p-5`}
-                style={getCursorStyle(index)}
-              >
-                <div className="w-[1250px] mt-10" style={getCardStyle(index)}>
-                  <ValueCard
-                    bg={card.bg}
-                    color="text-[#FFF]"
-                    title={card.title}
-                    content={card.content}
-                    footer=""
-                  />
-                </div>
-              </div>            
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 function About() {
   return (
     <div className="relative w-screen">
@@ -188,37 +62,67 @@ function About() {
           <h1 className="text-[48px] font-semibold pt-30">About Us</h1>
 
           <div className="flex flex-row gap-2 justify-between pt-10">
-            <Image src="/blank.png" alt="INSERT PIC" width={650} height={500} className="border-3 border-[#0085FF] rounded-sm" />
-            <Image src="/blank.png" alt="INSERT PIC" width={650} height={500} className="border-3 border-[#0085FF] rounded-sm" />
+            <Image
+              src="/blank.png"
+              alt="INSERT PIC"
+              width={650}
+              height={500}
+              className="border-3 border-[#0085FF] rounded-sm"
+            />
+            <Image
+              src="/blank.png"
+              alt="INSERT PIC"
+              width={650}
+              height={500}
+              className="border-3 border-[#0085FF] rounded-sm"
+            />
           </div>
 
           <h1 className="text-[48px] pt-10 font-semibold">Our Mission</h1>
           <div className="flex flex-row gap-2 justify-between pt-10">
             <p className="h-3/5 text-[20px]">
-              To empower engineers, designers, activists, and humanitarians to create lasting and impactful social change, fostering the wider adoption of software as a tool for social good.
+              To empower engineers, designers, activists, and humanitarians to
+              create lasting and impactful social change, fostering the wider
+              adoption of software as a tool for social good.
             </p>
           </div>
 
           <h1 className="text-[48px] pt-10 font-semibold">Our Values</h1>
-          <div><Carousel /></div>
+          <div>
+            {/* <Carousel /> */}
+            <CircleCarousel></CircleCarousel>
+          </div>
 
           <h1 className="text-[48px] pt-10 font-semibold">National Team</h1>
           <div className="w-full flex flex-wrap pt-10 justify-center gap-2 pb-10">
             {[...Array(8)].map((_, index) => (
               <div key={`blue-${index}`} className="basis-[calc(25%-1.5rem)]">
-                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#0085FF] rounded-sm" />
+                <Image
+                  src="/blank.png"
+                  alt="INSERT PIC"
+                  width={315}
+                  height={250}
+                  className="border-3 border-[#0085FF] rounded-sm"
+                />
               </div>
             ))}
             {[...Array(8)].map((_, index) => (
               <div key={`green-${index}`} className="basis-[calc(25%-1.5rem)]">
-                <Image src="/blank.png" alt="INSERT PIC" width={315} height={250} className="border-3 border-[#10B875] rounded-sm" />
+                <Image
+                  src="/blank.png"
+                  alt="INSERT PIC"
+                  width={315}
+                  height={250}
+                  className="border-3 border-[#10B875] rounded-sm"
+                />
               </div>
             ))}
           </div>
         </div>
       </main>
     </div>
-  )
+  );
 }
 
 export default About;
+
