@@ -9,8 +9,7 @@ const wrap = (length: number, index: number) => {
   }
 };
 
-export function CircleCarousel() {
-  const items = ["A", "B", "C", "D", "F"]; // Added more items to demonstrate
+export function CircleCarousel({ items }: { items: any }) {
   const [centerIndex, setCenterIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -164,7 +163,7 @@ export function CircleCarousel() {
 
   return (
     <div className="relative w-full h-150 flex justify-center items-center border-2 border-gray-300 overflow-hidden">
-      {items.map((item, index) => {
+      {items.map((item: any, index: number) => {
         const cardState = getCardState(index);
 
         // Update previous states after getting current state
@@ -205,7 +204,7 @@ export function CircleCarousel() {
             }}
             transition={cardState.transition}
           >
-            {item}
+            {item.content}
           </motion.div>
         );
       })}

@@ -90,7 +90,7 @@ function About() {
           <h1 className="text-[48px] pt-10 font-semibold">Our Values</h1>
           <div>
             {/* <Carousel /> */}
-            <CircleCarousel></CircleCarousel>
+            <CircleCarousel items={cardData}></CircleCarousel>
           </div>
 
           <h1 className="text-[48px] pt-10 font-semibold">National Team</h1>
