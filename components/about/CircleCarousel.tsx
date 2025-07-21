@@ -10,10 +10,13 @@ const wrap = (length: number, index: number) => {
 };
 
 export function CircleCarousel() {
-  const items = ["A", "B", "C", "D", "E"]; // Added more items to demonstrate
+  const items = ["A", "B", "C", "D", "F"]; // Added more items to demonstrate
   const [centerIndex, setCenterIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [previousCardStates, setPreviousCardStates] = useState<
+    Record<number, string>
+  >({});
 
   // Controls the gap between cards
   const cardSpacing = 400;
@@ -88,32 +91,41 @@ export function CircleCarousel() {
     const left = wrap(totalCards, centerIndex - 1);
     const right = wrap(totalCards, centerIndex + 1);
 
+    let currentPosition: string;
+    let cardState: any;
+
     if (index === center) {
-      return {
+      currentPosition = "center";
+      cardState = {
         position: "center",
         x: 0,
-        y: 0,
+        y: -15,
         scale: 1,
         zIndex: 3,
         visible: true,
+        rotate: 0,
       };
     } else if (index === left) {
-      return {
+      currentPosition = "left";
+      cardState = {
         position: "left",
         x: -cardSpacing,
-        y: 0,
+        y: 15,
         scale: sideCardScale,
         zIndex: 2,
         visible: true,
+        rotate: -5,
       };
     } else if (index === right) {
-      return {
+      currentPosition = "right";
+      cardState = {
         position: "right",
         x: cardSpacing,
-        y: 0,
+        y: 15,
         scale: sideCardScale,
         zIndex: 2,
         visible: true,
+        rotate: 5,
       };
     } else {
       // Determine if this card should be off-screen left or right
@@ -121,21 +133,47 @@ export function CircleCarousel() {
       const distanceFromCenter = (index - center + totalCards) % totalCards;
       const isOnLeftSide = distanceFromCenter > totalCards / 2;
 
-      return {
-        position: isOnLeftSide ? "offscreen-left" : "offscreen-right",
+      currentPosition = isOnLeftSide ? "offscreen-left" : "offscreen-right";
+      cardState = {
+        position: currentPosition,
         x: isOnLeftSide ? offScreenLeft : offScreenRight,
-        y: 0,
+        y: 65,
         scale: sideCardScale,
         zIndex: 1,
-        visible: false,
+        visible: true,
+        rotate: isOnLeftSide ? -10 : 10,
       };
     }
+
+    // Check if this card is transitioning between two off-screen positions
+    const previousPosition = previousCardStates[index];
+    const isOffscreenToOffscreen =
+      (previousPosition === "offscreen-left" ||
+        previousPosition === "offscreen-right") &&
+      (currentPosition === "offscreen-left" ||
+        currentPosition === "offscreen-right") &&
+      previousPosition !== currentPosition;
+
+    // Set transition based on whether it's an off-screen to off-screen transition
+    cardState.transition = isOffscreenToOffscreen
+      ? { duration: 0 } // No animation for off-screen to off-screen
+      : { duration: 0.3, ease: "easeInOut" }; // Normal animation for all other cases
+
+    return cardState;
   };
 
   return (
-    <div className="relative w-full h-96 flex justify-center items-center border-2 border-gray-300 overflow-hidden">
+    <div className="relative w-full h-150 flex justify-center items-center border-2 border-gray-300 overflow-hidden">
       {items.map((item, index) => {
         const cardState = getCardState(index);
+
+        // Update previous states after getting current state
+        useEffect(() => {
+          setPreviousCardStates((prev) => ({
+            ...prev,
+            [index]: cardState.position,
+          }));
+        }, [centerIndex, index, cardState.position]);
 
         return (
           <motion.div
@@ -145,8 +183,9 @@ export function CircleCarousel() {
             style={{
               position: "absolute",
               zIndex: cardState.zIndex,
+              transformOrigin: "center",
             }}
-            className={`border-2 w-80 h-full flex items-center justify-center bg-white rounded cursor-pointer text-lg font-bold
+            className={`border-2 w-80 h-4/5 flex items-center justify-center bg-white rounded-lg cursor-pointer text-lg font-bold
               ${cardState.position === "center" ? "border-blue-500 bg-blue-50" : "border-gray-300"}
               ${cardState.visible ? "" : "pointer-events-none"}
             `}
@@ -155,17 +194,16 @@ export function CircleCarousel() {
               scale: cardState.scale,
               x: cardState.x,
               y: cardState.y,
+              rotateZ: cardState.rotate,
             }}
             animate={{
               opacity: cardState.visible ? 1 : 0,
               scale: cardState.scale,
               x: cardState.x,
               y: cardState.y,
+              rotateZ: cardState.rotate,
             }}
-            transition={{
-              duration: 0.3,
-              ease: "easeInOut",
-            }}
+            transition={cardState.transition}
           >
             {item}
           </motion.div>
