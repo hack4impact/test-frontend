@@ -17,6 +17,8 @@ export function CircleCarousel({ items }: { items: any }) {
     Record<number, string>
   >({});
 
+  const colors = ["#F2594B", "#0085FF", "#10B875"];
+
   // Controls the gap between cards
   const cardSpacing = 400;
 
@@ -183,8 +185,9 @@ export function CircleCarousel({ items }: { items: any }) {
               position: "absolute",
               zIndex: cardState.zIndex,
               transformOrigin: "center",
+              backgroundColor: colors[index % colors.length],
             }}
-            className={`border-2 w-80 h-4/5 flex items-center justify-center bg-white rounded-lg cursor-pointer text-lg font-bold
+            className={`text-white px-4 py-2 border-2 w-80 h-4/5 flex items-center justify-center bg-white rounded-lg cursor-pointer text-lg font-bold
               ${cardState.position === "center" ? "border-blue-500 bg-blue-50" : "border-gray-300"}
               ${cardState.visible ? "" : "pointer-events-none"}
             `}
