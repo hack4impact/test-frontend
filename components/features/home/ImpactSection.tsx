@@ -9,7 +9,8 @@ import { MotionTiltCard } from "../../shared/TiltCard";
  */
 const IMPACT_SECTION_CONFIG = {
   // Container styling
-  containerClasses: "my-10 flex w-full flex-row justify-between gap-5",
+  containerClasses:
+    "my-10 flex w-full md:flex-row flex-col justify-between gap-5",
 
   // Animation variants for container
   containerVariants: {
@@ -136,7 +137,7 @@ export default function ImpactSection({
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={`skeleton-${index}`}
-          className="h-64 w-1/3 animate-pulse rounded-md bg-gray-200"
+          className="h-64 md:w-1/3 w-full animate-pulse rounded-md bg-gray-200"
           aria-label={`Loading impact card ${index + 1}`}
         />
       ))}
@@ -155,7 +156,7 @@ export default function ImpactSection({
       footer={item.footer}
       bgColor={item.bgColor}
       textColor={item.textColor || "text-white"}
-      className="flex-1"
+      className="md:w-1/3 flex-1"
     />
   );
 

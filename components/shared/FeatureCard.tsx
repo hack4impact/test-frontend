@@ -242,14 +242,14 @@ function MotionFeatureCard({
         {/* Image placeholder area */}
         <div
           className={cn(
-            "ml-5 flex w-1/2 rounded-sm border-3",
+            "ml-5 md:flex hidden w-1/2 rounded-sm border-3",
             imgBorder || FEATURE_CARD_CONFIG.defaults.imgBorder,
           )}
           aria-label="Project image placeholder"
         />
 
         {/* Content area */}
-        <div className="flex w-1/2 flex-col">
+        <div className="flex md:w-1/2 w-full flex-col">
           <CardHeader className="h-1/5">
             <CardTitle
               className={cn(

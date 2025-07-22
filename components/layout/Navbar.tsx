@@ -1,12 +1,11 @@
 "use client";
 
-import { navItems } from "@/data/navigation";
+import { mobileNavItems, navItems } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import { NavItem } from "@/types";
 import {
   Transition,
   Variants,
-  easeIn,
   motion,
   useMotionValueEvent,
   useScroll,
@@ -151,6 +150,20 @@ export default function Navbar() {
     }
 
     return cn(isCompact ? "text-white" : "text-brand-black");
+  };
+
+  /**
+   * Get classes for active navigation items for mobile navigation
+   * Highlights current page with underline and brand colors
+   */
+  const getActiveMobileNavClasses = (links: string[]): string => {
+    const baseActiveClasses = "underline-offset-5 decoration-2 underline";
+
+    if (links.includes(pathname)) {
+      return cn(baseActiveClasses, "text-brand-red");
+    }
+
+    return cn("text-white");
   };
 
   /**
@@ -329,14 +342,38 @@ export default function Navbar() {
   );
 
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
+  const mobileHeaderVariants = {
+    open: {
+      height: "100%",
+      transition: {
+        when: "beforeChildren",
+        duration: 0.05,
+      },
+    },
+    closed: {
+      height: "80px",
+      transition: {
+        when: "afterChildren",
+        delay: 0.8,
+        duration: 0.05,
+      },
+    },
+  };
+
   const mobileNavVariants = {
     open: {
       opacity: 1,
-      borderRadius: "16px",
+      borderRadius: "0px",
       height: "100%",
       width: "100%",
       marginTop: "0px",
       marginRight: "0px",
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.05,
+        duration: 0.15,
+      },
     },
     closed: {
       opacity: 1,
@@ -345,37 +382,49 @@ export default function Navbar() {
       width: "80px",
       marginTop: "20px",
       marginRight: "40px",
-      transition: {},
+      transition: {
+        when: "afterChildren",
+        staggerChildren: 0.05,
+        duration: 0.15,
+      },
     },
   };
 
-  const mobileHeaderVariants = {
+  const mobileNavItemVariants = {
     open: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      pointerEvents: "auto",
       transition: {
-        height: { stiffness: 1000, velocity: -100 },
+        default: {
+          type: "spring" as const,
+          damping: 10,
+          stiffness: 100,
+          duration: 0.5,
+        },
       },
     },
     closed: {
-      transition: {
-        height: { stiffness: 1000 },
-      },
+      opacity: 0,
+      y: 20,
+      scale: 0.95,
+      pointerEvents: "none",
     },
   };
 
   const openCloseVariants: Variants = {
     open: {
       rotate: 45,
-      marginRight: "30px",
-      marginTop: "30px",
     },
-    closed: { rotate: 0, marginRight: "70px", marginTop: "30px" },
+    closed: { rotate: 0 },
   };
 
   const renderIcon = () => {
     return (
       <motion.svg
         variants={openCloseVariants}
-        className="z-55 top-0 right-0 absolute w-5 h-5 text-white scale-200"
+        className="w-5 h-5 text-white scale-200"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -384,7 +433,6 @@ export default function Navbar() {
         strokeLinejoin="round"
         xmlns="http://www.w3.org/2000/svg"
         transition={{ duration: 0.2 }}
-        onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
       >
         <line x1="12" y1="5" x2="12" y2="19"></line>
         <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -399,14 +447,57 @@ export default function Navbar() {
         variants={mobileHeaderVariants}
         animate={isMobileNavOpen ? "open" : "closed"}
         className={cn(
-          "border-3 w-[100vw] h-screen mt-0 rounded-none justify-end items-center sm:hidden flex z-50 fixed top-0 left-1/2 -translate-x-1/2 flex-col",
+          " w-[100vw] mt-0 rounded-none justify-end items-center sm:hidden flex z-50 fixed top-0 left-1/2 -translate-x-1/2 flex-col",
         )}
       >
-        {renderIcon()}
-        <motion.div
+        <motion.button
+          className="z-55 absolute mt-5 mr-10 w-20 h-10 rounded-lg top-0 right-0 flex justify-center items-center"
+          onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+        >
+          {renderIcon()}
+        </motion.button>
+
+        <motion.ul
+          initial={false}
           variants={mobileNavVariants}
-          className="z-50 absolute top-0 right-0  flex bg-brand-blue justify-center items-center"
-        ></motion.div>
+          animate={isMobileNavOpen ? "open" : "closed"}
+          className="z-50 gap-10 absolute top-0 right-0 flex bg-brand-blue justify-center items-center flex-col w-full h-full"
+        >
+          <motion.li
+            initial={false}
+            variants={mobileNavItemVariants}
+            className="flex w-full justify-center items-center"
+          >
+            <Link
+              href="/"
+              onClick={() => setIsMobileNavOpen(false)}
+              className="flex"
+            >
+              <motion.div>{getLogo("logomark", "white")}</motion.div>
+            </Link>
+          </motion.li>
+          {mobileNavItems.map((item, index) => {
+            return (
+              <motion.li
+                initial={false}
+                variants={mobileNavItemVariants}
+                key={index}
+                className={cn(
+                  "text-5xl text-white flex font-bold w-full justify-center items-center",
+                  getActiveMobileNavClasses([item.link]),
+                )}
+              >
+                <Link
+                  href={item.link}
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="flex"
+                >
+                  {item.name}
+                </Link>
+              </motion.li>
+            );
+          })}
+        </motion.ul>
       </motion.header>
 
       {/* Website navigation */}
