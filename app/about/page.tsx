@@ -3,9 +3,13 @@
 import { CircleCarousel } from "@/components/features/about/CircleCarousel";
 import { GridPattern } from "@/components/layout/GridPattern";
 import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
+import { useExecMembers } from "@/hooks/useExecMembers";
+import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
+const colors = ["#F2594B", "#0085FF", "#10B875"];
 const values = [
   {
     title: "Go For It",
@@ -35,6 +39,8 @@ const values = [
 ];
 
 function About() {
+  const { execMembers, loading, error } = useExecMembers();
+
   return (
     <main className="px-10 min-h-screen flex flex-col min-w-[300px] pt-20">
       <GridPattern
@@ -47,57 +53,69 @@ function About() {
         </AnimatedSectionTitle>
 
         <div className="flex flex-row gap-2 justify-between my-10">
-          <Image
-            src="/blank.png"
-            alt="INSERT PIC"
-            width={650}
-            height={500}
-            className="border-3 border-[#0085FF] rounded-sm"
-          />
-          <Image
-            src="/blank.png"
-            alt="INSERT PIC"
-            width={650}
-            height={500}
-            className="border-3 border-[#0085FF] rounded-sm"
-          />
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ type: "spring", damping: 15, stiffness: 100 }}
+            viewport={{ amount: 0.6 }}
+          >
+            <Image
+              src="/blank.png"
+              alt="INSERT PIC"
+              width={650}
+              height={500}
+              className="border-3 border-[#0085FF] rounded-sm"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ x: 50, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ type: "spring", damping: 15, stiffness: 100 }}
+            viewport={{ amount: 0.6 }}
+          >
+            <Image
+              src="/blank.png"
+              alt="INSERT PIC"
+              width={650}
+              height={500}
+              className="border-3 border-[#0085FF] rounded-sm"
+            />
+          </motion.div>
         </div>
 
         <AnimatedSectionTitle>Our Mission</AnimatedSectionTitle>
-        <div className="flex flex-row gap-2 justify-between mt-10 mb-20">
+        <motion.div className="flex flex-row gap-2 justify-between mt-10 mb-20">
           <p className="h-3/5 text-[30px]">
             To empower engineers, designers, activists, and humanitarians to
             create lasting and impactful social change, fostering the wider
             adoption of software as a tool for social good.
           </p>
-        </div>
+        </motion.div>
 
         <AnimatedSectionTitle>Our Values</AnimatedSectionTitle>
-        <div className="my-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ amount: 0.7 }}
+          className="my-10"
+        >
           <CircleCarousel items={values} />
-        </div>
+        </motion.div>
 
         <AnimatedSectionTitle>National Team</AnimatedSectionTitle>
-        <div className="w-full flex flex-wrap pt-10 justify-center gap-2 pb-10">
-          {[...Array(8)].map((_, index) => (
-            <div key={`blue-${index}`} className="basis-[calc(25%-1.5rem)]">
+        <div className="w-full flex flex-wrap pt-10 justify-evenly gap-2 pb-10">
+          {execMembers.map((execMember, index) => (
+            <div
+              key={`green-${index}`}
+              style={{ borderColor: colors[index % colors.length] }}
+              className="overflow-clip border-3 rounded-sm md:rounded-md w-1/10 justify-center items-center"
+            >
               <Image
-                src="/blank.png"
-                alt="INSERT PIC"
-                width={315}
+                src={execMember.photo.url}
+                alt={`Photo of ${execMember.photo.name}`}
+                width={500}
                 height={250}
-                className="border-3 border-[#0085FF] rounded-sm"
-              />
-            </div>
-          ))}
-          {[...Array(8)].map((_, index) => (
-            <div key={`green-${index}`} className="basis-[calc(25%-1.5rem)]">
-              <Image
-                src="/blank.png"
-                alt="INSERT PIC"
-                width={315}
-                height={250}
-                className="border-3 border-[#10B875] rounded-sm"
+                className="object-cover w-full h-full"
               />
             </div>
           ))}
