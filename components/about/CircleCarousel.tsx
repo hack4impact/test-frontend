@@ -197,7 +197,7 @@ export function CircleCarousel({ items }: { items: any }) {
               transformOrigin: "center",
               backgroundColor: colors[index % colors.length],
             }}
-            className={`text-white px-4 py-2 border-2 w-80 h-4/5 flex items-center justify-center bg-white rounded-lg cursor-pointer text-lg font-bold
+            className={`px-4 py-2 text-white flex-col border-2 gap-5 w-80 h-2/3 flex items-center justify-center bg-white rounded-lg cursor-pointer text-lg font-bold
               ${cardState.position === "center" ? "border-blue-500 bg-blue-50" : "border-gray-300"}
               ${cardState.visible ? "" : "pointer-events-none"}
             `}
@@ -219,7 +219,12 @@ export function CircleCarousel({ items }: { items: any }) {
             }}
             transition={cardState.transition}
           >
-            {item.content}
+            <div className="flex justify-start text-3xl font-semibold w-full">
+              {item.title}
+            </div>
+            <div className="text-xl font-normal h-full flex flex-initial justify-center items-center">
+              {item.content}
+            </div>
           </motion.div>
         );
       })}

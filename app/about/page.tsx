@@ -2,43 +2,32 @@
 
 import { CircleCarousel } from "@/components/about/CircleCarousel";
 import { GridPattern } from "@/components/layout/GridPattern";
-import ValueCard from "@/components/valueCard";
-import { Clock5 } from "lucide-react";
-import { motion } from "motion/react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
-// current data in the ValueCards
-const GoBeyondTechContent =
-  "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools.";
-const EngYourComContent =
-  "Our community makes us special. The strength of our community comes from the contributions of its members. We welcome new members with warmth, and we make the effort to know each other beyond superficial details.";
-const DevWCareContent =
-  "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping.";
-
 const values = [
   {
-    title: "Go for it",
+    title: "Go For It",
     content:
       "Organizational roles do not determine the value of an idea: great ideas can come from anyone and anywhere. We grow because we are always trying something new.",
   },
   {
-    title: "Be open minded",
+    title: "Be Open Minded",
     content:
       "Our process depends on openness to different people, topics, and perspectives. We embrace difference and work against intolerance to foster an inclusive environment. Our goal is to expose our members to the vast opportunities and daunting challenges in our work",
   },
   {
-    title: "Go beyond technology",
+    title: "Go Beyond Technology",
     content:
       "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools.",
   },
   {
-    title: "Engage your community",
+    title: "Engage Your Community",
     content:
       "Our community makes us special. The strength of our community comes from the contributions of its members. We welcome new members with warmth, and we make the effort to know each other beyond superficial details.",
   },
   {
-    title: "Develop with care.",
+    title: "Develop With Care",
     content:
       "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping.",
   },
@@ -85,7 +74,7 @@ function About() {
           <h1 className="text-[48px] pt-10 font-semibold">Our Values</h1>
           <div>
             {/* <Carousel /> */}
-            <CircleCarousel items={values}></CircleCarousel>
+            <CircleCarousel items={values} />
           </div>
 
           <h1 className="text-[48px] pt-10 font-semibold">National Team</h1>
