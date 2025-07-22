@@ -86,7 +86,7 @@ const renderEmptyState = () => (
  * <InitiativeCard
  *   item={{
  *     name: "Chapter Network",
- *     description: richTextContent,
+ *     content: richTextContent,
  *     footer: "Learn More",
  *     imgBorder: "border-brand-blue"
  *   }}

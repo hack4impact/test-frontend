@@ -24,7 +24,7 @@ export const CHAPTER_FEATURES_CONFIG = {
     {
       id: 1,
       title: "Sample Project",
-      description: "Project Type",
+      content: "Project Type",
       bgColor: "bg-brand-green",
       imgBorder: "border-brand-green-light",
       content:

@@ -16,36 +16,31 @@ const EngYourComContent =
 const DevWCareContent =
   "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping.";
 
-const cardData = [
+const values = [
   {
-    title: "Go Beyond Technology",
-    content: GoBeyondTechContent,
-    bg: "bg-[#F2594B]",
+    title: "Go for it",
+    content:
+      "Organizational roles do not determine the value of an idea: great ideas can come from anyone and anywhere. We grow because we are always trying something new.",
   },
   {
-    title: "Engage Your Community",
-    content: EngYourComContent,
-    bg: "bg-[#0085FF]",
+    title: "Be open minded",
+    content:
+      "Our process depends on openness to different people, topics, and perspectives. We embrace difference and work against intolerance to foster an inclusive environment. Our goal is to expose our members to the vast opportunities and daunting challenges in our work",
   },
   {
-    title: "Develop With Care",
-    content: DevWCareContent,
-    bg: "bg-[#10B875]",
+    title: "Go beyond technology",
+    content:
+      "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools.",
   },
   {
-    title: "DUMMY CARD",
-    content: "Dummy Content",
-    bg: "bg-[#F2594B]",
+    title: "Engage your community",
+    content:
+      "Our community makes us special. The strength of our community comes from the contributions of its members. We welcome new members with warmth, and we make the effort to know each other beyond superficial details.",
   },
   {
-    title: "DUMMY CARD",
-    content: "Dummy Content",
-    bg: "bg-[#0085FF]",
-  },
-  {
-    title: "DUMMY CARD",
-    content: "Dummy Content",
-    bg: "bg-[#10B875]",
+    title: "Develop with care.",
+    content:
+      "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping.",
   },
 ];
 
@@ -90,7 +85,7 @@ function About() {
           <h1 className="text-[48px] pt-10 font-semibold">Our Values</h1>
           <div>
             {/* <Carousel /> */}
-            <CircleCarousel items={cardData}></CircleCarousel>
+            <CircleCarousel items={values}></CircleCarousel>
           </div>
 
           <h1 className="text-[48px] pt-10 font-semibold">National Team</h1>
@@ -125,4 +120,3 @@ function About() {
 }
 
 export default About;
-

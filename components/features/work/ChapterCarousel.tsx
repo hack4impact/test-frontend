@@ -16,7 +16,7 @@ interface ChapterData {
   websiteLink: string;
   codeRepoLink: string;
   socialMediaLInk: string;
-  photo?: { url: string; description: string };
+  photo?: { url: string; content: string };
   projects: Project[];
 }
 
