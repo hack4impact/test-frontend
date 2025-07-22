@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { getStackGroupsByAxisId } from "recharts/types/util/ChartUtils";
 
 const wrap = (length: number, index: number) => {
   if (index < 0) {
@@ -105,6 +106,7 @@ export function CircleCarousel({ items }: { items: any }) {
         zIndex: 3,
         visible: true,
         rotate: 0,
+        filter: "drop-shadow(4px 8px 4px #33333325)",
       };
     } else if (index === left) {
       currentPosition = "left";
@@ -116,6 +118,7 @@ export function CircleCarousel({ items }: { items: any }) {
         zIndex: 2,
         visible: true,
         rotate: -5,
+        filter: "drop-shadow(8px 4px 4px #33333325)",
       };
     } else if (index === right) {
       currentPosition = "right";
@@ -127,6 +130,7 @@ export function CircleCarousel({ items }: { items: any }) {
         zIndex: 2,
         visible: true,
         rotate: 5,
+        filter: "drop-shadow(-8px 4px 4px #33333325)",
       };
     } else {
       // Determine if this card should be off-screen left or right
@@ -143,6 +147,7 @@ export function CircleCarousel({ items }: { items: any }) {
         zIndex: 1,
         visible: true,
         rotate: isOnLeftSide ? -10 : 10,
+        filter: "drop-shadow(0px 0px 0px)",
       };
     }
 
@@ -158,7 +163,11 @@ export function CircleCarousel({ items }: { items: any }) {
     // Set transition based on whether it's an off-screen to off-screen transition
     cardState.transition = isOffscreenToOffscreen
       ? { duration: 0 } // No animation for off-screen to off-screen
-      : { duration: 0.3, ease: "easeInOut" }; // Normal animation for all other cases
+      : {
+          duration: 0.5,
+          ease: "easeInOut",
+          backgroundColor: { duration: 0.3 },
+        }; // Normal animation for all other cases
 
     return cardState;
   };
@@ -178,6 +187,7 @@ export function CircleCarousel({ items }: { items: any }) {
 
         return (
           <motion.div
+            whileHover={{ backgroundColor: "#333333" }}
             key={`${item}-${index}`} // Include index to help with animations
             ref={setCardRef(index)}
             onClick={() => handleChange(index)}
@@ -197,6 +207,7 @@ export function CircleCarousel({ items }: { items: any }) {
               x: cardState.x,
               y: cardState.y,
               rotateZ: cardState.rotate,
+              filter: cardState.filter,
             }}
             animate={{
               opacity: cardState.visible ? 1 : 0,
@@ -204,6 +215,7 @@ export function CircleCarousel({ items }: { items: any }) {
               x: cardState.x,
               y: cardState.y,
               rotateZ: cardState.rotate,
+              filter: cardState.filter,
             }}
             transition={cardState.transition}
           >
