@@ -138,7 +138,7 @@ export function CircleCarousel({ items }: { items: any }) {
       cardState = {
         position: currentPosition,
         x: isOnLeftSide ? offScreenLeft : offScreenRight,
-        y: 65,
+        y: 70,
         scale: sideCardScale,
         zIndex: 1,
         visible: true,
