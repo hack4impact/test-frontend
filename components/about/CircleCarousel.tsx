@@ -53,37 +53,10 @@ export function CircleCarousel({ items }: { items: any }) {
   };
 
   /**
-   * Scroll to the selected values card
-   */
-  const scrollToCard = useCallback((index: number) => {
-    const targetCard = cardRefs.current[index];
-    if (targetCard) {
-      targetCard.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
-      });
-    }
-  }, []);
-
-  /**
    * Set up card ref
    */
   const setCardRef = (index: number) => (el: HTMLDivElement | null) => {
     cardRefs.current[index] = el;
-  };
-
-  // Calculate positions for circular layout
-  const getCardPosition = (index: number) => {
-    const totalCards = items.length;
-    const radius = 120; // Distance from center
-    const angleStep = (2 * Math.PI) / totalCards;
-    const angle = index * angleStep - Math.PI / 2; // Start from top
-
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-
-    return { x, y };
   };
 
   // Determine which cards are visible and their states
@@ -165,7 +138,9 @@ export function CircleCarousel({ items }: { items: any }) {
       ? { duration: 0 } // No animation for off-screen to off-screen
       : {
           duration: 0.5,
-          ease: "easeInOut",
+          type: "spring",
+          damping: 12,
+          stiffness: 75,
           backgroundColor: { duration: 0.3 },
         }; // Normal animation for all other cases
 
@@ -173,67 +148,68 @@ export function CircleCarousel({ items }: { items: any }) {
   };
 
   return (
-    <div className="relative w-full h-150 flex justify-center items-center border-2 border-gray-300 overflow-hidden">
-      {items.map((item: any, index: number) => {
-        const cardState = getCardState(index);
+    <>
+      <div className="relative w-full h-120 flex justify-center items-center border-2 border-brand-blue rounded-xl overflow-hidden">
+        {items.map((item: any, index: number) => {
+          const cardState = getCardState(index);
 
-        // Update previous states after getting current state
-        useEffect(() => {
-          setPreviousCardStates((prev) => ({
-            ...prev,
-            [index]: cardState.position,
-          }));
-        }, [centerIndex, index, cardState.position]);
+          // Update previous states after getting current state
+          useEffect(() => {
+            setPreviousCardStates((prev) => ({
+              ...prev,
+              [index]: cardState.position,
+            }));
+          }, [centerIndex, index, cardState.position]);
 
-        return (
-          <motion.div
-            whileHover={{ backgroundColor: "#333333" }}
-            key={`${item}-${index}`} // Include index to help with animations
-            ref={setCardRef(index)}
-            onClick={() => handleChange(index)}
-            style={{
-              position: "absolute",
-              zIndex: cardState.zIndex,
-              transformOrigin: "center",
-              backgroundColor: colors[index % colors.length],
-            }}
-            className={`px-4 py-2 text-white flex-col border-2 gap-5 w-80 h-2/3 flex items-center justify-center bg-white rounded-lg cursor-pointer text-lg font-bold
+          return (
+            <motion.div
+              whileHover={{ backgroundColor: "#333333" }}
+              key={`${item}-${index}`} // Include index to help with animations
+              ref={setCardRef(index)}
+              onClick={() => handleChange(index)}
+              style={{
+                position: "absolute",
+                zIndex: cardState.zIndex,
+                transformOrigin: "center",
+                backgroundColor: colors[index % colors.length],
+              }}
+              className={`px-4 pt-4 pb-2 text-white flex-col border-2 gap-5 w-80 h-100 flex items-center justify-center bg-white rounded-lg cursor-pointer text-lg font-bold
               ${cardState.position === "center" ? "border-blue-500 bg-blue-50" : "border-gray-300"}
               ${cardState.visible ? "" : "pointer-events-none"}
             `}
-            initial={{
-              opacity: cardState.visible ? 1 : 0,
-              scale: cardState.scale,
-              x: cardState.x,
-              y: cardState.y,
-              rotateZ: cardState.rotate,
-              filter: cardState.filter,
-            }}
-            animate={{
-              opacity: cardState.visible ? 1 : 0,
-              scale: cardState.scale,
-              x: cardState.x,
-              y: cardState.y,
-              rotateZ: cardState.rotate,
-              filter: cardState.filter,
-            }}
-            transition={cardState.transition}
-          >
-            <div className="flex justify-start text-3xl font-semibold w-full">
-              {item.title}
-            </div>
-            <div className="text-xl font-normal h-full flex flex-initial justify-center items-center">
-              {item.content}
-            </div>
-          </motion.div>
-        );
-      })}
-
+              initial={{
+                opacity: cardState.visible ? 1 : 0,
+                scale: cardState.scale,
+                x: cardState.x,
+                y: cardState.y,
+                rotateZ: cardState.rotate,
+                filter: cardState.filter,
+              }}
+              animate={{
+                opacity: cardState.visible ? 1 : 0,
+                scale: cardState.scale,
+                x: cardState.x,
+                y: cardState.y,
+                rotateZ: cardState.rotate,
+                filter: cardState.filter,
+              }}
+              transition={cardState.transition}
+            >
+              <div className="flex justify-start text-3xl font-semibold w-full">
+                {item.title}
+              </div>
+              <div className="text-xl font-normal h-full flex flex-initial justify-center items-center">
+                {item.content}
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
       {/* Instructions */}
-      <div className="absolute bottom-4 text-sm text-gray-600 text-center">
+      <div className="my-4 text-sm text-gray-600 text-center">
         Click the left card to rotate left, right card to rotate right
       </div>
-    </div>
+    </>
   );
 }
 
