@@ -1,7 +1,8 @@
 "use client";
 
-import { CircleCarousel } from "@/components/about/CircleCarousel";
+import { CircleCarousel } from "@/components/features/about/CircleCarousel";
 import { GridPattern } from "@/components/layout/GridPattern";
+import { AnimatedSectionTitle } from "@/components/shared/AnimatedSectionTitle";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -35,76 +36,74 @@ const values = [
 
 function About() {
   return (
-    <div className="relative w-screen">
-      {/* added the grid pattern */}
-      <div className="absolute top-0 left-0 w-full h-full min-h-full z-[-10]">
-        <GridPattern gridColor="stroke-brand-blue-light" />
-      </div>
+    <main className="px-10 min-h-screen flex flex-col min-w-[300px] pt-20">
+      <GridPattern
+        gridColor="stroke-brand-blue-light"
+        style={{ zIndex: -10 }}
+      />
+      <div className="w-full flex flex-col">
+        <AnimatedSectionTitle className="sticky mt-5 font-bold text-5xl">
+          About Us
+        </AnimatedSectionTitle>
 
-      <main className="px-10 min-h-screen flex flex-col min-w-[300px]">
-        <div className="w-full flex flex-col">
-          <h1 className="text-[48px] font-semibold pt-30">About Us</h1>
-
-          <div className="flex flex-row gap-2 justify-between pt-10">
-            <Image
-              src="/blank.png"
-              alt="INSERT PIC"
-              width={650}
-              height={500}
-              className="border-3 border-[#0085FF] rounded-sm"
-            />
-            <Image
-              src="/blank.png"
-              alt="INSERT PIC"
-              width={650}
-              height={500}
-              className="border-3 border-[#0085FF] rounded-sm"
-            />
-          </div>
-
-          <h1 className="text-[48px] pt-10 font-semibold">Our Mission</h1>
-          <div className="flex flex-row gap-2 justify-between pt-10">
-            <p className="h-3/5 text-[20px]">
-              To empower engineers, designers, activists, and humanitarians to
-              create lasting and impactful social change, fostering the wider
-              adoption of software as a tool for social good.
-            </p>
-          </div>
-
-          <h1 className="text-[48px] pt-10 font-semibold">Our Values</h1>
-          <div>
-            {/* <Carousel /> */}
-            <CircleCarousel items={values} />
-          </div>
-
-          <h1 className="text-[48px] pt-10 font-semibold">National Team</h1>
-          <div className="w-full flex flex-wrap pt-10 justify-center gap-2 pb-10">
-            {[...Array(8)].map((_, index) => (
-              <div key={`blue-${index}`} className="basis-[calc(25%-1.5rem)]">
-                <Image
-                  src="/blank.png"
-                  alt="INSERT PIC"
-                  width={315}
-                  height={250}
-                  className="border-3 border-[#0085FF] rounded-sm"
-                />
-              </div>
-            ))}
-            {[...Array(8)].map((_, index) => (
-              <div key={`green-${index}`} className="basis-[calc(25%-1.5rem)]">
-                <Image
-                  src="/blank.png"
-                  alt="INSERT PIC"
-                  width={315}
-                  height={250}
-                  className="border-3 border-[#10B875] rounded-sm"
-                />
-              </div>
-            ))}
-          </div>
+        <div className="flex flex-row gap-2 justify-between my-10">
+          <Image
+            src="/blank.png"
+            alt="INSERT PIC"
+            width={650}
+            height={500}
+            className="border-3 border-[#0085FF] rounded-sm"
+          />
+          <Image
+            src="/blank.png"
+            alt="INSERT PIC"
+            width={650}
+            height={500}
+            className="border-3 border-[#0085FF] rounded-sm"
+          />
         </div>
-      </main>
-    </div>
+
+        <AnimatedSectionTitle>Our Mission</AnimatedSectionTitle>
+        <div className="flex flex-row gap-2 justify-between mt-10 mb-20">
+          <p className="h-3/5 text-[30px]">
+            To empower engineers, designers, activists, and humanitarians to
+            create lasting and impactful social change, fostering the wider
+            adoption of software as a tool for social good.
+          </p>
+        </div>
+
+        <AnimatedSectionTitle>Our Values</AnimatedSectionTitle>
+        <div className="my-10">
+          <CircleCarousel items={values} />
+        </div>
+
+        <AnimatedSectionTitle>National Team</AnimatedSectionTitle>
+        <div className="w-full flex flex-wrap pt-10 justify-center gap-2 pb-10">
+          {[...Array(8)].map((_, index) => (
+            <div key={`blue-${index}`} className="basis-[calc(25%-1.5rem)]">
+              <Image
+                src="/blank.png"
+                alt="INSERT PIC"
+                width={315}
+                height={250}
+                className="border-3 border-[#0085FF] rounded-sm"
+              />
+            </div>
+          ))}
+          {[...Array(8)].map((_, index) => (
+            <div key={`green-${index}`} className="basis-[calc(25%-1.5rem)]">
+              <Image
+                src="/blank.png"
+                alt="INSERT PIC"
+                width={315}
+                height={250}
+                className="border-3 border-[#10B875] rounded-sm"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
   );
 }
 

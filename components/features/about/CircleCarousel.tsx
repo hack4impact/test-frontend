@@ -140,7 +140,7 @@ export function CircleCarousel({ items }: { items: any }) {
           duration: 0.5,
           type: "spring",
           damping: 12,
-          stiffness: 75,
+          stiffness: 60,
           backgroundColor: { duration: 0.3 },
         }; // Normal animation for all other cases
 
@@ -149,7 +149,7 @@ export function CircleCarousel({ items }: { items: any }) {
 
   return (
     <>
-      <div className="relative w-full h-120 flex justify-center items-center border-2 border-brand-blue rounded-xl overflow-hidden">
+      <div className="backdrop-blur-[1px] relative w-full h-120 flex justify-center items-center border-2 border-brand-blue rounded-xl overflow-hidden">
         {items.map((item: any, index: number) => {
           const cardState = getCardState(index);
 
