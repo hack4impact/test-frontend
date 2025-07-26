@@ -2,6 +2,7 @@ import ClickSpark from "@/components/layout/ClickSpark";
 import { MotionConfig, MotionConfigContext } from "motion/react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Footer from "@/components/layout/Footer";
 
 import Navbar from "../components/layout/Navbar";
 import "./globals.css";
@@ -40,6 +41,7 @@ export default function RootLayout({
 
           <ClickSpark sparkColor="#10b875">{children}</ClickSpark>
         </MotionConfig>
+        <Footer />
       </body>
     </html>
   );
