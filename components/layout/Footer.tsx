@@ -1,6 +1,4 @@
-'use client';
-
-import { Linkedin, Instagram, Youtube, Github, BookmarkMinus } from "lucide-react";
+import Image from 'next/image'
 
 export default function Footer() {
     return (
@@ -12,20 +10,20 @@ export default function Footer() {
               &copy; 2025 Hack4Impact, a 501(c)(3) nonprofit organization. EIN: 08-789456123
             </div>
             <div className="flex space-x-4">
-              <a href="https://www.linkedin.com/company/hack4impact/?viewAsMember=true" className="hover:text-white transition-colors duration-200 rounded-full p-2 hover:bg-gray-700">
-                <Linkedin size={20} />
+              <a href="https://www.linkedin.com/company/hack4impact/?viewAsMember=true" className="rounded-full p-2">
+                <Image src="/linkedin.svg" width={20} height={20}/>
               </a>
-              <a href="https://www.instagram.com/hack4impact/" className="hover:text-white transition-colors duration-200 rounded-full p-2 hover:bg-gray-700">
-                <Instagram size={20} />
+              <a href="https://www.instagram.com/hack4impact/" className="rounded-full p-2">
+                <Image src="/insta.svg" width={20} height={20} />
               </a>
-              <a href="https://www.youtube.com/@hack4impact" className="hover:text-white transition-colors duration-200 rounded-full p-2 hover:bg-gray-700">
-                <Youtube size={20} />
+              <a href="https://www.youtube.com/@hack4impact" className="rounded-full p-2">
+                <Image src="/yt.svg" width={20} height={20}/>
               </a>
-              <a href="#" className="hover:text-white transition-colors duration-200 rounded-full p-2 hover:bg-gray-700">
-                <BookmarkMinus size={20}/>
+              <a href="#" className="rounded-full p-2">
+                <Image src="/substack.svg" width={20} height={20} />
               </a>
-              <a href="https://github.com/hack4impact" className="hover:text-white transition-colors duration-200 rounded-full p-2 hover:bg-gray-700">
-                <Github size={20} />
+              <a href="https://github.com/hack4impact" className="rounded-full p-2">
+                <Image src="/github.svg" width={20} height={20} />
               </a>
             </div>
           </div>
