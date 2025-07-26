@@ -11,19 +11,19 @@ export default function Footer() {
             </div>
             <div className="flex space-x-4">
               <a href="https://www.linkedin.com/company/hack4impact/?viewAsMember=true" className="rounded-full p-2">
-                <Image src="/linkedin.svg" width={20} height={20}/>
+                <Image src="/linkedin.svg" alt="LinkedIn Logo" width={20} height={20}/>
               </a>
               <a href="https://www.instagram.com/hack4impact/" className="rounded-full p-2">
-                <Image src="/insta.svg" width={20} height={20} />
+                <Image src="/insta.svg" alt="Instagram Logo" width={20} height={20} />
               </a>
               <a href="https://www.youtube.com/@hack4impact" className="rounded-full p-2">
-                <Image src="/yt.svg" width={20} height={20}/>
+                <Image src="/yt.svg" alt="Youtube Logo" width={20} height={20}/>
               </a>
               <a href="#" className="rounded-full p-2">
-                <Image src="/substack.svg" width={20} height={20} />
+                <Image src="/substack.svg" alt="Substack Logo" width={20} height={20} />
               </a>
               <a href="https://github.com/hack4impact" className="rounded-full p-2">
-                <Image src="/github.svg" width={20} height={20} />
+                <Image src="/github.svg" alt="Github Logo" width={20} height={20} />
               </a>
             </div>
           </div>
