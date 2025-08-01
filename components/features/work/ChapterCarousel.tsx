@@ -16,7 +16,7 @@ interface ChapterData {
   websiteLink: string;
   codeRepoLink: string;
   socialMediaLInk: string;
-  photo?: { url: string; description: string };
+  photo?: { url: string; content: string };
   projects: Project[];
 }
 
@@ -63,7 +63,7 @@ const CAROUSEL_CONFIG = {
   },
 
   containerClasses:
-    "my-10 h-min w-full flex flex-col gap-2 items-center justify-center",
+    "overscroll-x-none my-10 h-min w-full flex flex-col gap-2 items-center justify-center",
   cardsClasses:
     "overscroll-x-none flex flex-row w-full h-[400px] overflow-x-auto snap-x snap-mandatory justify-start",
   selectorClasses:

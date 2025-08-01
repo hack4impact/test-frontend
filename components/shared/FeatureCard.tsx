@@ -38,7 +38,7 @@ const FEATURE_CARD_CONFIG = {
         damping: 10,
         stiffness: 100,
         duration: 0.25,
-        backgroundColor: { duration: 0.2, ease: "easeInOut" }, // Specific transition for color, without it it breaks because of weird styling issues (could be refactored to be better)
+        backgroundColor: { duration: 0.2 }, // Specific transition for color, without it it breaks because of weird styling issues (could be refactored to be better)
       },
     },
 
@@ -63,6 +63,7 @@ const FEATURE_CARD_CONFIG = {
           type: "spring" as const,
           damping: 10,
           stiffness: 100,
+          backgroundColor: { duration: 0.3 },
         },
       },
     },

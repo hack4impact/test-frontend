@@ -24,7 +24,7 @@ const FEATURED_PROJECTS_CONFIG = {
  */
 interface ProjectData {
   name: string;
-  description: RichText;
+  content: RichText;
   footer?: string;
   bgColor?: string;
   textColor?: string;

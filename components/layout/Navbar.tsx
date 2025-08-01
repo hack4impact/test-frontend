@@ -395,17 +395,21 @@ export default function Navbar() {
       opacity: 1,
       y: 0,
       scale: 1,
+      pointerEvents: "auto",
       transition: {
-        type: "spring" as const,
-        damping: 10,
-        stiffness: 100,
-        duration: 0.5,
+        default: {
+          type: "spring" as const,
+          damping: 10,
+          stiffness: 100,
+          duration: 0.5,
+        },
       },
     },
     closed: {
       opacity: 0,
       y: 20,
       scale: 0.95,
+      pointerEvents: "none",
     },
   };
 
@@ -479,7 +483,7 @@ export default function Navbar() {
                 variants={mobileNavItemVariants}
                 key={index}
                 className={cn(
-                  "text-5xl text-white font-bold w-full flex justify-center items-center",
+                  "text-5xl text-white flex font-bold w-full justify-center items-center",
                   getActiveMobileNavClasses([item.link]),
                 )}
               >

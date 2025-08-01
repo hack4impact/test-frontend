@@ -59,10 +59,9 @@ export default function Work() {
         Our Work
       </AnimatedSectionTitle>
 
-      <div className="my-10 flex w-full flex-col">
+      <div className="my-10 flex w-full flex-col overflow-hidden">
         <AnimatedSectionTitle>National Initiatives</AnimatedSectionTitle>
         <div className="my-10 flex flex-col gap-5">
-          {/* Fixed: Use nationalInitiatives instead of empty array */}
           {loading ||
           !nationalInitiatives ||
           nationalInitiatives.length === 0 ? (

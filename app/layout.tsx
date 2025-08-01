@@ -24,7 +24,7 @@ const inclusiveSans = localFont({
 
 export const metadata: Metadata = {
   title: "Hack4Impact",
-  description: "Code for the common good",
+  content: "Code for the common good",
 };
 
 export default function RootLayout({
